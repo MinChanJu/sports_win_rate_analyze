@@ -1,6 +1,12 @@
 {
     "metainfo": {
-        "home": "서울 SK",
+        "home": {
+            "name": "서울 SK",
+            "players": [
+                "자밀 워니",
+                "김형빈"
+            ]
+        },
         "away": "창원 LG",
         "quarters": [
             "Q1",
