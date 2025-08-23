@@ -1,21 +1,19 @@
-import json
-import os
-import asyncio
 from playwright.async_api import async_playwright
-from datetime import datetime
 from bs4 import BeautifulSoup
+import asyncio, json, os
 
 async def crawl_kbl_data(URL):
     """
     KBL 웹사이트에서 문자중계 탭을 클릭한 후 각 쿼터별 데이터를 크롤링하는 함수
     """
-    
+
+    SCORE_SELECTOR = "#root > main > div > div > div:nth-child(3) > div.record-summary > div:nth-child(1) > ul > li"
+
     GAME_TAB_SELECTOR = "#root > main > div.layout.grid-2 > div > ul.tab-style1.sticky > li:nth-child(2) > a"  # 경기 정보 탭
-    HOME_SELECTOR = "#root > main > div.layout.grid-2 > div > div:nth-child(5) > div.table-1200 > table > tbody > tr > td.starter > p"
+    HOME_SELECTOR = "#root > main > div.layout.grid-2 > div > div:nth-child(5) > div.table-1200 > table > tbody > tr > td:nth-child(2) > p"
     AWAY_SELECTOR = "#root > main > div.layout.grid-2 > div > div:nth-child(6) > div.table-1200 > table > tbody > tr > td:nth-child(2) > p"
     
     LOG_TAB_SELECTOR = "#root > main > div.layout.grid-2 > div > ul.tab-style1.sticky > li:nth-child(4) > a"  # 문자중계 탭
-    TEAM_SELECTOR = "#root > main > div > div > div > div.record-summary.md > div:nth-child(1) > ul > li > div > div > p" # 팀 정보
     TABLE_SELECTOR = "#root > main > div > div > div > div.sms-broadcast-table > table > tbody"  # 테이블 데이터
     
     # 각 쿼터 정보
@@ -33,54 +31,57 @@ async def crawl_kbl_data(URL):
             page = await browser.new_page(user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64)")
             page.set_default_timeout(30000)
             
-            print("페이지 로딩중...")
-            await page.goto(URL, wait_until="networkidle")
+            metainfo = {
+                "date": URL.split("/")[-1],
+                "home": {"name": "", "score": 0, "players": []},
+                "away": {"name": "", "score": 0, "players": []},
+                "winner": "",
+                "quarters": []
+            }
             
-            print("경기기록 탭 클릭중...")
+            await page.goto(URL, wait_until="networkidle")
+            print("페이지 로딩 완료")
+            
+            try:
+                await page.wait_for_selector(SCORE_SELECTOR, timeout=5000)
+                team_elements = await page.query_selector_all(SCORE_SELECTOR)
+                for i, team_element in enumerate(team_elements):
+                    score_elements = await team_element.query_selector_all("div > p")
+                    metainfo["home" if i == 0 else "away"]["name"] = await score_elements[0].inner_text()
+                    metainfo["home" if i == 0 else "away"]["score"] = int(await score_elements[1].inner_text())
+                metainfo["winner"] = "home" if metainfo["home"]["score"] > metainfo["away"]["score"] else "away" if metainfo["home"]["score"] < metainfo["away"]["score"] else "draw"
+                print(f"팀 정보 로딩 완료")
+            except:
+                print("팀 정보 로딩 실패")
+
             await page.wait_for_selector(GAME_TAB_SELECTOR, timeout=15000)
             await page.click(GAME_TAB_SELECTOR)
             print("경기기록 페이지 이동완료")
-
+            
             try:
                 await page.wait_for_selector(HOME_SELECTOR, timeout=5000)
                 home_elements = await page.query_selector_all(HOME_SELECTOR)
-                print(f"홈 팀: {await home_elements[0].inner_text()}")
+                metainfo["home"]["players"] = [await p.inner_text() for p in home_elements]
+                print(f"홈 팀 선수 정보 로딩 완료 총 {len(metainfo['home']['players'])}명")
             except:
-                print("홈 팀 정보 로딩 실패")
+                print("홈 팀 선수 정보 로딩 실패")
 
             try:
                 await page.wait_for_selector(AWAY_SELECTOR, timeout=5000)
                 away_elements = await page.query_selector_all(AWAY_SELECTOR)
-                print(f"어웨이 팀: {await away_elements[0].inner_text()}")
+                metainfo["away"]["players"] = [await p.inner_text() for p in away_elements]
+                print(f"어웨이 팀 선수 정보 로딩 완료 총 {len(metainfo['away']['players'])}명")
             except:
-                print("어웨이 팀 정보 로딩 실패")
+                print("어웨이 팀 선수 정보 로딩 실패")
 
-            print("문자중계 탭 클릭중...")
             await page.wait_for_selector(LOG_TAB_SELECTOR, timeout=15000)
             await page.click(LOG_TAB_SELECTOR)
             print("문자중계 페이지 이동완료")
             
             all_results = []
-            
-            try:
-                await page.wait_for_selector(TEAM_SELECTOR, timeout=5000)
-                team_elements = await page.query_selector_all(TEAM_SELECTOR)
-                if len(team_elements) >= 2:
-                    home_text = await team_elements[0].inner_text()
-                    away_text = await team_elements[1].inner_text()
-                    all_results.append({
-                        "home": home_text,
-                        "away": away_text
-                    })
-                else:
-                    print(f"팀 정보 부족")
-            except:
-                print(f"팀 정보 로딩 실패")
 
             for quarter in quarters:
                 try:
-                    print(f"{quarter['name']} 수집중...")
-                    
                     # 라디오 버튼 상태 확인 (연장전인 경우 특별 처리)
                     radio_selector = f"#{quarter['radio_id']}"
                     radio_element = await page.query_selector(radio_selector)
@@ -142,6 +143,7 @@ async def crawl_kbl_data(URL):
                                 'rows': row_data
                             }
                             
+                            metainfo['quarters'].append(quarter['name'])
                             all_results.append(result)
                             print(f"{quarter['name']} 완료: {len(row_data)}개 행")
                         else:
@@ -153,6 +155,7 @@ async def crawl_kbl_data(URL):
                     print(f"{quarter['name']} 처리 오류")
             
             await browser.close()
+            all_results.append(metainfo)
             return all_results
             
         except Exception as e:
@@ -161,15 +164,11 @@ async def crawl_kbl_data(URL):
                 await browser.close()
             return []
 
-def save_results_to_file(results, filename="kbl_quarters_results.json"):
+def save_results_to_file(results, file_path):
     json_data = {
-        "metainfo": {
-            "home": results[0]["home"],
-            "away": results[0]["away"],
-            "quarters": [result["quarter"] for result in results[1:]]
-        },
+        "metainfo": results[-1]
     }
-    for result in results[1:]:
+    for result in results[:-1]:
         quarter_data = []
         for row in result["rows"]:
             soup = BeautifulSoup(row["html"], "html.parser")
@@ -185,24 +184,28 @@ def save_results_to_file(results, filename="kbl_quarters_results.json"):
             quarter_data.append(row_data)
         json_data[result["quarter"]] = quarter_data
     
-    with open(filename, "w", encoding="utf-8") as f:
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+    with open(file_path, "w", encoding="utf-8") as f:
         json.dump(json_data, f, ensure_ascii=False, indent=4)
 
-async def main():
+async def kbl_crawler(URL, file_path):
     """
     메인 실행 함수
     """
-    print("KBL 크롤링 실행중...")
-    
+    print("========================================")
+    print(f"KBL {'/'.join(URL.split('/')[-2:])} 크롤링 실행중...")
+
     # 크롤링 실행
-    URL = "https://www.kbl.or.kr/match/record/S45G04N1/20250505"
     results = await crawl_kbl_data(URL)
 
     if results:
         print(f"크롤링 완료: {len(results) - 1}개 쿼터")
-        save_results_to_file(results, f"{URL.split('/')[-2]}_results.json")
+        save_results_to_file(results, file_path)
     else:
         print("크롤링 실패")
+    print("========================================")
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    URL = "https://kbl.or.kr/match/record/S45G01N130/20250108"
+    FILE_PATH = "kbl_data/S45/S45G01N130_results.json"
+    asyncio.run(kbl_crawler(URL, FILE_PATH))
