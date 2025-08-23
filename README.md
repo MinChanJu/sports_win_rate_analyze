@@ -14,6 +14,8 @@
 - step6 `git clone https://github.com/MinChanJu/sports_win_rate_analyze.git` 실행
 - step7 `cd sports_win_rate_analyze` 실행
 - step8 확인
+- step9 `git switch -c [브랜치 이름]`
+- step10 `git push -u origin [브랜치 이름]`
 
 ## 계획서
 ### 주민찬
