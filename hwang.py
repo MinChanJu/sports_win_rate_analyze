@@ -144,41 +144,66 @@ def print_box_score(team_name, final_stats, player_list):
         )
 
 # --- 메인 코드 실행 ---
-# 이 아래의 모든 코드는 들여쓰기 없이 가장 왼쪽에서 시작해야 합니다.
 try:
     with open('kbl_quarters_data.json', 'r', encoding='utf-8') as f:
         data = json.load(f)
 
-    # 데이터 정제: 선수 목록의 오류 수정
+    # 데이터 정제 및 기본 정보 설정
     home_players_raw = data['metainfo']['home']['players']
     home_players = []
     for p in home_players_raw:
-        # 개행 문자로 잘못 분리된 선수 이름 합치기
         cleaned_players = p.strip().split('\n')
         home_players.extend(player.strip('"') for player in cleaned_players if player)
         
     away_players = data['metainfo']['away']['players']
     home_team_name = data['metainfo']['home']['name']
     away_team_name = data['metainfo']['away']['name']
-    
     quarters = data['metainfo']['quarters']
 
+    # *** 누적 스탯을 저장할 변수 초기화 ***
+    cumulative_raw_stats = {player: {
+        'PTS': 0, '2PM': 0, '2PA': 0, '3PM': 0, '3PA': 0, 
+        'FTM': 0, 'FTA': 0, 'OREB': 0, 'DREB': 0, 'AST': 0, 
+        'STL': 0, 'BLK': 0, 'TO': 0, 'PF': 0, 'GD': 0, 'DK': 0
+    } for player in home_players + away_players}
+    
+    processed_quarters = [] # 누적 쿼터 이름을 저장할 리스트
+
+    # 각 쿼터별로 반복
     for q in quarters:
-        print(f"\n==================== {q} BOX SCORE ====================")
+        processed_quarters.append(q)
         quarter_events = data[q]
         
-        # 1. 쿼터 데이터 분석 및 집계
-        raw_stats = parse_quarter_data(quarter_events, home_players, away_players)
+        # 1. 해당 쿼터의 개별 기록 계산 및 출력
+        print(f"\n==================== {q} BOX SCORE ====================")
+        quarter_raw_stats = parse_quarter_data(quarter_events, home_players, away_players)
         
-        # 2. 최종 스탯 계산
-        home_final_stats = calculate_final_stats(raw_stats, home_players)
-        away_final_stats = calculate_final_stats(raw_stats, away_players)
+        home_quarter_final_stats = calculate_final_stats(quarter_raw_stats, home_players)
+        away_quarter_final_stats = calculate_final_stats(quarter_raw_stats, away_players)
         
-        # 3. 박스스코어 출력
-        print_box_score(home_team_name, home_final_stats, home_players)
-        print_box_score(away_team_name, away_final_stats, away_players)
+        print_box_score(home_team_name, home_quarter_final_stats, home_players)
+        print_box_score(away_team_name, away_quarter_final_stats, away_players)
+
+        # 2. 누적 기록 계산 및 출력
+        # 현재 쿼터 기록을 누적 기록에 더하기
+        for player in home_players + away_players:
+            for stat_key in cumulative_raw_stats[player]:
+                cumulative_raw_stats[player][stat_key] += quarter_raw_stats[player][stat_key]
+
+        # 누적 기록을 바탕으로 최종 스탯(성공률 등) 다시 계산
+        home_cumulative_final_stats = calculate_final_stats(cumulative_raw_stats, home_players)
+        away_cumulative_final_stats = calculate_final_stats(cumulative_raw_stats, away_players)
+
+        # 누적 기록 테이블 출력
+        cumulative_title_str = "-".join(processed_quarters)
+        print(f"\n---------- {cumulative_title_str} 누적 BOX SCORE ----------")
+        print_box_score(f"{home_team_name} ({cumulative_title_str} 누적)", home_cumulative_final_stats, home_players)
+        print_box_score(f"{away_team_name} ({cumulative_title_str} 누적)", away_cumulative_final_stats, away_players)
+
 
 except FileNotFoundError:
-    print("kbl_quarters_data.json 파일을 찾을 수 없습니다.")
+    print("kbl_quarters_data.json 파일을 찾을 수 없습니다. 파이썬 스크립트와 같은 폴더에 있는지 확인해주세요.")
+except json.JSONDecodeError:
+    print("kbl_quarters_data.json 파일의 형식이 올바르지 않습니다. 파일 내용을 확인해주세요.")
 except Exception as e:
-    print(f"오류가 발생했습니다: {e}")
+    print(f"알 수 없는 오류가 발생했습니다: {e}")
