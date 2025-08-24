@@ -44,6 +44,7 @@ async def crawl_kbl_data(URL, seasonName, full_log):
             }
             
             await page.goto(URL, wait_until="networkidle")
+            await asyncio.sleep(0.5)
             if full_log: print("페이지 로딩 완료")
 
             try:
@@ -60,6 +61,7 @@ async def crawl_kbl_data(URL, seasonName, full_log):
 
             await page.wait_for_selector(GAME_TAB_SELECTOR, timeout=1000)
             await page.click(GAME_TAB_SELECTOR)
+            await asyncio.sleep(0.5)
             if full_log: print("경기기록 페이지 이동완료")
 
             try:
@@ -80,6 +82,7 @@ async def crawl_kbl_data(URL, seasonName, full_log):
 
             await page.wait_for_selector(LOG_TAB_SELECTOR, timeout=1000)
             await page.click(LOG_TAB_SELECTOR)
+            await asyncio.sleep(0.5)
             if full_log: print("문자중계 페이지 이동완료")
 
             all_results = []
@@ -89,6 +92,7 @@ async def crawl_kbl_data(URL, seasonName, full_log):
                     label_selector = f"label[for='{quarter['radio_id']}']"
                     try:
                         await page.click(label_selector, timeout=1000)
+                        await asyncio.sleep(0.5)
                     except Exception:
                         if full_log: print(f"{quarter['name']} 스킵 (비활성화됨)")
                         continue
@@ -209,7 +213,7 @@ if __name__ == "__main__":
         '2021-2022': [],
         '2022-2023': [],
         '2023-2024': [],
-        '2024-2025': ['S45G01N14/20241026']
+        '2024-2025': []
     }
     for seasonName in gameKeys.keys():
         for game in gameKeys[seasonName]:

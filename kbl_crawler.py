@@ -34,6 +34,8 @@ async def main(s, e, folder, reset=False):
         # (1) 초기 로딩에서 발생한 응답 먼저 대기
         async with page.expect_response(lambda r: r.url.startswith(TARGET_PREFIX)) as resp_info:
             await page.goto(URL, wait_until="networkidle")
+            await asyncio.sleep(0.5)
+
         res = await resp_info.value
         await page.wait_for_selector(DATE_SELECTOR, timeout=1000)
         date = await page.query_selector(DATE_SELECTOR)
@@ -52,14 +54,14 @@ async def main(s, e, folder, reset=False):
         for _ in range(steps):
             async with page.expect_response(lambda r: r.url.startswith(TARGET_PREFIX)) as resp_info:
                 await page.click(BUTTON_SELECTOR)
+                await asyncio.sleep(0.5)
+            
             res = await resp_info.value
             await page.wait_for_selector(DATE_SELECTOR, timeout=1000)
             date = await page.query_selector(DATE_SELECTOR)
             
             print(await date.inner_text())
             await handle_response(res, folder)
-
-            await asyncio.sleep(0.5)
 
         await browser.close()
 
