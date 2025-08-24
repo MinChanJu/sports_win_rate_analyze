@@ -59,7 +59,7 @@ async def main(s, e, folder, reset=False):
             print(await date.inner_text())
             await handle_response(res, folder)
 
-            await asyncio.sleep(1)
+            await asyncio.sleep(0.5)
 
         await browser.close()
 
