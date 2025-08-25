@@ -210,10 +210,8 @@ async def kbl_crawler(URL, file_path, full_log=False):
 
 if __name__ == "__main__":
     gameKeys = {
-        '2021-2022': [],
-        '2022-2023': [],
-        '2023-2024': [],
-        '2024-2025': []
+        '2022-2023': ['S41G01N96/20221211', 'S41G01N135/20230101', 'S41G01N159/20230121', 'S41G01N249/20230319'],
+        '2024-2025': ['S45G01N128/20250106', 'S45G01N141/20250113', 'S45G01N142/20250113', 'S45G01N143/20250114', 'S45G01N144/20250114', 'S45G01N168/20250201'],
     }
     for seasonName in gameKeys.keys():
         for game in gameKeys[seasonName]:

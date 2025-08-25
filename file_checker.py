@@ -64,6 +64,9 @@ def analyze_json_files(log_file_path, root_folder, start=1, end=270):
     check_log += f"총 빠진 번호: {sum(len(v['missing_files']) for v in total_summary.values())}개\n"
     for k, v in total_summary.items():
         if v['missing_files']: check_log += f" - {k} ({len(v['missing_files'])}): {', '.join(v['missing_files'])}\n"
+    check_log += "================================================= copy =================================================\n"
+    for k, v in total_summary.items():
+        if v['wrong_files']: check_log += f"'{k}': [{', '.join(v['wrong_files'])}],\n"
     check_log += "========================================================================================================\n"
 
     with open(log_file_path, "w") as log_file:
