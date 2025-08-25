@@ -12,7 +12,7 @@ async def handle_response(res, folder):
             seasonName = match.get("seasonName1")
             if gmkey and gameDate:
                 url = f"https://www.kbl.or.kr/match/record/{gmkey}/{gameDate}"
-                file_path = f"{folder}/{seasonName}/{gmkey}.json"
+                file_path = f"../{folder}/{seasonName}/{gmkey}.json"
                 await kbl_crawler(url, file_path)
     except:
         print("Error occurred while processing response")
@@ -72,4 +72,4 @@ if __name__ == "__main__":
     # 22-23시즌: 27, 34
     # 21-22시즌: 39, 47
 
-    asyncio.run(main(3, 47, "kbl_data", True))
+    asyncio.run(main(3, 4, "kbl_test", True))

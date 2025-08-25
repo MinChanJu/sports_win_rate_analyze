@@ -74,5 +74,5 @@ def analyze_json_files(log_file_path, root_folder, start=1, end=270):
         print(f"Log written to '{log_file_path}'")
 
 # 사용 예시
-root = "kbl_data"
+root = "../kbl_data"
 analyze_json_files("file_check.log", root)
