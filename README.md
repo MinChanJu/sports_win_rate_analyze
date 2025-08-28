@@ -19,10 +19,10 @@
 
 ## 계획서
 ### 주민찬
-- [ ] 웹크롤링 모든 경기에 대한 데이터 기록 툴
+- [x] 웹크롤링 모든 경기에 대한 데이터 기록 툴
 
 ### 김승준, 황성현
-- [ ] [kbl_quarters_data.json](kbl_quarters_data.json)의 Q1, Q2, Q3, Q4 데이터를 가지고 쿼터별 누적 기록표 함수 작성
-  - [ ] 매개변수로는 이전까지의 누적 표와 다음 쿼터 정보가 들어감
-  - [ ] 김승준 kim.py
-  - [ ] 황성현 hwang.py
+- [x] [kbl_quarters_data.json](kbl_quarters_data.json)의 Q1, Q2, Q3, Q4 데이터를 가지고 쿼터별 누적 기록표 함수 작성
+  - [x] 매개변수로는 이전까지의 누적 표와 다음 쿼터 정보가 들어감
+  - [x] 김승준 kim.py
+  - [x] 황성현 hwang.py
