@@ -12,7 +12,7 @@ variables = {
         "F": "파울 (Foul)",
         "SUB": "교체 (Substitution)",
         "FirstSub": "첫 교체 (First Substitution)",
-        "REB": "리바운드 (Rebound)", # - (DREB + OREB)
+        "REB": "리바운드 (Rebound), - (DREB + OREB)",
         "PTS": "총 득점 (Score)",
         "STL": "스틸 (Steal)",
         "TF": "테크니컬 파울 (Technical Foul)",
