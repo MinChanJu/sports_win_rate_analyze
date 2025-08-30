@@ -24,7 +24,7 @@ variables = {
         "POT": "턴오버에 의한 득점 (Points Off Turnover)",
         "BenchPTS": "벤치 득점 (Bench Points)",
         "LLM": "최대 리드 점수차 (Largest Lead Margin)",
-        "TimeLead": "득점 우위 시간 (Time with the Lead)"
+        "TimeLead": "득점 우위 시간 (Time with the Lead)",
     },
     "슛 관련 변수 (Shooting Variables)": {
         "2PM": "2점슛 성공 (2-Point Shot Made)",
@@ -33,16 +33,16 @@ variables = {
         "FGM": "필드골(야투) 성공 (Field Goal Made)",
         "FTM": "자유투 성공 (Free Throw Made)",
         "FTA": "자유투 시도 (Free Throw Attempted)",
-        "PSA": "개인 득점 시도 (Personal Score Attempt)", #필드골(2점슛과 3점슛)과 자유투를 포함하여 한 선수가 득점을 위해 시도한 모든 공격 행위의 총합
+        "PSA": "개인 득점 시도 (Personal Score Attempt)",  # 필드골(2점슛과 3점슛)과 자유투를 포함하여 한 선수가 득점을 위해 시도한 모든 공격 행위의 총합
         "3PM": "3점슛 성공 (3-Point Shot Made)",
         "3PA": "3점슛 시도 (3-Point Shot Attempted)",
         "FBP": "속공에 의한 득점 (Fast Break Points)",
         "SCP": "2차 찬스 득점 (Second Chance Points)",
-        "MCP": "최다 연속 득점 (Maximum Consecutive Points)" ,
+        "MCP": "최다 연속 득점 (Maximum Consecutive Points)",
         "FG%": "필드골 성공률 (Field Goal Percentage) - (FGM / FGA) * 100",
         "2P%": "2점슛 성공률 (2-Point Field Goal Percentage) - (2PM / 2PA) * 100",
         "3P%": "3점슛 성공률 (3-Point Field Goal Percentage) - (3PM / 3PA) * 100",
-        "FT%": "자유투 성공률 (Free Throw Percentage) - (FTM / FTA) * 100" 
+        "FT%": "자유투 성공률 (Free Throw Percentage) - (FTM / FTA) * 100",
     },
     "선수 개인 관련 변수 (Player-Specific Variables)": {
         "GameTime": "경기 시간 (Game Time)",
@@ -50,8 +50,8 @@ variables = {
         "PlayTime_Min": "플레이 시간, 분 (Playing Time, Minutes)",
         "PlayTime_Sec": "플레이 시간, 초 (Playing Time, Seconds)",
         "PP": "개인 득점 (Personal Points)",
-        "PlayerScore": "선수 점수 (Player Score)"
-    }
+        "PlayerScore": "선수 점수 (Player Score)",
+    },
 }
 
 # 딕셔너리 내용을 출력합니다.
@@ -59,3 +59,27 @@ for category, items in variables.items():
     print(f"\n# {category}")
     for key, value in items.items():
         print(f'"{key}": "{value}"')
+
+# KBL 공식 데이터 변수명을 매핑하는 딕셔너리입니다.
+KBL_VARS_MAP = {
+    "어시스트": "AST",
+    "블록": "BLK",
+    "수비리바운드": "DREB",
+    "공격리바운드": "OREB",
+    "덩크슛성공": "DK",
+    "덩크슛시도": "DKA",
+    "2점슛성공": "2PM",
+    "2점슛시도": "2PA",
+    "자유투성공": "FTM",
+    "자유투시도": "FTA",
+    "3점슛성공": "3PM",
+    "3점슛시도": "3PA",
+    "스틸": "STL",
+    "턴오버": "TO",
+    "파울": "PF",
+    "속공": "FBP",
+    "2차 찬스 득점": "SCP",
+    "최다 연속 득점": "MCP",
+    "팀리바운드": "TeamReb",
+    "팀파울": "TeamF",
+}
