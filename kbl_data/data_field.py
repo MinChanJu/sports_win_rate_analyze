@@ -59,6 +59,3 @@ for category, items in variables.items():
     print(f"\n# {category}")
     for key, value in items.items():
         print(f'"{key}": "{value}"')
-
-
-
