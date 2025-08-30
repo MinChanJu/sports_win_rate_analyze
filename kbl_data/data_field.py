@@ -7,7 +7,7 @@ variables = {
         "OREB": "공격 리바운드 (Ofensive Rebound)",
         "DK": "덩크슛 성공 (Dunk Shot Made)",
         "DKA": "덩크슛 시도 (Dunk Shot Attempted)",
-        "EFF": "효율성 (Efficiency)",
+        "EFF": "효율성 (Efficiency), - (득점 + 리바운드 + 어시스트 + 스틸 + 블록슛) - (야투 실패 + 자유투 실패 + 턴오버)",
         "FB": "속공 (Fast Break)",
         "F": "파울 (Foul)",
         "SUB": "교체 (Substitution)",
