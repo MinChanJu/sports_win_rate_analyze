@@ -1,0 +1,64 @@
+variables = {
+    "팀 및 경기 관련 변수 (Team & Game Variables)": {
+        "TeamName": "팀명 (Team Name)",
+        "AST": "어시스트 (Assist)",
+        "BLK": "블록슛 (Blocked Shot)",
+        "DREB": "수비 리바운드 (Defensive Rebound)",
+        "OREB": "공격 리바운드 (Ofensive Rebound)",
+        "DK": "덩크슛 성공 (Dunk Shot Made)",
+        "DKA": "덩크슛 시도 (Dunk Shot Attempted)",
+        "EFF": "효율성 (Efficiency)",
+        "FB": "속공 (Fast Break)",
+        "F": "파울 (Foul)",
+        "SUB": "교체 (Substitution)",
+        "FirstSub": "첫 교체 (First Substitution)",
+        "REB": "리바운드 (Rebound)", - (DREB + OREB)
+        "PTS": "총 득점 (Score)",
+        "STL": "스틸 (Steal)",
+        "TF": "테크니컬 파울 (Technical Foul)",
+        "BF": "벤치 반칙 (Bench Foul)",
+        "FoulOut": "반칙 퇴장 (Foul Out)",
+        "TeamReb": "팀 리바운드 (Team Rebound)",
+        "TeamF_PG": "팀 경기당 반칙 (Team Fouls Per Game)",
+        "TO": "턴오버 (Turnover)",
+        "POT": "턴오버에 의한 득점 (Points Off Turnover)",
+        "BenchPTS": "벤치 득점 (Bench Points)",
+        "LLM": "최대 리드 점수차 (Largest Lead Margin)",
+        "TimeLead": "득점 우위 시간 (Time with the Lead)"
+    },
+    "슛 관련 변수 (Shooting Variables)": {
+        "2PM": "2점슛 성공 (2-Point Shot Made)",
+        "2PA": "2점슛 시도 (2-Point Shot Attempted)",
+        "FGA": "필드골(야투) 시도 (Field Goal Attempted)",
+        "FGM": "필드골(야투) 성공 (Field Goal Made)",
+        "FTM": "자유투 성공 (Free Throw Made)",
+        "FTA": "자유투 시도 (Free Throw Attempted)",
+        "PSA": "개인 득점 시도 (Personal Score Attempt)",
+        "3PM": "3점슛 성공 (3-Point Shot Made)",
+        "3PA": "3점슛 시도 (3-Point Shot Attempted)",
+        "FBP": "속공에 의한 득점 (Fast Break Points)",
+        "SCP": "2차 찬스 득점 (Second Chance Points)",
+        "MCP": "최다 연속 득점 (Maximum Consecutive Points)" 
+        "FG%": "필드골 성공률 (Field Goal Percentage) - (FGM / FGA) * 100",
+        "2P%": "2점슛 성공률 (2-Point Field Goal Percentage) - (2PM / 2PA) * 100",
+        "3P%": "3점슛 성공률 (3-Point Field Goal Percentage) - (3PM / 3PA) * 100",
+        "FT%": "자유투 성공률 (Free Throw Percentage) - (FTM / FTA) * 100"
+    },
+    "선수 개인 관련 변수 (Player-Specific Variables)": {
+        "GameTime": "경기 시간 (Game Time)",
+        "PF": "개인 반칙 (Personal Foul)",
+        "PlayTime_Min": "플레이 시간, 분 (Playing Time, Minutes)",
+        "PlayTime_Sec": "플레이 시간, 초 (Playing Time, Seconds)",
+        "PP": "개인 득점 (Personal Points)",
+        "PlayerScore": "선수 점수 (Player Score)"
+    }
+}
+
+# 딕셔너리 내용을 출력합니다.
+for category, items in variables.items():
+    print(f"\n# {category}")
+    for key, value in items.items():
+        print(f'"{key}": "{value}"')
+
+
+
