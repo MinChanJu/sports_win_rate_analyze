@@ -12,7 +12,7 @@ variables = {
         "F": "파울 (Foul)",
         "SUB": "교체 (Substitution)",
         "FirstSub": "첫 교체 (First Substitution)",
-        "REB": "리바운드 (Rebound)", - (DREB + OREB)
+        "REB": "리바운드 (Rebound)", # - (DREB + OREB)
         "PTS": "총 득점 (Score)",
         "STL": "스틸 (Steal)",
         "TF": "테크니컬 파울 (Technical Foul)",
@@ -38,7 +38,7 @@ variables = {
         "3PA": "3점슛 시도 (3-Point Shot Attempted)",
         "FBP": "속공에 의한 득점 (Fast Break Points)",
         "SCP": "2차 찬스 득점 (Second Chance Points)",
-        "MCP": "최다 연속 득점 (Maximum Consecutive Points)" 
+        "MCP": "최다 연속 득점 (Maximum Consecutive Points)" ,
         "FG%": "필드골 성공률 (Field Goal Percentage) - (FGM / FGA) * 100",
         "2P%": "2점슛 성공률 (2-Point Field Goal Percentage) - (2PM / 2PA) * 100",
         "3P%": "3점슛 성공률 (3-Point Field Goal Percentage) - (3PM / 3PA) * 100",
