@@ -4,7 +4,7 @@ variables = {
         "AST": "어시스트 (Assist)",
         "BLK": "블록슛 (Blocked Shot)",
         "DREB": "수비 리바운드 (Defensive Rebound)",
-        "OREB": "공격 리바운드 (Ofensive Rebound)",
+        "OREB": "공격 리바운드 (Offensive Rebound)",
         "DK": "덩크슛 성공 (Dunk Shot Made)",
         "DKA": "덩크슛 시도 (Dunk Shot Attempted)",
         "EFF": "효율성 (Efficiency), - (득점 + 리바운드 + 어시스트 + 스틸 + 블록슛) - (야투 실패 + 자유투 실패 + 턴오버)",
@@ -33,7 +33,7 @@ variables = {
         "FGM": "필드골(야투) 성공 (Field Goal Made)",
         "FTM": "자유투 성공 (Free Throw Made)",
         "FTA": "자유투 시도 (Free Throw Attempted)",
-        "PSA": "개인 득점 시도 (Personal Score Attempt)",
+        "PSA": "개인 득점 시도 (Personal Score Attempt)", #필드골(2점슛과 3점슛)과 자유투를 포함하여 한 선수가 득점을 위해 시도한 모든 공격 행위의 총합
         "3PM": "3점슛 성공 (3-Point Shot Made)",
         "3PA": "3점슛 시도 (3-Point Shot Attempted)",
         "FBP": "속공에 의한 득점 (Fast Break Points)",
@@ -42,7 +42,7 @@ variables = {
         "FG%": "필드골 성공률 (Field Goal Percentage) - (FGM / FGA) * 100",
         "2P%": "2점슛 성공률 (2-Point Field Goal Percentage) - (2PM / 2PA) * 100",
         "3P%": "3점슛 성공률 (3-Point Field Goal Percentage) - (3PM / 3PA) * 100",
-        "FT%": "자유투 성공률 (Free Throw Percentage) - (FTM / FTA) * 100"
+        "FT%": "자유투 성공률 (Free Throw Percentage) - (FTM / FTA) * 100" 
     },
     "선수 개인 관련 변수 (Player-Specific Variables)": {
         "GameTime": "경기 시간 (Game Time)",
