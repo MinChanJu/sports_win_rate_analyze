@@ -32,14 +32,12 @@ def analyze_json_files(log_file_path, root_folder, start=1, end=270):
                         json_content = json.loads(content)
                         check_log += f"{file}: {json_content['metainfo']['date']} ({json_content['metainfo']['home']['name']} vs {json_content['metainfo']['away']['name']})"
                         check_log += f" [{', '.join([f'{quarter}({len(json_content[quarter])})' for quarter in json_content['metainfo']['quarters']])}]"
-                        if (
+                        if not (
                             "Q1" in json_content
                             and "Q2" in json_content
                             and "Q3" in json_content
                             and "Q4" in json_content
                         ):
-                            check_log += " ✅\n"
-                        else:
                             check_log += " ❌\n"
                             wrong_files.append(
                                 "'"
@@ -48,6 +46,17 @@ def analyze_json_files(log_file_path, root_folder, start=1, end=270):
                                 )
                                 + "'"
                             )
+                        elif json_content["metainfo"]["home"]["manager"] == "" or json_content["metainfo"]["away"]["manager"] == "":
+                            check_log += " ❌\n"
+                            wrong_files.append(
+                                "'"
+                                + "/".join(
+                                    json_content["metainfo"]["url"].split("/")[-2:]
+                                )
+                                + "'"
+                            )
+                        else:
+                            check_log += " ✅\n"
 
             # 빠진 번호 찾기
             missing_files = [
