@@ -20,30 +20,18 @@ def data_to_csv(data_path: str, csv_path: str):
             for file in files:
                 if file.endswith(".json"):
                     file_path = os.path.join(data_path, folder, file)
-                    total_stats, metainfo = kbl_decoder(file_path)
+                    game_stats, metainfo = kbl_decoder(file_path)
                     row = {
                         "gameKey": metainfo["gameKey"],
                         "seasonName": metainfo["seasonName"],
                         "date": metainfo["date"],
-                        "home_name": metainfo["home"]["name"],
-                        "away_name": metainfo["away"]["name"],
                     }
 
-                    for quarter in total_stats:
-                        quarter_row = copy.deepcopy(row)
-                        quarter_row["quarter"] = quarter
-                        for team in total_stats[quarter]:
-                            for player_idx, player in enumerate(
-                                total_stats[quarter][team]
-                            ):
-                                quarter_row[f"{team}_player_{player_idx+1}_name"] = (
-                                    player
-                                )
-                                for stat in total_stats[quarter][team][player]:
-                                    quarter_row[
-                                        f"{team}_player_{player_idx+1}_{stat}"
-                                    ] = total_stats[quarter][team][player][stat]
-                        records.append(quarter_row)
+                    for team in game_stats:
+                        team_row = copy.deepcopy(row)
+                        for stat in game_stats[team]:
+                            team_row[f"{stat}"] = game_stats[team][stat]
+                        records.append(team_row)
 
             df = pd.DataFrame(records)
             df.to_csv(f"{csv_path}/{folder}.csv", index=False, encoding="utf-8-sig")
@@ -54,4 +42,4 @@ def data_to_csv(data_path: str, csv_path: str):
 
 
 if __name__ == "__main__":
-    data_to_csv("../kbl_data", "../kbl_data_csv")
+    data_to_csv("../kbl_data", "./kbl_data_csv")
