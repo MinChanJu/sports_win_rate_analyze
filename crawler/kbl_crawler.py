@@ -74,10 +74,10 @@ async def main(s: int, e: int, folder: str, reset: bool = False):
 
 
 if __name__ == "__main__":
-    # 8월 기준
-    # 24-25시즌: 3, 10
-    # 23-24시즌: 15, 22
-    # 22-23시즌: 27, 34
-    # 21-22시즌: 39, 47
+    # 9월 기준
+    # 24-25시즌: 4, 11
+    # 23-24시즌: 16, 23
+    # 22-23시즌: 28, 35
+    # 21-22시즌: 40, 48
 
-    asyncio.run(main(3, 4, "kbl_test", True))
+    asyncio.run(main(4, 48, "kbl_data", True))

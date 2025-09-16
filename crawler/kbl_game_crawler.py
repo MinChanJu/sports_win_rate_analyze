@@ -9,6 +9,7 @@ async def crawl_kbl_data(URL, seasonName, full_log):
     """
 
     SCORE_SELECTOR = "#root > main > div > div > div:nth-child(3) > div.record-summary > div:nth-child(1) > ul > li"
+    MANAGER_SELECTOR = "#root > main > div > div > div:nth-child(3) > div.record-summary > div:nth-child(1) > ul > li > ul > li:nth-child(1) > span"
 
     GAME_TAB_SELECTOR = "#root > main > div.layout.grid-2 > div > ul.tab-style1.sticky > li:nth-child(2) > a"  # 경기 정보 탭
     HOME_SELECTOR = "#root > main > div.layout.grid-2 > div > div:nth-child(5) > div.table-1200 > table > tbody > tr > td:nth-child(2) > p"
@@ -39,8 +40,8 @@ async def crawl_kbl_data(URL, seasonName, full_log):
                 "seasonName": seasonName,
                 "gameKey": URL.split("/")[-2],
                 "date": URL.split("/")[-1],
-                "home": {"name": "", "score": 0, "players": []},
-                "away": {"name": "", "score": 0, "players": []},
+                "home": {"name": "", "manager": "", "score": 0, "players": []},
+                "away": {"name": "", "manager": "", "score": 0, "players": []},
                 "winner": "",
                 "quarters": [],
             }
@@ -75,6 +76,17 @@ async def crawl_kbl_data(URL, seasonName, full_log):
             except:
                 if full_log:
                     print("팀 정보 로딩 실패")
+
+            try:
+                await page.wait_for_selector(MANAGER_SELECTOR, timeout=1000)
+                manager_elements = await page.query_selector_all(MANAGER_SELECTOR)
+                metainfo["home"]["manager"] = await manager_elements[0].inner_text()
+                metainfo["away"]["manager"] = await manager_elements[1].inner_text()
+                if full_log:
+                    print(f"감독 정보 로딩 완료")
+            except:
+                if full_log:
+                    print("감독 정보 로딩 실패")
 
             await page.wait_for_selector(GAME_TAB_SELECTOR, timeout=1000)
             await page.click(GAME_TAB_SELECTOR)
@@ -208,7 +220,7 @@ def save_results_to_file(results, file_path, full_log):
 
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
     with open(file_path, "w", encoding="utf-8") as f:
-        json.dump(json_data, f, ensure_ascii=False, indent=4)
+        json.dump(json_data, f, ensure_ascii=False, indent=2)
 
     if full_log:
         print(f"결과를 {file_path}에 저장했습니다.")
@@ -250,7 +262,9 @@ async def kbl_game_crawler(URL, file_path, full_log=False):
                             "winner": "error",
                             "quarters": [],
                         }
-                    }
+                    },
+                    indent=2,
+                    ensure_ascii=False,
                 )
             )
     if full_log:
@@ -259,7 +273,7 @@ async def kbl_game_crawler(URL, file_path, full_log=False):
 
 if __name__ == "__main__":
     gameKeys = {
-        "2022-2023": ["S41G01N96/20221211"],
+        "2023-2024": ["S43G01N217/20240301", "S43G01N263/20240328"],
     }
     for seasonName in gameKeys.keys():
         for game in gameKeys[seasonName]:
