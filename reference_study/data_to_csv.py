@@ -26,18 +26,23 @@ def data_to_csv(data_path: str, csv_path: str):
                         "seasonName": metainfo["seasonName"],
                         "date": metainfo["date"],
                     }
-
+                    
                     for team in game_stats:
-                        team_row = copy.deepcopy(row)
                         for stat in game_stats[team]:
-                            team_row[f"{stat}"] = game_stats[team][stat]
-                        records.append(team_row)
+                            t = "H" if team == "home" else "A"
+                            row[f"{t}_{stat}"] = game_stats[team][stat]
+                    records.append(row)
+
+                    # for team in game_stats:
+                    #     team_row = copy.deepcopy(row)
+                    #     for stat in game_stats[team]:
+                    #         team_row[f"{stat}"] = game_stats[team][stat]
+                    #     records.append(team_row)
             
-            stat_list = game_stats["home"].keys()
             fill_stats = set()
-            for stat in stat_list:
-                for team_row in records:
-                    if team_row[stat] != 0:
+            for row in records:
+                for stat in row:
+                    if row[stat] != 0:
                         fill_stats.add(stat)
 
             df = pd.DataFrame(records)
@@ -47,6 +52,7 @@ def data_to_csv(data_path: str, csv_path: str):
             print(f"    데이터 개수 -> {len(records)}개")
             print(f"    레코드 저장 완료 -> {csv_path}/{folder}.csv")
             
+    stat_list = list(records[0].keys())
     empty_stats = set(stat_list) - fill_stats
     print("전체 시즌")
     print(f"    필드 개수 (빈 필드 제외) -> {len(fill_stats)}개")
