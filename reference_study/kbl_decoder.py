@@ -32,7 +32,9 @@ BASE_STAT = {
     "AST": 0,  # 2. 어시스트
     "BLK": 0,  # 3. 블록
     "DREB": 0,  # 4. 수비 리바운드
-    
+    "OREB": 0,  # 20. 공격 리바운드
+    "PRB": 0,  # 26. 개인 리바운드
+    "TRB": 0,  # 37. 팀 리바운드
     "2PA": 0,  # 10. 2점슛 시도
     "2PM": 0,  # 9. 2점슛 성공
     "3PA": 0,  # 31. 3점슛 시도
@@ -45,36 +47,26 @@ BASE_STAT = {
     "SWM": 0,  # 40. 속공에 의한 득점
     "FGA": 0,  # 11. 필드골 시도
     "FGM": 0,  # 12. 필드골 성공
-    
     "TPF": 0,  # 13. 팀 총합 파울
     "PF": 0,  # 17. 개인 파울
     "SUB": 0,  # 18. 교체
-    "OREB": 0,  # 20. 공격 리바운드
     "PP": 0,  # 23. 개인 득점
     "PA": 0,  # 24. 개인 득점 시도
-    "PRB": 0,  # 26. 개인 리바운드
     "STL": 0,  # 28. 스틸
-    
     "TTO": 0,  # 32. 팀 턴오버
     "FTM": 0,  # 33. 자유투 성공 (중복)
     "FTA": 0,  # 34. 자유투 시도 (중복)
-    "TRB": 0,  # 37. 팀 리바운드
     "PTO": 0,  # 39. 개인 턴오버
     "MIN": 0,  # 16. 경기 시간 (전체 시간을 계산)
     "MIN_M": 0,  # 21. 플레이 시간, 분 (전체 시간을 분 단위로 환산)
     "MIN_S": 0,  # 22. 플레이 시간, 초 (전체 시간을 초 단위로 환산)
-
-    "UF": 0, # U - 파울 (추가)
+    "UF": 0,  # U - 파울 (추가)
     "TF": 0,  # 29. 테크니컬 파울
     "TOM": 0,  # 41. 턴오버에 의한 득점
     "EJ": 0,  # 36. 반칙 퇴장
+    "EFF": 0,  # 7. 효율성
     
-    
-    
-    # 계산 안됨
-    "TER": 0,  # 7. 효율성
-    "PPT": 0,  # 46. 득점 우위 시간
-    
+    # "PPT": 0,  # 46. 득점 우위 시간
     # "MXS": 0,  # 44. 최다 연속 득점
     # "MXD": 0,  # 45. 최다 리드 점수
     # "DPS": 0,  # 42. 2차 찬스 득점
@@ -104,8 +96,22 @@ def play_calculate(game_stats: dict) -> dict:
 
 
 def final_calculate(game_stats: dict) -> dict:
+
     for stats in game_stats.values():
         stats["SUB"] //= 2
+        stats["EFF"] = (
+            stats["PP"]
+            + stats["PRB"]
+            + stats["TRB"]
+            + stats["AST"]
+            + stats["STL"]
+            + stats["BLK"]
+            - (
+                (stats["FGA"] - stats["FGM"])
+                + (stats["FTA"] - stats["FTM"])
+                + (stats["TTO"] + stats["PTO"])
+            )
+        )
     return game_stats
 
 
@@ -134,32 +140,44 @@ def kbl_decoder(game_path: dict) -> tuple[dict, dict]:
                     event = log_entry.get(team_key)
                     if not event:
                         continue
-                    
-                    if ("속공" in event):
-                        next_log_entry = quarter_log[i+1] if i+1 < len(quarter_log) else {}
+
+                    if "속공" in event:
+                        next_log_entry = (
+                            quarter_log[i + 1] if i + 1 < len(quarter_log) else {}
+                        )
                         next_event = next_log_entry.get(team_key, "")
-                        if ("2점슛성공" in next_event): game_stats[team_key]["SWM"] += 2
-                        if ("3점슛성공" in next_event): game_stats[team_key]["SWM"] += 3
-                        if ("덩크슛성공" in next_event): game_stats[team_key]["SWM"] += 2
-                        if ("자유투성공" in next_event): game_stats[team_key]["SWM"] += 1
-                    
-                    if ("턴오버" in event):
+                        if "2점슛성공" in next_event:
+                            game_stats[team_key]["SWM"] += 2
+                        if "3점슛성공" in next_event:
+                            game_stats[team_key]["SWM"] += 3
+                        if "덩크슛성공" in next_event:
+                            game_stats[team_key]["SWM"] += 2
+                        if "자유투성공" in next_event:
+                            game_stats[team_key]["SWM"] += 1
+
+                    if "턴오버" in event:
                         next_team = "away" if team_key == "home" else "home"
-                        event_logs = ''
-                        for j in range(i-1, 0, -1):
+                        event_logs = ""
+                        for j in range(i - 1, 0, -1):
                             prev_log_entry = quarter_log[j]
                             prev_event = prev_log_entry.get(next_team, "")
-                            if not prev_event: break
+                            if not prev_event:
+                                break
                             if "성공" in prev_event:
                                 event_logs = prev_event
                                 break
-                        if ("2점슛성공" in event_logs): game_stats[next_team]["TOM"] += 2
-                        if ("3점슛성공" in event_logs): game_stats[next_team]["TOM"] += 3
-                        if ("덩크슛성공" in event_logs): game_stats[next_team]["TOM"] += 2
-                        if ("자유투성공" in event_logs): game_stats[next_team]["TOM"] += 1
-                    
-                    if ("퇴장" in event): game_stats[team_key]["EJ"] += 1
-                        
+                        if "2점슛성공" in event_logs:
+                            game_stats[next_team]["TOM"] += 2
+                        if "3점슛성공" in event_logs:
+                            game_stats[next_team]["TOM"] += 3
+                        if "덩크슛성공" in event_logs:
+                            game_stats[next_team]["TOM"] += 2
+                        if "자유투성공" in event_logs:
+                            game_stats[next_team]["TOM"] += 1
+
+                    if "퇴장" in event:
+                        game_stats[team_key]["EJ"] += 1
+
                     event_key = False
                     event_value = False
                     for key, value in KBL_STAT_MAP:
@@ -169,7 +187,8 @@ def kbl_decoder(game_path: dict) -> tuple[dict, dict]:
                             break
                     if not event_key:
                         manager = metainfo[team_key]["manager"]
-                        if manager in event: break
+                        if manager in event:
+                            break
                         print(
                             f"Unrecognized event: {event} - {metainfo['seasonName']}.{metainfo['gameKey']} {quarter}"
                         )
@@ -186,7 +205,8 @@ def kbl_decoder(game_path: dict) -> tuple[dict, dict]:
                                 break
                         if not player_key:
                             manager = metainfo[team_key]["manager"]
-                            if manager in event: break
+                            if manager in event:
+                                break
                             print(
                                 f"Unrecognized player in event: {event} - {metainfo['seasonName']}.{metainfo['gameKey']} {quarter}"
                             )
