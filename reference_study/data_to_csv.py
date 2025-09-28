@@ -26,7 +26,7 @@ def data_to_csv(data_path: str, csv_path: str):
                         "seasonName": metainfo["seasonName"],
                         "date": metainfo["date"],
                     }
-                    
+                    row["winner"] = metainfo["winner"]
                     for team in game_stats:
                         for stat in game_stats[team]:
                             t = "H" if team == "home" else "A"
