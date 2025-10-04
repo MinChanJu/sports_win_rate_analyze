@@ -66,15 +66,17 @@ BASE_STAT = {
     "EJ": 0,  # 36. 반칙 퇴장
     "EFF": 0,  # 7. 효율성
     
+    #후처리 데이터 변수들
     #최근 10경기에 대한 Net Rating 계산 방법
     "TPS" : 0, # Total Points Scored (총 득점)
-    "TOPS" : 0, # Total Opponents Points Scored(상대 팀 총 득점)
+    "TOPS" : 0, # Total Opponents Points Scored (상대 팀 총 득점)
     "TPos" : 0, # Total Possessions (총 포제션 수)  TPos ≈ FGA+0.44×FTA+TO−Offensive Rebounds
     "OR" : 0, # Offensive Rating                   OR = TPS / TPos
     "DR" : 0, # Defensive Rating                   DR = TOPS / TPos 
-    
+    "TS%" : 0, # TPS x 100 / (2×(PA + 0.44 × FTA))   (True Shooting Percentage 득점 효율성)
+    "eFG%" : 0, # (FGM + 0.5 × 3PM) × 100 / FGA      (Effective Field Goal Percentage 3점슛 가치를 반영한 필드골 슈팅 효율성, 자유투 제외)
 
-    
+     
     # "PPT": 0,  # 46. 득점 우위 시간
     # "MXS": 0,  # 44. 최다 연속 득점
     # "MXD": 0,  # 45. 최다 리드 점수
