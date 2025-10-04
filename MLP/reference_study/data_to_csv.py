@@ -27,18 +27,15 @@ def data_to_csv(data_path: str, csv_path: str):
                         "date": metainfo["date"],
                     }
                     row["winner"] = metainfo["winner"]
-                    for team in game_stats:
-                        for stat in game_stats[team]:
-                            t = "H" if team == "home" else "A"
-                            row[f"{t}_{stat}"] = game_stats[team][stat]
-                    records.append(row)
+                    for quarter in game_stats["home"]:
+                        quarter_row = copy.deepcopy(row)
+                        quarter_row["quarter"] = quarter
+                        for team in game_stats:
+                            for stat in game_stats[team][quarter]:
+                                t = "H" if team == "home" else "A"
+                                quarter_row[f"{t}_{stat}"] = game_stats[team][quarter][stat]
+                        records.append(quarter_row)
 
-                    # for team in game_stats:
-                    #     team_row = copy.deepcopy(row)
-                    #     for stat in game_stats[team]:
-                    #         team_row[f"{stat}"] = game_stats[team][stat]
-                    #     records.append(team_row)
-            
             fill_stats = set()
             for row in records:
                 for stat in row:
@@ -59,4 +56,4 @@ def data_to_csv(data_path: str, csv_path: str):
     print(f"    빈 필드 -> {empty_stats}")
 
 if __name__ == "__main__":
-    data_to_csv("../kbl_data", "./kbl_data_csv")
+    data_to_csv("../../kbl_data", "./kbl_data_quarter_csv")

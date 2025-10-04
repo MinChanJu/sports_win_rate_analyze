@@ -88,41 +88,42 @@ BASE_STAT = {
 }
 
 
-def play_calculate(game_stats: dict) -> dict:
-    for stats in game_stats.values():
-        stats["PP"] = (
-            2 * stats["2PM"] + 3 * stats["3PM"] + stats["FTM"] + 2 * stats["DKM"]
-        )
-        stats["PA"] = stats["2PA"] + stats["3PA"] + stats["FTA"] + stats["DKA"]
-        stats["PRB"] = stats["OREB"] + stats["DREB"]
+def play_calculate(game_stats: dict, quarter: str) -> dict:
+    for team in game_stats.values():
+        for key, stats in team.items():
+            if (key != quarter): continue
+            stats["PP"] = (
+                2 * stats["2PM"] + 3 * stats["3PM"] + stats["FTM"] + 2 * stats["DKM"]
+            )
+            stats["PA"] = stats["2PA"] + stats["3PA"] + stats["FTA"] + stats["DKA"]
+            stats["PRB"] = stats["OREB"] + stats["DREB"]
 
-        stats["FGA"] = stats["2PA"] + stats["3PA"] + stats["DKA"]
-        stats["FGM"] = stats["2PM"] + stats["3PM"] + stats["DKM"]
+            stats["FGA"] = stats["2PA"] + stats["3PA"] + stats["DKA"]
+            stats["FGM"] = stats["2PM"] + stats["3PM"] + stats["DKM"]
 
-        stats["SUB"] -= 10
+            stats["SUB"] -= 10
 
     return game_stats
 
 
 def final_calculate(game_stats: dict) -> dict:
-
-    for stats in game_stats.values():
-        stats["SUB"] //= 2
-        stats["EFF"] = (
-            stats["PP"]
-            + stats["PRB"]
-            + stats["TRB"]
-            + stats["AST"]
-            + stats["STL"]
-            + stats["BLK"]
-            - (
-                (stats["FGA"] - stats["FGM"])
-                + (stats["FTA"] - stats["FTM"])
-                + (stats["TTO"] + stats["PTO"])
+    for team in game_stats.values():
+        for stats in team.values():
+            stats["SUB"] //= 2
+            stats["EFF"] = (
+                stats["PP"]
+                + stats["PRB"]
+                + stats["TRB"]
+                + stats["AST"]
+                + stats["STL"]
+                + stats["BLK"]
+                - (
+                    (stats["FGA"] - stats["FGM"])
+                    + (stats["FTA"] - stats["FTM"])
+                    + (stats["TTO"] + stats["PTO"])
+                )
             )
-        )
     return game_stats
-
 
 def kbl_decoder(game_path: dict) -> tuple[dict, dict]:
     with open(game_path, "r", encoding="utf-8") as file:
@@ -130,18 +131,19 @@ def kbl_decoder(game_path: dict) -> tuple[dict, dict]:
 
     metainfo = game_log_data["metainfo"]
 
-    home_players = metainfo["home"]["players"]
-    away_players = metainfo["away"]["players"]
-
-    game_stats = {"home": dict(BASE_STAT), "away": dict(BASE_STAT)}
-    game_stats["home"]["TEAM"] = metainfo["home"]["name"]
-    game_stats["away"]["TEAM"] = metainfo["away"]["name"]
+    game_stats = {"home": {}, "away": {}}
 
     quarters = metainfo["quarters"]
 
     for quarter in quarters:
         if quarter in game_log_data:
             quarter_log = game_log_data[quarter]
+            
+            game_stats["home"][quarter] = dict(BASE_STAT)
+            game_stats["away"][quarter] = dict(BASE_STAT)
+            
+            game_stats["home"][quarter]["TEAM"] = metainfo["home"]["name"]
+            game_stats["away"][quarter]["TEAM"] = metainfo["away"]["name"]
 
             for i in range(len(quarter_log)):
                 log_entry = quarter_log[i]
@@ -149,20 +151,20 @@ def kbl_decoder(game_path: dict) -> tuple[dict, dict]:
                     event = log_entry.get(team_key)
                     if not event:
                         continue
-
+                    
                     if "속공" in event:
                         next_log_entry = (
                             quarter_log[i + 1] if i + 1 < len(quarter_log) else {}
                         )
                         next_event = next_log_entry.get(team_key, "")
                         if "2점슛성공" in next_event:
-                            game_stats[team_key]["SWM"] += 2
+                            game_stats[team_key][quarter]["SWM"] += 2
                         if "3점슛성공" in next_event:
-                            game_stats[team_key]["SWM"] += 3
+                            game_stats[team_key][quarter]["SWM"] += 3
                         if "덩크슛성공" in next_event:
-                            game_stats[team_key]["SWM"] += 2
+                            game_stats[team_key][quarter]["SWM"] += 2
                         if "자유투성공" in next_event:
-                            game_stats[team_key]["SWM"] += 1
+                            game_stats[team_key][quarter]["SWM"] += 1
 
                     if "턴오버" in event:
                         next_team = "away" if team_key == "home" else "home"
@@ -176,63 +178,31 @@ def kbl_decoder(game_path: dict) -> tuple[dict, dict]:
                                 event_logs = prev_event
                                 break
                         if "2점슛성공" in event_logs:
-                            game_stats[next_team]["TOM"] += 2
+                            game_stats[next_team][quarter]["TOM"] += 2
                         if "3점슛성공" in event_logs:
-                            game_stats[next_team]["TOM"] += 3
+                            game_stats[next_team][quarter]["TOM"] += 3
                         if "덩크슛성공" in event_logs:
-                            game_stats[next_team]["TOM"] += 2
+                            game_stats[next_team][quarter]["TOM"] += 2
                         if "자유투성공" in event_logs:
-                            game_stats[next_team]["TOM"] += 1
+                            game_stats[next_team][quarter]["TOM"] += 1
 
                     if "퇴장" in event:
-                        game_stats[team_key]["EJ"] += 1
+                        game_stats[team_key][quarter]["EJ"] += 1
 
-                    event_key = False
-                    event_value = False
+                    stats = game_stats[team_key][quarter]
                     for key, value in KBL_STAT_MAP:
                         if key in event:
-                            event_key = key
-                            event_value = value
-                            break
-                    if not event_key:
-                        manager = metainfo[team_key]["manager"]
-                        if manager in event:
-                            break
-                        print(
-                            f"Unrecognized event: {event} - {metainfo['seasonName']}.{metainfo['gameKey']} {quarter}"
-                        )
-                        break
-
-                    if not ("팀" in event_key or "작전시간" in event_key):
-                        players_list = (
-                            home_players if team_key == "home" else away_players
-                        )
-                        player_key = False
-                        for player in players_list:
-                            if player in event:
-                                player_key = player
-                                break
-                        if not player_key:
-                            manager = metainfo[team_key]["manager"]
-                            if manager in event:
-                                break
-                            print(
-                                f"Unrecognized player in event: {event} - {metainfo['seasonName']}.{metainfo['gameKey']} {quarter}"
-                            )
-                            break
-
-                    stats = game_stats[team_key]
-                    for stat_key in event_value:
-                        stats[stat_key] += event_value[stat_key]
-
+                            for stat_key in value:
+                                stats[stat_key] += value[stat_key]
+                    
             time = quarter_log[-1].get("time", "00:00")
             minutes, seconds = map(int, time.split(":"))
             for team in ["home", "away"]:
-                game_stats[team]["MIN"] += minutes + seconds / 60
-                game_stats[team]["MIN_M"] += minutes + seconds / 60
-                game_stats[team]["MIN_S"] += 60 * minutes + seconds
+                game_stats[team][quarter]["MIN"] += minutes + seconds / 60
+                game_stats[team][quarter]["MIN_M"] += minutes + seconds / 60
+                game_stats[team][quarter]["MIN_S"] += 60 * minutes + seconds
 
-            game_stats = play_calculate(game_stats)
+            game_stats = play_calculate(game_stats, quarter)
 
     game_stats = final_calculate(game_stats)
 
@@ -240,7 +210,7 @@ def kbl_decoder(game_path: dict) -> tuple[dict, dict]:
 
 
 if __name__ == "__main__":
-    game_stats, all_metainfo = kbl_decoder("../kbl_data/2024-2025/S45G01N173.json")
+    game_stats, all_metainfo = kbl_decoder("../../kbl_data/2021-2022/S39G01N3.json")
     home = game_stats["home"]
     away = game_stats["away"]
     print(f"home: {json.dumps(home, ensure_ascii=False)}")
@@ -248,14 +218,14 @@ if __name__ == "__main__":
     print(f"away: {json.dumps(away, ensure_ascii=False)}")
     print()
 
-    fill_stats = []
-    empty_stats = []
-    for stat in BASE_STAT:
-        if home[stat] == 0 and away[stat] == 0:
-            empty_stats.append(f'"{stat}"')
-        else:
-            fill_stats.append(f'"{stat}"')
-    fill_stats.sort()
-    print(f"Fill Stats ({len(fill_stats)}): {', '.join(fill_stats)}")
-    empty_stats.sort()
-    print(f"Empty Stats ({len(empty_stats)}): {', '.join(empty_stats)}")
+    # fill_stats = []
+    # empty_stats = []
+    # for stat in BASE_STAT:
+    #     if home[stat] == 0 and away[stat] == 0:
+    #         empty_stats.append(f'"{stat}"')
+    #     else:
+    #         fill_stats.append(f'"{stat}"')
+    # fill_stats.sort()
+    # print(f"Fill Stats ({len(fill_stats)}): {', '.join(fill_stats)}")
+    # empty_stats.sort()
+    # print(f"Empty Stats ({len(empty_stats)}): {', '.join(empty_stats)}")
