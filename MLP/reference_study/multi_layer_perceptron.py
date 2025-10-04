@@ -21,7 +21,7 @@ def combine_load(paths):
     df_list = [pd.read_csv(path) for path in paths]
     df = pd.concat(df_list, ignore_index=True)
 
-    drop_cols = ["gameKey", "seasonName", "date", "H_TEAM", "A_TEAM"]
+    drop_cols = ["gameKey", "seasonName", "date", "H_TEAM", "A_TEAM", "quarter"]
     drop_cols = [c for c in drop_cols if c in df.columns]
     df = df.drop(columns=drop_cols)
     df["winner"] = df["winner"].map({"home": 0, "away": 1})
@@ -38,7 +38,7 @@ def combine_load(paths):
 def load(path):
     df = pd.read_csv(path)
 
-    drop_cols = ["gameKey", "seasonName", "date", "H_TEAM", "A_TEAM"]
+    drop_cols = ["gameKey", "seasonName", "date", "H_TEAM", "A_TEAM", "quarter"]
     drop_cols = [c for c in drop_cols if c in df.columns]
     df = df.drop(columns=drop_cols)
     df["winner"] = df["winner"].map({"home": 0, "away": 1})
@@ -113,10 +113,10 @@ def train_model(X_train, X_test, y_train, y_test):
 if __name__ == "__main__":
     set_seed()
     kbl_data_path = [
-        "./kbl_data_csv/2021-2022.csv",
-        "./kbl_data_csv/2022-2023.csv",
-        "./kbl_data_csv/2023-2024.csv",
-        "./kbl_data_csv/2024-2025.csv",
+        "./kbl_data_quarter_csv/2021-2022.csv",
+        "./kbl_data_quarter_csv/2022-2023.csv",
+        "./kbl_data_quarter_csv/2023-2024.csv",
+        "./kbl_data_quarter_csv/2024-2025.csv",
     ]
 
     for path in kbl_data_path:
