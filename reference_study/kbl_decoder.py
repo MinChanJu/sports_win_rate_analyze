@@ -66,6 +66,15 @@ BASE_STAT = {
     "EJ": 0,  # 36. 반칙 퇴장
     "EFF": 0,  # 7. 효율성
     
+    #최근 10경기에 대한 Net Rating 계산 방법
+    "TPS" : 0, # Total Points Scored (총 득점)
+    "TOPS" : 0, # Total Opponents Points Scored(상대 팀 총 득점)
+    "TPos" : 0, # Total Possessions (총 포제션 수)  TPos ≈ FGA+0.44×FTA+TO−Offensive Rebounds
+    "OR" : 0, # Offensive Rating                   OR = TPS / TPos
+    "DR" : 0, # Defensive Rating                   DR = TOPS / TPos 
+    
+
+    
     # "PPT": 0,  # 46. 득점 우위 시간
     # "MXS": 0,  # 44. 최다 연속 득점
     # "MXD": 0,  # 45. 최다 리드 점수
