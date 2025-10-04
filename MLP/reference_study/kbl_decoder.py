@@ -28,7 +28,7 @@ KBL_STAT_MAP = [
 ]
 
 BASE_STAT = {
-    "TEAM": 0,  # 1. 팀명
+    # "TEAM": 0,  # 1. 팀명
     "AST": 0,  # 2. 어시스트
     "BLK": 0,  # 3. 블록
     "DREB": 0,  # 4. 수비 리바운드
@@ -88,7 +88,7 @@ BASE_STAT = {
 }
 
 
-def play_calculate(game_stats: dict, quarter: str) -> dict:
+def quarter_calculate(game_stats: dict, quarter: str) -> dict:
     for team in game_stats.values():
         for key, stats in team.items():
             if (key != quarter): continue
@@ -102,7 +102,11 @@ def play_calculate(game_stats: dict, quarter: str) -> dict:
             stats["FGM"] = stats["2PM"] + stats["3PM"] + stats["DKM"]
 
             stats["SUB"] -= 10
-
+        idx = ["Q1", "Q2", "Q3", "Q4", "연장"].index(quarter)
+        if (idx == 0): continue
+        prev_quarter = ["Q1", "Q2", "Q3", "Q4", "연장"][idx - 1]
+        for stat_key in BASE_STAT:
+            team[quarter][stat_key] += team[prev_quarter][stat_key]
     return game_stats
 
 
@@ -135,7 +139,7 @@ def kbl_decoder(game_path: dict) -> tuple[dict, dict]:
 
     quarters = metainfo["quarters"]
 
-    for quarter in quarters:
+    for quarter in sorted(quarters):
         if quarter in game_log_data:
             quarter_log = game_log_data[quarter]
             
@@ -202,7 +206,7 @@ def kbl_decoder(game_path: dict) -> tuple[dict, dict]:
                 game_stats[team][quarter]["MIN_M"] += minutes + seconds / 60
                 game_stats[team][quarter]["MIN_S"] += 60 * minutes + seconds
 
-            game_stats = play_calculate(game_stats, quarter)
+            game_stats = quarter_calculate(game_stats, quarter)
 
     game_stats = final_calculate(game_stats)
 

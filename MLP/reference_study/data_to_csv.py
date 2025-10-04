@@ -53,7 +53,7 @@ def data_to_csv(data_path: str, csv_path: str):
     empty_stats = set(stat_list) - fill_stats
     print("전체 시즌")
     print(f"    필드 개수 (빈 필드 제외) -> {len(fill_stats)}개")
-    print(f"    빈 필드 -> {empty_stats}")
+    print(f"    빈 필드 ({len(empty_stats)} 개) -> {empty_stats}")
 
 if __name__ == "__main__":
     data_to_csv("../../kbl_data", "./kbl_data_quarter_csv")
