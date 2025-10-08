@@ -216,7 +216,7 @@ def kbl_decoder(game_path: dict) -> tuple[dict, dict]:
 
 
 if __name__ == "__main__":
-    game_stats, all_metainfo = kbl_decoder("../../kbl_data/2021-2022/S39G01N3.json")
+    game_stats, all_metainfo = kbl_decoder("../../../kbl_data/2021-2022/S39G01N3.json")
     home = game_stats["home"]
     away = game_stats["away"]
     print(f"home: {json.dumps(home, ensure_ascii=False)}")
