@@ -1,12 +1,16 @@
-import os
-import torch
-from contextlib import nullcontext
 from torch.utils.data import DataLoader, TensorDataset
-from config import get_args
+from contextlib import nullcontext
+from datetime import datetime
 from model_utils import MLP
+from config import get_args
+from pathlib import Path
 from tqdm import tqdm
+import numpy as np
+import torch
+import json
+import os
 
-def set_seed():
+def set_seed() -> None:
     args = get_args()
     seed = args.seed
     import numpy as np
@@ -17,14 +21,14 @@ def set_seed():
         torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark = False
 
-def get_device():
+def get_device() -> torch.device:
     if hasattr(torch.backends, "mps") and torch.backends.mps.is_available():
         return torch.device("mps")
     elif torch.cuda.is_available():
         return torch.device("cuda")
     return torch.device("cpu")
 
-def maybe_autocast(device):
+def maybe_autocast(device: torch.device) -> torch.autocast | nullcontext:
     if device.type in {"mps", "cuda"}:
         try:
             return torch.autocast(device_type=device.type, dtype=torch.bfloat16)
@@ -32,7 +36,7 @@ def maybe_autocast(device):
             return torch.autocast(device_type=device.type, dtype=torch.float16)
     return nullcontext()
 
-def make_dataloaders(train_ds, test_ds, device):
+def make_dataloaders(train_ds: TensorDataset, test_ds: TensorDataset, device: torch.device) -> tuple[DataLoader, DataLoader]:
     args = get_args()
     batch_train = args.batch_train
     batch_test = args.batch_test
@@ -48,7 +52,7 @@ def make_dataloaders(train_ds, test_ds, device):
     test_dl = DataLoader(test_ds, batch_size=batch_test, shuffle=False, **kwargs)
     return train_dl, test_dl
 
-def evaluate(model, data_loader, device, amp_ctx, criterion):
+def evaluate(model: MLP, data_loader: DataLoader, device: torch.device, amp_ctx: torch.autocast | nullcontext, criterion: torch.nn.Module) -> tuple[float, float]:
     model.eval()
     total_loss, correct, total = 0.0, 0, 0
     with torch.no_grad():
@@ -66,7 +70,49 @@ def evaluate(model, data_loader, device, amp_ctx, criterion):
     acc = correct / max(total, 1)
     return avg_loss, acc
 
-def train_model(data):
+def save_model(save_path: Path, best_model_state: dict, best_metrics: dict, best_optimizer_state: dict) -> None:
+    args = get_args()
+    payload = {
+        "config": {
+            "epochs": args.epochs,
+            "seed": args.seed,
+            "lr": args.lr,
+            "weight_decay": args.weight_decay,
+            "patience": args.patience,
+            "min_delta": args.min_delta,
+            "monitor": args.monitor,
+        },
+        "metrics": best_metrics,
+        "saved_at": datetime.now().isoformat(timespec="seconds"),
+        "torch_version": torch.__version__,
+        "python_version": f"{os.sys.version_info.major}.{os.sys.version_info.minor}.{os.sys.version_info.micro}",
+        "device": str(get_device()),
+    }
+
+    model_payload = dict(payload)
+    model_payload["state_dict"] = best_model_state
+    model_payload["optimizer_state_dict"] = best_optimizer_state
+
+    torch.save(model_payload, save_path)
+    print(f"[saved] model -> {save_path}")
+    json_path = save_path.with_suffix(".json")  # .pt → .json
+
+    json_payload = dict(payload)
+    size_bytes = save_path.stat().st_size
+    size_mb = round(size_bytes / (1024 * 1024), 2)  # MB 단위로 소수점 2자리
+    json_payload["model"] = {
+        "path": str(save_path.relative_to(json_path.parent)),
+        "size_bytes": size_bytes,
+        "size_mb": size_mb,
+    }
+
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(json_payload, f, ensure_ascii=False, indent=2)
+    print(f"[saved] metadata -> {json_path}")
+
+def train_model(save_path: Path, data: dict[str, dict[str, np.ndarray]]) -> tuple[MLP, float]:
+    set_seed()
+
     # ----- 데이터 꺼내기 -----
     X_train, y_train = data["train"]["X"], data["train"]["y"]
     X_valid, y_valid = data["valid"]["X"], data["valid"]["y"]
@@ -83,7 +129,6 @@ def train_model(data):
     patience     = args.patience
     min_delta    = args.min_delta
     eval_every   = args.eval_every
-    ckpt_path    = args.ckpt_path
 
     device = get_device()
     print(f"[device] {device}")
@@ -113,7 +158,9 @@ def train_model(data):
 
     # ----- Early Stopping 상태 -----
     best_metric = float("inf") if monitor == "val_loss" else -float("inf")
-    best_state = None
+    best_model_state = None
+    best_optimizer_state = None
+    best_metrics = None
     no_improve = 0
 
     def is_better(curr, best):
@@ -123,7 +170,7 @@ def train_model(data):
             return (curr - best) > min_delta   # 더 크면 개선
 
     # ----- 학습 루프 -----
-    for epoch in tqdm(range(1, epochs + 1), desc="training", dynamic_ncols=True, unit="epoch", colour="cyan"):
+    for epoch in tqdm(range(1, epochs + 1), desc=f"{save_path.name.split('_')[0]} training", dynamic_ncols=True, unit="epoch", colour="cyan"):
         model.train()
         running_loss = 0.0
 
@@ -150,8 +197,16 @@ def train_model(data):
                 best_metric = metric_now
                 no_improve = 0
                 if save_best:
-                    # CPU로 복사해 안전 저장
-                    best_state = {k: v.detach().cpu().clone() for k, v in model.state_dict().items()}
+                    best_model_state = {k: v.detach().cpu().clone() for k, v in model.state_dict().items()}
+                    best_optimizer_state = optimizer.state_dict() if optimizer else None
+                    best_metrics = {
+                        "epoch": epoch,
+                        "train_loss": train_loss,
+                        "val_acc": val_acc,
+                        "val_loss": val_loss,
+                        "test_acc": test_acc,
+                        "test_loss": test_loss
+                    }
             else:
                 no_improve += 1
 
@@ -169,10 +224,9 @@ def train_model(data):
                 break
 
     # ----- 최고 성능 모델 저장/복원 & 최종 테스트 리포트 -----
-    if save_best and best_state is not None:
-        torch.save(best_state, ckpt_path)
-        model.load_state_dict(best_state)
-        print(f"[saved] best model -> {ckpt_path}")
+    if save_best and best_model_state and best_metrics and best_optimizer_state:
+        save_model(save_path, best_model_state, best_metrics, best_optimizer_state)
+        model.load_state_dict(best_model_state)
 
     final_test_loss, final_test_acc = evaluate(model, test_dl, device, amp_ctx, criterion)
     print(f"[done] final test_acc = {final_test_acc:.3f} (loss {final_test_loss:.4f})")

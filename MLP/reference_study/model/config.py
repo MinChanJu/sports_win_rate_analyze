@@ -1,9 +1,8 @@
-# config.py
 import argparse
 
 _args = None
 
-def get_args():
+def get_args() -> argparse.Namespace:
     global _args
     if _args is None:
         parser = argparse.ArgumentParser()
@@ -33,6 +32,6 @@ def get_args():
         parser.add_argument("--monitor", type=str, default="val_loss", choices=["val_loss", "val_acc"])
 
         parser.add_argument("--save-best", type=bool, default=True)
-        parser.add_argument("--ckpt-path", type=str, default="best_model.pt")
+        parser.add_argument("--ckpt-folder", type=str, default="best_models")
         _args = parser.parse_args()
     return _args
