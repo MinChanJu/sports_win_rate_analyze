@@ -1,1712 +1,1352 @@
 {
   "S45G01N226": {
     "Q1": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.2582247257232666,
-        "away": 0.7417753338813782
-      },
-      "actual": "away"
+      "home": 0.2582247257232666,
+      "away": 0.7417753338813782,
+      "home_score": 9,
+      "away_score": 21,
+      "winner": "away"
     },
     "Q2": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.23913070559501648,
-        "away": 0.7608692646026611
-      },
-      "actual": "away"
+      "home": 0.23913070559501648,
+      "away": 0.7608692646026611,
+      "home_score": 32,
+      "away_score": 37,
+      "winner": "away"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.40023231506347656,
-        "away": 0.5997677445411682
-      },
-      "actual": "away"
+      "home": 0.40023231506347656,
+      "away": 0.5997677445411682,
+      "home_score": 50,
+      "away_score": 52,
+      "winner": "away"
     },
     "Q4": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.0968419685959816,
-        "away": 0.9031580686569214
-      },
-      "actual": "away"
+      "home": 0.0968419685959816,
+      "away": 0.9031580686569214,
+      "home_score": 63,
+      "away_score": 75,
+      "winner": "away"
     }
   },
   "S45G01N227": {
     "Q1": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.2443484663963318,
-        "away": 0.7556514739990234
-      },
-      "actual": "away"
+      "home": 0.2443484663963318,
+      "away": 0.7556514739990234,
+      "home_score": 10,
+      "away_score": 28,
+      "winner": "away"
     },
     "Q2": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.1567011922597885,
-        "away": 0.8432988524436951
-      },
-      "actual": "away"
+      "home": 0.1567011922597885,
+      "away": 0.8432988524436951,
+      "home_score": 32,
+      "away_score": 44,
+      "winner": "away"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.10535591840744019,
-        "away": 0.8946440815925598
-      },
-      "actual": "away"
+      "home": 0.10535591840744019,
+      "away": 0.8946440815925598,
+      "home_score": 46,
+      "away_score": 64,
+      "winner": "away"
     },
     "Q4": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.21427257359027863,
-        "away": 0.7857273817062378
-      },
-      "actual": "away"
+      "home": 0.21427257359027863,
+      "away": 0.7857273817062378,
+      "home_score": 68,
+      "away_score": 73,
+      "winner": "away"
     }
   },
   "S45G01N228": {
     "Q1": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.47731712460517883,
-        "away": 0.5226828455924988
-      },
-      "actual": "home"
+      "home": 0.47731712460517883,
+      "away": 0.5226828455924988,
+      "home_score": 20,
+      "away_score": 25,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.7043298482894897,
-        "away": 0.29567015171051025
-      },
-      "actual": "home"
+      "home": 0.7043298482894897,
+      "away": 0.29567015171051025,
+      "home_score": 44,
+      "away_score": 40,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.7887164354324341,
-        "away": 0.21128353476524353
-      },
-      "actual": "home"
+      "home": 0.7887164354324341,
+      "away": 0.21128353476524353,
+      "home_score": 66,
+      "away_score": 61,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.907548725605011,
-        "away": 0.09245128184556961
-      },
-      "actual": "home"
+      "home": 0.907548725605011,
+      "away": 0.09245128184556961,
+      "home_score": 79,
+      "away_score": 77,
+      "winner": "home"
     }
   },
   "S45G01N229": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.7621392011642456,
-        "away": 0.2378607541322708
-      },
-      "actual": "away"
+      "home": 0.7621392011642456,
+      "away": 0.2378607541322708,
+      "home_score": 28,
+      "away_score": 14,
+      "winner": "away"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.8909193277359009,
-        "away": 0.10908059775829315
-      },
-      "actual": "away"
+      "home": 0.8909193277359009,
+      "away": 0.10908059775829315,
+      "home_score": 46,
+      "away_score": 31,
+      "winner": "away"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.7702839374542236,
-        "away": 0.22971606254577637
-      },
-      "actual": "away"
+      "home": 0.7702839374542236,
+      "away": 0.22971606254577637,
+      "home_score": 60,
+      "away_score": 57,
+      "winner": "away"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.7105525135993958,
-        "away": 0.28944751620292664
-      },
-      "actual": "away"
+      "home": 0.7105525135993958,
+      "away": 0.28944751620292664,
+      "home_score": 77,
+      "away_score": 78,
+      "winner": "away"
     }
   },
   "S45G01N230": {
     "Q1": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.42472562193870544,
-        "away": 0.5752744078636169
-      },
-      "actual": "home"
+      "home": 0.42472562193870544,
+      "away": 0.5752744078636169,
+      "home_score": 25,
+      "away_score": 31,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.5198527574539185,
-        "away": 0.4801473021507263
-      },
-      "actual": "home"
+      "home": 0.5198527574539185,
+      "away": 0.4801473021507263,
+      "home_score": 43,
+      "away_score": 49,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.7266393303871155,
-        "away": 0.2733606994152069
-      },
-      "actual": "home"
+      "home": 0.7266393303871155,
+      "away": 0.2733606994152069,
+      "home_score": 71,
+      "away_score": 70,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9226592779159546,
-        "away": 0.0773407369852066
-      },
-      "actual": "home"
+      "home": 0.9226592779159546,
+      "away": 0.0773407369852066,
+      "home_score": 90,
+      "away_score": 85,
+      "winner": "home"
     }
   },
   "S45G01N231": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.7356171607971191,
-        "away": 0.26438286900520325
-      },
-      "actual": "home"
+      "home": 0.7356171607971191,
+      "away": 0.26438286900520325,
+      "home_score": 29,
+      "away_score": 19,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9092638492584229,
-        "away": 0.09073619544506073
-      },
-      "actual": "home"
+      "home": 0.9092638492584229,
+      "away": 0.09073619544506073,
+      "home_score": 56,
+      "away_score": 35,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9283804297447205,
-        "away": 0.07161960750818253
-      },
-      "actual": "home"
+      "home": 0.9283804297447205,
+      "away": 0.07161960750818253,
+      "home_score": 74,
+      "away_score": 56,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9212833046913147,
-        "away": 0.0787167027592659
-      },
-      "actual": "home"
+      "home": 0.9212833046913147,
+      "away": 0.0787167027592659,
+      "home_score": 81,
+      "away_score": 68,
+      "winner": "home"
     }
   },
   "S45G01N232": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.5770778059959412,
-        "away": 0.4229222536087036
-      },
-      "actual": "home"
+      "home": 0.5770778059959412,
+      "away": 0.4229222536087036,
+      "home_score": 20,
+      "away_score": 21,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.8831393122673035,
-        "away": 0.11686074733734131
-      },
-      "actual": "home"
+      "home": 0.8831393122673035,
+      "away": 0.11686074733734131,
+      "home_score": 47,
+      "away_score": 34,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.8754643797874451,
-        "away": 0.12453557550907135
-      },
-      "actual": "home"
+      "home": 0.8754643797874451,
+      "away": 0.12453557550907135,
+      "home_score": 68,
+      "away_score": 56,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9101308584213257,
-        "away": 0.08986910432577133
-      },
-      "actual": "home"
+      "home": 0.9101308584213257,
+      "away": 0.08986910432577133,
+      "home_score": 85,
+      "away_score": 79,
+      "winner": "home"
     }
   },
   "S45G01N233": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.7495989203453064,
-        "away": 0.2504010498523712
-      },
-      "actual": "home"
+      "home": 0.7495989203453064,
+      "away": 0.2504010498523712,
+      "home_score": 25,
+      "away_score": 12,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.8901945948600769,
-        "away": 0.1098053827881813
-      },
-      "actual": "home"
+      "home": 0.8901945948600769,
+      "away": 0.1098053827881813,
+      "home_score": 50,
+      "away_score": 37,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9052585959434509,
-        "away": 0.0947413370013237
-      },
-      "actual": "home"
+      "home": 0.9052585959434509,
+      "away": 0.0947413370013237,
+      "home_score": 64,
+      "away_score": 51,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9255133867263794,
-        "away": 0.07448658347129822
-      },
-      "actual": "home"
+      "home": 0.9255133867263794,
+      "away": 0.07448658347129822,
+      "home_score": 91,
+      "away_score": 70,
+      "winner": "home"
     }
   },
   "S45G01N234": {
     "Q1": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.49028006196022034,
-        "away": 0.5097199082374573
-      },
-      "actual": "away"
+      "home": 0.49028006196022034,
+      "away": 0.5097199082374573,
+      "home_score": 16,
+      "away_score": 17,
+      "winner": "away"
     },
     "Q2": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.22776812314987183,
-        "away": 0.7722318768501282
-      },
-      "actual": "away"
+      "home": 0.22776812314987183,
+      "away": 0.7722318768501282,
+      "home_score": 29,
+      "away_score": 32,
+      "winner": "away"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.10699155181646347,
-        "away": 0.8930084705352783
-      },
-      "actual": "away"
+      "home": 0.10699155181646347,
+      "away": 0.8930084705352783,
+      "home_score": 44,
+      "away_score": 56,
+      "winner": "away"
     },
     "Q4": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.11073014885187149,
-        "away": 0.8892698884010315
-      },
-      "actual": "away"
+      "home": 0.11073014885187149,
+      "away": 0.8892698884010315,
+      "home_score": 65,
+      "away_score": 69,
+      "winner": "away"
     }
   },
   "S45G01N235": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.5602364540100098,
-        "away": 0.43976354598999023
-      },
-      "actual": "away"
+      "home": 0.5602364540100098,
+      "away": 0.43976354598999023,
+      "home_score": 15,
+      "away_score": 19,
+      "winner": "away"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.7436460852622986,
-        "away": 0.2563539445400238
-      },
-      "actual": "away"
+      "home": 0.7436460852622986,
+      "away": 0.2563539445400238,
+      "home_score": 43,
+      "away_score": 38,
+      "winner": "away"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.6300758719444275,
-        "away": 0.3699241280555725
-      },
-      "actual": "away"
+      "home": 0.6300758719444275,
+      "away": 0.3699241280555725,
+      "home_score": 65,
+      "away_score": 64,
+      "winner": "away"
     },
     "Q4": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.11145399510860443,
-        "away": 0.8885459899902344
-      },
-      "actual": "away"
+      "home": 0.11145399510860443,
+      "away": 0.8885459899902344,
+      "home_score": 74,
+      "away_score": 79,
+      "winner": "away"
     }
   },
   "S45G01N236": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.6678400635719299,
-        "away": 0.33215996623039246
-      },
-      "actual": "home"
+      "home": 0.6678400635719299,
+      "away": 0.33215996623039246,
+      "home_score": 22,
+      "away_score": 19,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9031857848167419,
-        "away": 0.09681419283151627
-      },
-      "actual": "home"
+      "home": 0.9031857848167419,
+      "away": 0.09681419283151627,
+      "home_score": 46,
+      "away_score": 29,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9292340874671936,
-        "away": 0.07076586782932281
-      },
-      "actual": "home"
+      "home": 0.9292340874671936,
+      "away": 0.07076586782932281,
+      "home_score": 67,
+      "away_score": 44,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9259299635887146,
-        "away": 0.0740700513124466
-      },
-      "actual": "home"
+      "home": 0.9259299635887146,
+      "away": 0.0740700513124466,
+      "home_score": 84,
+      "away_score": 59,
+      "winner": "home"
     }
   },
   "S45G01N237": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.6591494083404541,
-        "away": 0.3408505916595459
-      },
-      "actual": "away"
+      "home": 0.6591494083404541,
+      "away": 0.3408505916595459,
+      "home_score": 25,
+      "away_score": 21,
+      "winner": "away"
     },
     "Q2": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.32891198992729187,
-        "away": 0.6710879802703857
-      },
-      "actual": "away"
+      "home": 0.32891198992729187,
+      "away": 0.6710879802703857,
+      "home_score": 41,
+      "away_score": 44,
+      "winner": "away"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.21364979445934296,
-        "away": 0.7863501906394958
-      },
-      "actual": "away"
+      "home": 0.21364979445934296,
+      "away": 0.7863501906394958,
+      "home_score": 55,
+      "away_score": 61,
+      "winner": "away"
     },
     "Q4": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.09723776578903198,
-        "away": 0.9027622938156128
-      },
-      "actual": "away"
+      "home": 0.09723776578903198,
+      "away": 0.9027622938156128,
+      "home_score": 71,
+      "away_score": 81,
+      "winner": "away"
     }
   },
   "S45G01N238": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.7279671430587769,
-        "away": 0.27203279733657837
-      },
-      "actual": "home"
+      "home": 0.7279671430587769,
+      "away": 0.27203279733657837,
+      "home_score": 31,
+      "away_score": 18,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.8740392327308655,
-        "away": 0.12596078217029572
-      },
-      "actual": "home"
+      "home": 0.8740392327308655,
+      "away": 0.12596078217029572,
+      "home_score": 47,
+      "away_score": 35,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.24012281000614166,
-        "away": 0.7598772048950195
-      },
-      "actual": "home"
+      "home": 0.24012281000614166,
+      "away": 0.7598772048950195,
+      "home_score": 62,
+      "away_score": 66,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.5315506458282471,
-        "away": 0.46844932436943054
-      },
-      "actual": "home"
+      "home": 0.5315506458282471,
+      "away": 0.46844932436943054,
+      "home_score": 87,
+      "away_score": 84,
+      "winner": "home"
     }
   },
   "S45G01N239": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.7313216924667358,
-        "away": 0.26867833733558655
-      },
-      "actual": "home"
+      "home": 0.7313216924667358,
+      "away": 0.26867833733558655,
+      "home_score": 27,
+      "away_score": 20,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9186123609542847,
-        "away": 0.08138769119977951
-      },
-      "actual": "home"
+      "home": 0.9186123609542847,
+      "away": 0.08138769119977951,
+      "home_score": 54,
+      "away_score": 35,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9228814840316772,
-        "away": 0.07711849361658096
-      },
-      "actual": "home"
+      "home": 0.9228814840316772,
+      "away": 0.07711849361658096,
+      "home_score": 68,
+      "away_score": 56,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9171504974365234,
-        "away": 0.08284945785999298
-      },
-      "actual": "home"
+      "home": 0.9171504974365234,
+      "away": 0.08284945785999298,
+      "home_score": 85,
+      "away_score": 81,
+      "winner": "home"
     }
   },
   "S45G01N240": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.6850854158401489,
-        "away": 0.3149145245552063
-      },
-      "actual": "away"
+      "home": 0.6850854158401489,
+      "away": 0.3149145245552063,
+      "home_score": 18,
+      "away_score": 13,
+      "winner": "away"
     },
     "Q2": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.18396717309951782,
-        "away": 0.8160327672958374
-      },
-      "actual": "away"
+      "home": 0.18396717309951782,
+      "away": 0.8160327672958374,
+      "home_score": 25,
+      "away_score": 34,
+      "winner": "away"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.10250353813171387,
-        "away": 0.8974964618682861
-      },
-      "actual": "away"
+      "home": 0.10250353813171387,
+      "away": 0.8974964618682861,
+      "home_score": 38,
+      "away_score": 55,
+      "winner": "away"
     },
     "Q4": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.0921967551112175,
-        "away": 0.9078031778335571
-      },
-      "actual": "away"
+      "home": 0.0921967551112175,
+      "away": 0.9078031778335571,
+      "home_score": 54,
+      "away_score": 72,
+      "winner": "away"
     }
   },
   "S45G01N241": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.7708435654640198,
-        "away": 0.22915638983249664
-      },
-      "actual": "home"
+      "home": 0.7708435654640198,
+      "away": 0.22915638983249664,
+      "home_score": 29,
+      "away_score": 12,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.8428407907485962,
-        "away": 0.15715917944908142
-      },
-      "actual": "home"
+      "home": 0.8428407907485962,
+      "away": 0.15715917944908142,
+      "home_score": 47,
+      "away_score": 37,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.8814222812652588,
-        "away": 0.11857768148183823
-      },
-      "actual": "home"
+      "home": 0.8814222812652588,
+      "away": 0.11857768148183823,
+      "home_score": 70,
+      "away_score": 60,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9131279587745667,
-        "away": 0.08687203377485275
-      },
-      "actual": "home"
+      "home": 0.9131279587745667,
+      "away": 0.08687203377485275,
+      "home_score": 93,
+      "away_score": 84,
+      "winner": "home"
     }
   },
   "S45G01N242": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.5902696847915649,
-        "away": 0.40973037481307983
-      },
-      "actual": "away"
+      "home": 0.5902696847915649,
+      "away": 0.40973037481307983,
+      "home_score": 27,
+      "away_score": 26,
+      "winner": "away"
     },
     "Q2": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.10861705988645554,
-        "away": 0.8913829326629639
-      },
-      "actual": "away"
+      "home": 0.10861705988645554,
+      "away": 0.8913829326629639,
+      "home_score": 43,
+      "away_score": 56,
+      "winner": "away"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.09760421514511108,
-        "away": 0.9023957848548889
-      },
-      "actual": "away"
+      "home": 0.09760421514511108,
+      "away": 0.9023957848548889,
+      "home_score": 57,
+      "away_score": 75,
+      "winner": "away"
     },
     "Q4": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.09311358630657196,
-        "away": 0.9068864583969116
-      },
-      "actual": "away"
+      "home": 0.09311358630657196,
+      "away": 0.9068864583969116,
+      "home_score": 69,
+      "away_score": 92,
+      "winner": "away"
     }
   },
   "S45G01N243": {
     "Q1": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.4330199956893921,
-        "away": 0.5669800043106079
-      },
-      "actual": "home"
+      "home": 0.4330199956893921,
+      "away": 0.5669800043106079,
+      "home_score": 23,
+      "away_score": 24,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.1398472785949707,
-        "away": 0.8601527810096741
-      },
-      "actual": "home"
+      "home": 0.1398472785949707,
+      "away": 0.8601527810096741,
+      "home_score": 48,
+      "away_score": 51,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.20202523469924927,
-        "away": 0.797974705696106
-      },
-      "actual": "home"
+      "home": 0.20202523469924927,
+      "away": 0.797974705696106,
+      "home_score": 69,
+      "away_score": 72,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9169183373451233,
-        "away": 0.0830816850066185
-      },
-      "actual": "home"
+      "home": 0.9169183373451233,
+      "away": 0.0830816850066185,
+      "home_score": 90,
+      "away_score": 81,
+      "winner": "home"
     }
   },
   "S45G01N244": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.656679093837738,
-        "away": 0.3433208465576172
-      },
-      "actual": "away"
+      "home": 0.656679093837738,
+      "away": 0.3433208465576172,
+      "home_score": 19,
+      "away_score": 15,
+      "winner": "away"
     },
     "Q2": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.2721075713634491,
-        "away": 0.7278924584388733
-      },
-      "actual": "away"
+      "home": 0.2721075713634491,
+      "away": 0.7278924584388733,
+      "home_score": 31,
+      "away_score": 35,
+      "winner": "away"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.09361863881349564,
-        "away": 0.9063814282417297
-      },
-      "actual": "away"
+      "home": 0.09361863881349564,
+      "away": 0.9063814282417297,
+      "home_score": 42,
+      "away_score": 58,
+      "winner": "away"
     },
     "Q4": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.09703723341226578,
-        "away": 0.9029627442359924
-      },
-      "actual": "away"
+      "home": 0.09703723341226578,
+      "away": 0.9029627442359924,
+      "home_score": 62,
+      "away_score": 71,
+      "winner": "away"
     }
   },
   "S45G01N245": {
     "Q1": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.26705390214920044,
-        "away": 0.7329460382461548
-      },
-      "actual": "away"
+      "home": 0.26705390214920044,
+      "away": 0.7329460382461548,
+      "home_score": 13,
+      "away_score": 26,
+      "winner": "away"
     },
     "Q2": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.10286278277635574,
-        "away": 0.8971372246742249
-      },
-      "actual": "away"
+      "home": 0.10286278277635574,
+      "away": 0.8971372246742249,
+      "home_score": 29,
+      "away_score": 53,
+      "winner": "away"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.0927128791809082,
-        "away": 0.9072871208190918
-      },
-      "actual": "away"
+      "home": 0.0927128791809082,
+      "away": 0.9072871208190918,
+      "home_score": 44,
+      "away_score": 79,
+      "winner": "away"
     },
     "Q4": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.09348539263010025,
-        "away": 0.9065146446228027
-      },
-      "actual": "away"
+      "home": 0.09348539263010025,
+      "away": 0.9065146446228027,
+      "home_score": 67,
+      "away_score": 96,
+      "winner": "away"
     }
   },
   "S45G01N246": {
     "Q1": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.3815980851650238,
-        "away": 0.6184019446372986
-      },
-      "actual": "home"
+      "home": 0.3815980851650238,
+      "away": 0.6184019446372986,
+      "home_score": 15,
+      "away_score": 23,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.4152084290981293,
-        "away": 0.5847915410995483
-      },
-      "actual": "home"
+      "home": 0.4152084290981293,
+      "away": 0.5847915410995483,
+      "home_score": 37,
+      "away_score": 42,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.26617100834846497,
-        "away": 0.7338289618492126
-      },
-      "actual": "home"
+      "home": 0.26617100834846497,
+      "away": 0.7338289618492126,
+      "home_score": 59,
+      "away_score": 65,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.8448446393013,
-        "away": 0.15515530109405518
-      },
-      "actual": "home"
+      "home": 0.8448446393013,
+      "away": 0.15515530109405518,
+      "home_score": 79,
+      "away_score": 78,
+      "winner": "home"
     }
   },
   "S45G01N247": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.7039132714271545,
-        "away": 0.2960866391658783
-      },
-      "actual": "home"
+      "home": 0.7039132714271545,
+      "away": 0.2960866391658783,
+      "home_score": 26,
+      "away_score": 20,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.841343879699707,
-        "away": 0.15865615010261536
-      },
-      "actual": "home"
+      "home": 0.841343879699707,
+      "away": 0.15865615010261536,
+      "home_score": 48,
+      "away_score": 40,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9315316081047058,
-        "away": 0.06846841424703598
-      },
-      "actual": "home"
+      "home": 0.9315316081047058,
+      "away": 0.06846841424703598,
+      "home_score": 76,
+      "away_score": 57,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9288764595985413,
-        "away": 0.07112355530261993
-      },
-      "actual": "home"
+      "home": 0.9288764595985413,
+      "away": 0.07112355530261993,
+      "home_score": 94,
+      "away_score": 79,
+      "winner": "home"
     }
   },
   "S45G01N248": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.7002771496772766,
-        "away": 0.2997228503227234
-      },
-      "actual": "away"
+      "home": 0.7002771496772766,
+      "away": 0.2997228503227234,
+      "home_score": 18,
+      "away_score": 11,
+      "winner": "away"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.6780036091804504,
-        "away": 0.3219963312149048
-      },
-      "actual": "away"
+      "home": 0.6780036091804504,
+      "away": 0.3219963312149048,
+      "home_score": 42,
+      "away_score": 36,
+      "winner": "away"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.2288856953382492,
-        "away": 0.7711143493652344
-      },
-      "actual": "away"
+      "home": 0.2288856953382492,
+      "away": 0.7711143493652344,
+      "home_score": 57,
+      "away_score": 63,
+      "winner": "away"
     },
     "Q4": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.0955514907836914,
-        "away": 0.9044485092163086
-      },
-      "actual": "away"
+      "home": 0.0955514907836914,
+      "away": 0.9044485092163086,
+      "home_score": 72,
+      "away_score": 82,
+      "winner": "away"
     }
   },
   "S45G01N249": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.666426420211792,
-        "away": 0.333573579788208
-      },
-      "actual": "home"
+      "home": 0.666426420211792,
+      "away": 0.333573579788208,
+      "home_score": 22,
+      "away_score": 18,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.7413360476493835,
-        "away": 0.25866395235061646
-      },
-      "actual": "home"
+      "home": 0.7413360476493835,
+      "away": 0.25866395235061646,
+      "home_score": 39,
+      "away_score": 36,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.8080605864524841,
-        "away": 0.1919393539428711
-      },
-      "actual": "home"
+      "home": 0.8080605864524841,
+      "away": 0.1919393539428711,
+      "home_score": 57,
+      "away_score": 52,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.8849981427192688,
-        "away": 0.11500182002782822
-      },
-      "actual": "home"
+      "home": 0.8849981427192688,
+      "away": 0.11500182002782822,
+      "home_score": 69,
+      "away_score": 67,
+      "winner": "home"
     }
   },
   "S45G01N250": {
     "Q1": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.4641609787940979,
-        "away": 0.5358390212059021
-      },
-      "actual": "away"
+      "home": 0.4641609787940979,
+      "away": 0.5358390212059021,
+      "home_score": 16,
+      "away_score": 22,
+      "winner": "away"
     },
     "Q2": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.11425115913152695,
-        "away": 0.8857488036155701
-      },
-      "actual": "away"
+      "home": 0.11425115913152695,
+      "away": 0.8857488036155701,
+      "home_score": 30,
+      "away_score": 45,
+      "winner": "away"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.10012894868850708,
-        "away": 0.8998710513114929
-      },
-      "actual": "away"
+      "home": 0.10012894868850708,
+      "away": 0.8998710513114929,
+      "home_score": 54,
+      "away_score": 73,
+      "winner": "away"
     },
     "Q4": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.09286152571439743,
-        "away": 0.907138466835022
-      },
-      "actual": "away"
+      "home": 0.09286152571439743,
+      "away": 0.907138466835022,
+      "home_score": 72,
+      "away_score": 97,
+      "winner": "away"
     }
   },
   "S45G01N251": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.6261807680130005,
-        "away": 0.3738192021846771
-      },
-      "actual": "home"
+      "home": 0.6261807680130005,
+      "away": 0.3738192021846771,
+      "home_score": 19,
+      "away_score": 19,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.3437004089355469,
-        "away": 0.6562996506690979
-      },
-      "actual": "home"
+      "home": 0.3437004089355469,
+      "away": 0.6562996506690979,
+      "home_score": 32,
+      "away_score": 37,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.6872687935829163,
-        "away": 0.3127311170101166
-      },
-      "actual": "home"
+      "home": 0.6872687935829163,
+      "away": 0.3127311170101166,
+      "home_score": 56,
+      "away_score": 53,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.820233941078186,
-        "away": 0.17976605892181396
-      },
-      "actual": "home"
+      "home": 0.820233941078186,
+      "away": 0.17976605892181396,
+      "home_score": 75,
+      "away_score": 74,
+      "winner": "home"
     }
   },
   "S45G01N252": {
     "Q1": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.22441595792770386,
-        "away": 0.7755841016769409
-      },
-      "actual": "away"
+      "home": 0.22441595792770386,
+      "away": 0.7755841016769409,
+      "home_score": 18,
+      "away_score": 31,
+      "winner": "away"
     },
     "Q2": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.22753897309303284,
-        "away": 0.7724609971046448
-      },
-      "actual": "away"
+      "home": 0.22753897309303284,
+      "away": 0.7724609971046448,
+      "home_score": 44,
+      "away_score": 46,
+      "winner": "away"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.11139853298664093,
-        "away": 0.888601541519165
-      },
-      "actual": "away"
+      "home": 0.11139853298664093,
+      "away": 0.888601541519165,
+      "home_score": 58,
+      "away_score": 70,
+      "winner": "away"
     },
     "Q4": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.09709108620882034,
-        "away": 0.9029089212417603
-      },
-      "actual": "away"
+      "home": 0.09709108620882034,
+      "away": 0.9029089212417603,
+      "home_score": 76,
+      "away_score": 85,
+      "winner": "away"
     }
   },
   "S45G01N253": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.6198996901512146,
-        "away": 0.380100280046463
-      },
-      "actual": "away"
+      "home": 0.6198996901512146,
+      "away": 0.380100280046463,
+      "home_score": 21,
+      "away_score": 21,
+      "winner": "away"
     },
     "Q2": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.1631689965724945,
-        "away": 0.8368309736251831
-      },
-      "actual": "away"
+      "home": 0.1631689965724945,
+      "away": 0.8368309736251831,
+      "home_score": 33,
+      "away_score": 46,
+      "winner": "away"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.2207389622926712,
-        "away": 0.77926105260849
-      },
-      "actual": "away"
+      "home": 0.2207389622926712,
+      "away": 0.77926105260849,
+      "home_score": 58,
+      "away_score": 67,
+      "winner": "away"
     },
     "Q4": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.19725845754146576,
-        "away": 0.802741527557373
-      },
-      "actual": "away"
+      "home": 0.19725845754146576,
+      "away": 0.802741527557373,
+      "home_score": 85,
+      "away_score": 88,
+      "winner": "away"
     }
   },
   "S45G01N254": {
     "Q1": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.2321702539920807,
-        "away": 0.7678297758102417
-      },
-      "actual": "away"
+      "home": 0.2321702539920807,
+      "away": 0.7678297758102417,
+      "home_score": 10,
+      "away_score": 28,
+      "winner": "away"
     },
     "Q2": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.10603373497724533,
-        "away": 0.8939663171768188
-      },
-      "actual": "away"
+      "home": 0.10603373497724533,
+      "away": 0.8939663171768188,
+      "home_score": 29,
+      "away_score": 50,
+      "winner": "away"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.10301854461431503,
-        "away": 0.896981418132782
-      },
-      "actual": "away"
+      "home": 0.10301854461431503,
+      "away": 0.896981418132782,
+      "home_score": 44,
+      "away_score": 68,
+      "winner": "away"
     },
     "Q4": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.09389251470565796,
-        "away": 0.906107485294342
-      },
-      "actual": "away"
+      "home": 0.09389251470565796,
+      "away": 0.906107485294342,
+      "home_score": 61,
+      "away_score": 92,
+      "winner": "away"
     }
   },
   "S45G01N255": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.5856289863586426,
-        "away": 0.41437095403671265
-      },
-      "actual": "home"
+      "home": 0.5856289863586426,
+      "away": 0.41437095403671265,
+      "home_score": 25,
+      "away_score": 23,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.7220355868339539,
-        "away": 0.27796438336372375
-      },
-      "actual": "home"
+      "home": 0.7220355868339539,
+      "away": 0.27796438336372375,
+      "home_score": 51,
+      "away_score": 44,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.16653752326965332,
-        "away": 0.8334624767303467
-      },
-      "actual": "home"
+      "home": 0.16653752326965332,
+      "away": 0.8334624767303467,
+      "home_score": 70,
+      "away_score": 71,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9232226610183716,
-        "away": 0.076777383685112
-      },
-      "actual": "home"
+      "home": 0.9232226610183716,
+      "away": 0.076777383685112,
+      "home_score": 98,
+      "away_score": 85,
+      "winner": "home"
     }
   },
   "S45G01N256": {
     "Q1": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.28713297843933105,
-        "away": 0.712867021560669
-      },
-      "actual": "home"
+      "home": 0.28713297843933105,
+      "away": 0.712867021560669,
+      "home_score": 18,
+      "away_score": 26,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.6203171014785767,
-        "away": 0.3796829283237457
-      },
-      "actual": "home"
+      "home": 0.6203171014785767,
+      "away": 0.3796829283237457,
+      "home_score": 38,
+      "away_score": 35,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.8912899494171143,
-        "away": 0.10871002823114395
-      },
-      "actual": "home"
+      "home": 0.8912899494171143,
+      "away": 0.10871002823114395,
+      "home_score": 63,
+      "away_score": 50,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9234820604324341,
-        "away": 0.07651800662279129
-      },
-      "actual": "home"
+      "home": 0.9234820604324341,
+      "away": 0.07651800662279129,
+      "home_score": 77,
+      "away_score": 62,
+      "winner": "home"
     }
   },
   "S45G01N257": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.7067486047744751,
-        "away": 0.2932513654232025
-      },
-      "actual": "home"
+      "home": 0.7067486047744751,
+      "away": 0.2932513654232025,
+      "home_score": 25,
+      "away_score": 19,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.8793217539787292,
-        "away": 0.12067830562591553
-      },
-      "actual": "home"
+      "home": 0.8793217539787292,
+      "away": 0.12067830562591553,
+      "home_score": 52,
+      "away_score": 40,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9222027659416199,
-        "away": 0.07779720425605774
-      },
-      "actual": "home"
+      "home": 0.9222027659416199,
+      "away": 0.07779720425605774,
+      "home_score": 71,
+      "away_score": 56,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9255706667900085,
-        "away": 0.07442934811115265
-      },
-      "actual": "home"
+      "home": 0.9255706667900085,
+      "away": 0.07442934811115265,
+      "home_score": 91,
+      "away_score": 71,
+      "winner": "home"
     }
   },
   "S45G01N258": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.7333568334579468,
-        "away": 0.26664310693740845
-      },
-      "actual": "away"
+      "home": 0.7333568334579468,
+      "away": 0.26664310693740845,
+      "home_score": 21,
+      "away_score": 12,
+      "winner": "away"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9078357815742493,
-        "away": 0.09216415137052536
-      },
-      "actual": "away"
+      "home": 0.9078357815742493,
+      "away": 0.09216415137052536,
+      "home_score": 50,
+      "away_score": 32,
+      "winner": "away"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.5891025066375732,
-        "away": 0.4108974039554596
-      },
-      "actual": "away"
+      "home": 0.5891025066375732,
+      "away": 0.4108974039554596,
+      "home_score": 62,
+      "away_score": 61,
+      "winner": "away"
     },
     "Q4": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.10236106812953949,
-        "away": 0.8976389169692993
-      },
-      "actual": "away"
+      "home": 0.10236106812953949,
+      "away": 0.8976389169692993,
+      "home_score": 83,
+      "away_score": 91,
+      "winner": "away"
     }
   },
   "S45G01N259": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.6769002079963684,
-        "away": 0.3230997323989868
-      },
-      "actual": "home"
+      "home": 0.6769002079963684,
+      "away": 0.3230997323989868,
+      "home_score": 24,
+      "away_score": 18,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.6044102907180786,
-        "away": 0.3955897092819214
-      },
-      "actual": "home"
+      "home": 0.6044102907180786,
+      "away": 0.3955897092819214,
+      "home_score": 46,
+      "away_score": 47,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9189539551734924,
-        "away": 0.08104598522186279
-      },
-      "actual": "home"
+      "home": 0.9189539551734924,
+      "away": 0.08104598522186279,
+      "home_score": 66,
+      "away_score": 55,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9293245077133179,
-        "away": 0.07067551463842392
-      },
-      "actual": "home"
+      "home": 0.9293245077133179,
+      "away": 0.07067551463842392,
+      "home_score": 86,
+      "away_score": 70,
+      "winner": "home"
     }
   },
   "S45G01N260": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.5895175933837891,
-        "away": 0.41048240661621094
-      },
-      "actual": "away"
+      "home": 0.5895175933837891,
+      "away": 0.41048240661621094,
+      "home_score": 23,
+      "away_score": 24,
+      "winner": "away"
     },
     "Q2": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.24574629962444305,
-        "away": 0.7542537450790405
-      },
-      "actual": "away"
+      "home": 0.24574629962444305,
+      "away": 0.7542537450790405,
+      "home_score": 37,
+      "away_score": 45,
+      "winner": "away"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.8365368247032166,
-        "away": 0.16346319019794464
-      },
-      "actual": "away"
+      "home": 0.8365368247032166,
+      "away": 0.16346319019794464,
+      "home_score": 61,
+      "away_score": 55,
+      "winner": "away"
     },
     "Q4": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.10704267770051956,
-        "away": 0.892957329750061
-      },
-      "actual": "away"
+      "home": 0.10704267770051956,
+      "away": 0.892957329750061,
+      "home_score": 76,
+      "away_score": 83,
+      "winner": "away"
     }
   },
   "S45G01N261": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.5882415771484375,
-        "away": 0.41175851225852966
-      },
-      "actual": "home"
+      "home": 0.5882415771484375,
+      "away": 0.41175851225852966,
+      "home_score": 19,
+      "away_score": 19,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.42308351397514343,
-        "away": 0.5769164562225342
-      },
-      "actual": "home"
+      "home": 0.42308351397514343,
+      "away": 0.5769164562225342,
+      "home_score": 36,
+      "away_score": 40,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.3401622474193573,
-        "away": 0.6598377227783203
-      },
-      "actual": "home"
+      "home": 0.3401622474193573,
+      "away": 0.6598377227783203,
+      "home_score": 58,
+      "away_score": 61,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.8888759016990662,
-        "away": 0.11112416535615921
-      },
-      "actual": "home"
+      "home": 0.8888759016990662,
+      "away": 0.11112416535615921,
+      "home_score": 81,
+      "away_score": 76,
+      "winner": "home"
     }
   },
   "S45G01N262": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.7042266130447388,
-        "away": 0.29577335715293884
-      },
-      "actual": "home"
+      "home": 0.7042266130447388,
+      "away": 0.29577335715293884,
+      "home_score": 20,
+      "away_score": 13,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.8690613508224487,
-        "away": 0.13093866407871246
-      },
-      "actual": "home"
+      "home": 0.8690613508224487,
+      "away": 0.13093866407871246,
+      "home_score": 43,
+      "away_score": 31,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.862680196762085,
-        "away": 0.13731986284255981
-      },
-      "actual": "home"
+      "home": 0.862680196762085,
+      "away": 0.13731986284255981,
+      "home_score": 65,
+      "away_score": 56,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9193858504295349,
-        "away": 0.08061416447162628
-      },
-      "actual": "home"
+      "home": 0.9193858504295349,
+      "away": 0.08061416447162628,
+      "home_score": 83,
+      "away_score": 74,
+      "winner": "home"
     }
   },
   "S45G01N263": {
     "Q1": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.27832111716270447,
-        "away": 0.7216789126396179
-      },
-      "actual": "away"
+      "home": 0.27832111716270447,
+      "away": 0.7216789126396179,
+      "home_score": 27,
+      "away_score": 34,
+      "winner": "away"
     },
     "Q2": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.10989650338888168,
-        "away": 0.8901035189628601
-      },
-      "actual": "away"
+      "home": 0.10989650338888168,
+      "away": 0.8901035189628601,
+      "home_score": 43,
+      "away_score": 63,
+      "winner": "away"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.0980163961648941,
-        "away": 0.9019836187362671
-      },
-      "actual": "away"
+      "home": 0.0980163961648941,
+      "away": 0.9019836187362671,
+      "home_score": 60,
+      "away_score": 81,
+      "winner": "away"
     },
     "Q4": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.09459555149078369,
-        "away": 0.9054045081138611
-      },
-      "actual": "away"
+      "home": 0.09459555149078369,
+      "away": 0.9054045081138611,
+      "home_score": 71,
+      "away_score": 96,
+      "winner": "away"
     }
   },
   "S45G01N264": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.653680145740509,
-        "away": 0.34631988406181335
-      },
-      "actual": "home"
+      "home": 0.653680145740509,
+      "away": 0.34631988406181335,
+      "home_score": 25,
+      "away_score": 22,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.6452977657318115,
-        "away": 0.35470226407051086
-      },
-      "actual": "home"
+      "home": 0.6452977657318115,
+      "away": 0.35470226407051086,
+      "home_score": 40,
+      "away_score": 43,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.6151398420333862,
-        "away": 0.38486015796661377
-      },
-      "actual": "home"
+      "home": 0.6151398420333862,
+      "away": 0.38486015796661377,
+      "home_score": 63,
+      "away_score": 63,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9232537746429443,
-        "away": 0.07674627751111984
-      },
-      "actual": "home"
+      "home": 0.9232537746429443,
+      "away": 0.07674627751111984,
+      "home_score": 88,
+      "away_score": 78,
+      "winner": "home"
     }
   },
   "S45G01N265": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.6997279524803162,
-        "away": 0.3002720773220062
-      },
-      "actual": "home"
+      "home": 0.6997279524803162,
+      "away": 0.3002720773220062,
+      "home_score": 21,
+      "away_score": 18,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.8839868307113647,
-        "away": 0.11601319164037704
-      },
-      "actual": "home"
+      "home": 0.8839868307113647,
+      "away": 0.11601319164037704,
+      "home_score": 45,
+      "away_score": 35,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9260667562484741,
-        "away": 0.07393327355384827
-      },
-      "actual": "home"
+      "home": 0.9260667562484741,
+      "away": 0.07393327355384827,
+      "home_score": 67,
+      "away_score": 55,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9298738837242126,
-        "away": 0.07012616842985153
-      },
-      "actual": "home"
+      "home": 0.9298738837242126,
+      "away": 0.07012616842985153,
+      "home_score": 84,
+      "away_score": 76,
+      "winner": "home"
     }
   },
   "S45G01N266": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.6782030463218689,
-        "away": 0.3217969238758087
-      },
-      "actual": "home"
+      "home": 0.6782030463218689,
+      "away": 0.3217969238758087,
+      "home_score": 17,
+      "away_score": 14,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.842246949672699,
-        "away": 0.15775306522846222
-      },
-      "actual": "home"
+      "home": 0.842246949672699,
+      "away": 0.15775306522846222,
+      "home_score": 39,
+      "away_score": 32,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.6413251161575317,
-        "away": 0.35867491364479065
-      },
-      "actual": "home"
+      "home": 0.6413251161575317,
+      "away": 0.35867491364479065,
+      "home_score": 49,
+      "away_score": 52,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9117298126220703,
-        "away": 0.08827022463083267
-      },
-      "actual": "home"
+      "home": 0.9117298126220703,
+      "away": 0.08827022463083267,
+      "home_score": 68,
+      "away_score": 64,
+      "winner": "home"
     }
   },
   "S45G01N267": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.6463123559951782,
-        "away": 0.35368767380714417
-      },
-      "actual": "away"
+      "home": 0.6463123559951782,
+      "away": 0.35368767380714417,
+      "home_score": 20,
+      "away_score": 19,
+      "winner": "away"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.6844574809074402,
-        "away": 0.3155425786972046
-      },
-      "actual": "away"
+      "home": 0.6844574809074402,
+      "away": 0.3155425786972046,
+      "home_score": 33,
+      "away_score": 30,
+      "winner": "away"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.6711665391921997,
-        "away": 0.3288334608078003
-      },
-      "actual": "away"
+      "home": 0.6711665391921997,
+      "away": 0.3288334608078003,
+      "home_score": 56,
+      "away_score": 52,
+      "winner": "away"
     },
     "Q4": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.09422077238559723,
-        "away": 0.905779242515564
-      },
-      "actual": "away"
+      "home": 0.09422077238559723,
+      "away": 0.905779242515564,
+      "home_score": 67,
+      "away_score": 78,
+      "winner": "away"
     }
   },
   "S45G01N268": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.6795441508293152,
-        "away": 0.3204559087753296
-      },
-      "actual": "home"
+      "home": 0.6795441508293152,
+      "away": 0.3204559087753296,
+      "home_score": 25,
+      "away_score": 20,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.864039957523346,
-        "away": 0.13595998287200928
-      },
-      "actual": "home"
+      "home": 0.864039957523346,
+      "away": 0.13595998287200928,
+      "home_score": 51,
+      "away_score": 45,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9255911111831665,
-        "away": 0.07440893352031708
-      },
-      "actual": "home"
+      "home": 0.9255911111831665,
+      "away": 0.07440893352031708,
+      "home_score": 69,
+      "away_score": 57,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9242972731590271,
-        "away": 0.0757027193903923
-      },
-      "actual": "home"
+      "home": 0.9242972731590271,
+      "away": 0.0757027193903923,
+      "home_score": 79,
+      "away_score": 76,
+      "winner": "home"
     }
   },
   "S45G01N269": {
     "Q1": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.5571833848953247,
-        "away": 0.4428165853023529
-      },
-      "actual": "away"
+      "home": 0.5571833848953247,
+      "away": 0.4428165853023529,
+      "home_score": 20,
+      "away_score": 24,
+      "winner": "away"
     },
     "Q2": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.11740175634622574,
-        "away": 0.8825982213020325
-      },
-      "actual": "away"
+      "home": 0.11740175634622574,
+      "away": 0.8825982213020325,
+      "home_score": 38,
+      "away_score": 55,
+      "winner": "away"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.12494515627622604,
-        "away": 0.8750548362731934
-      },
-      "actual": "away"
+      "home": 0.12494515627622604,
+      "away": 0.8750548362731934,
+      "home_score": 56,
+      "away_score": 70,
+      "winner": "away"
     },
     "Q4": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.22202633321285248,
-        "away": 0.7779736518859863
-      },
-      "actual": "away"
+      "home": 0.22202633321285248,
+      "away": 0.7779736518859863,
+      "home_score": 80,
+      "away_score": 84,
+      "winner": "away"
     }
   },
   "S45G01N270": {
     "Q1": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.21732290089130402,
-        "away": 0.7826771140098572
-      },
-      "actual": "home"
+      "home": 0.21732290089130402,
+      "away": 0.7826771140098572,
+      "home_score": 17,
+      "away_score": 37,
+      "winner": "home"
     },
     "Q2": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.7403050065040588,
-        "away": 0.2596949338912964
-      },
-      "actual": "home"
+      "home": 0.7403050065040588,
+      "away": 0.2596949338912964,
+      "home_score": 49,
+      "away_score": 51,
+      "winner": "home"
     },
     "Q3": {
-      "pred": 1,
-      "label": "away",
-      "probs": {
-        "home": 0.4834095537662506,
-        "away": 0.516590416431427
-      },
-      "actual": "home"
+      "home": 0.4834095537662506,
+      "away": 0.516590416431427,
+      "home_score": 73,
+      "away_score": 79,
+      "winner": "home"
     },
     "Q4": {
-      "pred": 0,
-      "label": "home",
-      "probs": {
-        "home": 0.9237961769104004,
-        "away": 0.07620381563901901
-      },
-      "actual": "home"
+      "home": 0.9237961769104004,
+      "away": 0.07620381563901901,
+      "home_score": 101,
+      "away_score": 99,
+      "winner": "home"
     }
   }
 }

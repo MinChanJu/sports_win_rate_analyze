@@ -28,10 +28,9 @@ def predict_one(ckpt_path: Path, x_row: np.ndarray, out_dim: int = 2, dropout: f
     # 단일 샘플 텐서화 → 예측
     xb = torch.tensor(x_row, dtype=torch.float32, device=device).unsqueeze(0)  # [1, F]
     prob = softmax(model(xb), dim=1).squeeze(0).cpu().numpy()                  # [C]
-    pred = int(np.argmax(prob))
-    label = "away" if pred == 1 else "home"   # 당신 라벨 규칙(0=home, 1=away)
+    home, away = float(prob[0]), float(prob[1])
 
-    return pred, label, {"home": float(prob[0]), "away": float(prob[1])}
+    return home, away
 
 if __name__ == "__main__":
     ckpt = Path("../models/01/combined_best_model.pt")  # 당신이 저장한 체크포인트 경로
@@ -46,13 +45,14 @@ if __name__ == "__main__":
         gameKey = df.loc[idx, "gameKey"]
         quarter = df.loc[idx, "quarter"]
         x_row = np.asarray(drop_df.loc[idx], dtype=np.float32)
-        pred, label, probs = predict_one(ckpt, x_row)
+        home, away = predict_one(ckpt, x_row)
         if gameKey not in result: result[gameKey] = {}
         result[gameKey][quarter] = {
-            "pred": pred,
-            "label": label,
-            "probs": probs,
-            "actual": df.loc[idx, "winner"],
+            "home": home,
+            "away": away,
+            "home_score": int(df.loc[idx, "H_PP"]),
+            "away_score": int(df.loc[idx, "A_PP"]),
+            "winner": df.loc[idx, "winner"],
         }
 
     with open('report.json', "w", encoding="utf-8") as f:
