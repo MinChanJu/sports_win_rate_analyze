@@ -1,5 +1,5 @@
-from data_utils import load_single_csv, load_multi_csv
-from train_utils import train_model
+from data import load_single_csv, load_multi_csv
+from train import train_model
 from config import get_args
 from pathlib import Path
 import sys

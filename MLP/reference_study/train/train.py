@@ -1,7 +1,7 @@
 from torch.utils.data import DataLoader, TensorDataset
 from contextlib import nullcontext
 from datetime import datetime
-from model_utils import MLP
+from model import MLP
 from config import get_args
 from pathlib import Path
 from tqdm import tqdm
