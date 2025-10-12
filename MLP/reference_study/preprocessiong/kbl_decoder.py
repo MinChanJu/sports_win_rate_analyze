@@ -28,7 +28,7 @@ KBL_STAT_MAP = [
 ]
 
 BASE_STAT = {
-    # "TEAM": 0,  # 1. 팀명
+    # 1차 스탯
     "AST": 0,  # 2. 어시스트
     "BLK": 0,  # 3. 블록
     "DREB": 0,  # 4. 수비 리바운드
@@ -49,7 +49,7 @@ BASE_STAT = {
     "FGM": 0,  # 12. 필드골 성공
     "TPF": 0,  # 13. 팀 총합 파울
     "PF": 0,  # 17. 개인 파울
-    "SUB": 0,  # 18. 교체
+    "SUB": 0,  # 18. 교체 (교체 횟수)
     "PP": 0,  # 23. 개인 득점
     "PA": 0,  # 24. 개인 득점 시도
     "STL": 0,  # 28. 스틸
@@ -64,19 +64,19 @@ BASE_STAT = {
     "TF": 0,  # 29. 테크니컬 파울
     "TOM": 0,  # 41. 턴오버에 의한 득점
     "EJ": 0,  # 36. 반칙 퇴장
-    "EFF": 0,  # 7. 효율성
     
-    #후처리 데이터 변수들
-    #최근 10경기에 대한 Net Rating 계산 방법
-    "TPS" : 0, # Total Points Scored (총 득점)
-    "TOPS" : 0, # Total Opponents Points Scored (상대 팀 총 득점)
-    "TPos" : 0, # Total Possessions (총 포제션 수)  TPos ≈ FGA+0.44×FTA+TO−Offensive Rebounds
-    "OR" : 0, # Offensive Rating                   OR = TPS / TPos
-    "DR" : 0, # Defensive Rating                   DR = TOPS / TPos 
+    # 2차 스탯
+    "NR" : 0, # Net Rating                           NR = OR - DR
     "TS%" : 0, # TPS x 100 / (2×(PA + 0.44 × FTA))   (True Shooting Percentage 득점 효율성)
     "eFG%" : 0, # (FGM + 0.5 × 3PM) × 100 / FGA      (Effective Field Goal Percentage 3점슛 가치를 반영한 필드골 슈팅 효율성, 자유투 제외)
+    "EFF": 0,  # 7. 효율성
 
-     
+    # "TEAM": 0,  # 1. 팀명
+    # "TPS" : 0, # Total Points Scored (총 득점)
+    # "TOPS" : 0, # Total Opponents Points Scored (상대 팀 총 득점)
+    # "TPos" : 0, # Total Possessions (총 포제션 수)  TPos ≈ FGA+0.44×FTA+TO−Offensive Rebounds
+    # "OR" : 0, # Offensive Rating                   OR = TPS / TPos
+    # "DR" : 0, # Defensive Rating                   DR = TOPS / TPos 
     # "PPT": 0,  # 46. 득점 우위 시간
     # "MXS": 0,  # 44. 최다 연속 득점
     # "MXD": 0,  # 45. 최다 리드 점수
@@ -91,8 +91,8 @@ BASE_STAT = {
 
 
 def quarter_calculate(game_stats: dict, quarter: str) -> dict:
-    for team in game_stats.values():
-        for key, stats in team.items():
+    for team_stats in game_stats.values():    
+        for key, stats in team_stats.items():
             if (key != quarter): continue
             stats["PP"] = (
                 2 * stats["2PM"] + 3 * stats["3PM"] + stats["FTM"] + 2 * stats["DKM"]
@@ -104,11 +104,34 @@ def quarter_calculate(game_stats: dict, quarter: str) -> dict:
             stats["FGM"] = stats["2PM"] + stats["3PM"] + stats["DKM"]
 
             stats["SUB"] -= 10
+        
+            stats["TS%"] = (
+                stats["PP"] * 100 / (2 * (stats["PA"] + 0.44 * stats["FTA"]))
+                if (stats["PA"] + 0.44 * stats["FTA"]) != 0
+                else 0
+            )
+            stats["eFG%"] = (
+                (stats["FGM"] + 0.5 * stats["3PM"]) * 100 / stats["FGA"]
+                if stats["FGA"] != 0
+                else 0
+            )
+        
         idx = ["Q1", "Q2", "Q3", "Q4", "연장"].index(quarter)
         if (idx == 0): continue
         prev_quarter = ["Q1", "Q2", "Q3", "Q4", "연장"][idx - 1]
         for stat_key in BASE_STAT:
-            team[quarter][stat_key] += team[prev_quarter][stat_key]
+            if stat_key in ["NR", "TS%", "eFG%", "EFF"]: continue
+            team_stats[quarter][stat_key] += team_stats[prev_quarter][stat_key]
+            
+    home_stats = game_stats["home"][quarter]
+    away_stats = game_stats["away"][quarter]
+    H_TPOS = home_stats["FGA"] + 0.44 * home_stats["FTA"] + home_stats["PTO"] - home_stats["OREB"]
+    A_TPOS = away_stats["FGA"] + 0.44 * away_stats["FTA"] + away_stats["PTO"] - away_stats["OREB"]
+    H_OR = A_DR = home_stats["PP"]*100 / H_TPOS if H_TPOS != 0 else 0
+    H_DR = A_OR = away_stats["PP"]*100 / A_TPOS if A_TPOS != 0 else 0
+    home_stats["NR"] = H_OR - H_DR
+    away_stats["NR"] = A_OR - A_DR
+
     return game_stats
 
 
@@ -216,22 +239,6 @@ def kbl_decoder(game_path: dict) -> tuple[dict, dict]:
 
 
 if __name__ == "__main__":
-    game_stats, all_metainfo = kbl_decoder("../../../kbl_data/2021-2022/S39G01N3.json")
-    home = game_stats["home"]
-    away = game_stats["away"]
-    print(f"home: {json.dumps(home, ensure_ascii=False)}")
-    print()
-    print(f"away: {json.dumps(away, ensure_ascii=False)}")
-    print()
-
-    # fill_stats = []
-    # empty_stats = []
-    # for stat in BASE_STAT:
-    #     if home[stat] == 0 and away[stat] == 0:
-    #         empty_stats.append(f'"{stat}"')
-    #     else:
-    #         fill_stats.append(f'"{stat}"')
-    # fill_stats.sort()
-    # print(f"Fill Stats ({len(fill_stats)}): {', '.join(fill_stats)}")
-    # empty_stats.sort()
-    # print(f"Empty Stats ({len(empty_stats)}): {', '.join(empty_stats)}")
+    game_stats, all_metainfo = kbl_decoder("../../../kbl_data/2024-2025/S45G01N270.json")
+    print(json.dumps(all_metainfo, ensure_ascii=False, indent=2))
+    print(json.dumps(game_stats, ensure_ascii=False, indent=2))

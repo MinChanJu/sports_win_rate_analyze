@@ -6,7 +6,7 @@ import json
 import sys
 
 def main():
-    ckpt = Path("../models/01/combined_best_model.pt")  # 당신이 저장한 체크포인트 경로
+    ckpt = Path("../models/04/combined_best_model.pt")  # 당신이 저장한 체크포인트 경로
     if not ckpt.exists():
         print("체크포인트 파일이 없습니다:", ckpt)
         sys.exit(1)
