@@ -1,0 +1,28 @@
+{
+  "config": {
+    "epochs": 500,
+    "seed": 42,
+    "lr": 0.0001,
+    "weight_decay": 0.01,
+    "patience": 20,
+    "min_delta": 0.0,
+    "monitor": "val_loss"
+  },
+  "metrics": {
+    "epoch": 39,
+    "train_loss": 0.3567230946670367,
+    "val_acc": 0.8623853211009175,
+    "val_loss": 0.3268415810318168,
+    "test_acc": 0.7339449541284404,
+    "test_loss": 0.5548521280288696
+  },
+  "saved_at": "2025-10-12T20:10:12",
+  "torch_version": "2.8.0",
+  "python_version": "3.11.6",
+  "device": "mps",
+  "model": {
+    "path": "2024-2025_best_model.pt",
+    "size_bytes": 2683377,
+    "size_mb": 2.56
+  }
+}

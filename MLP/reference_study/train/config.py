@@ -7,17 +7,17 @@ def get_args() -> argparse.Namespace:
     if _args is None:
         parser = argparse.ArgumentParser()
         parser.add_argument("--csv", nargs="*", default=[
-            "../kbl_data_quarter_csv/2021-2022.csv",
-            "../kbl_data_quarter_csv/2022-2023.csv",
-            "../kbl_data_quarter_csv/2023-2024.csv",
-            "../kbl_data_quarter_csv/2024-2025.csv",
+            "../kbl_data_csv/2021-2022.csv",
+            "../kbl_data_csv/2022-2023.csv",
+            "../kbl_data_csv/2023-2024.csv",
+            "../kbl_data_csv/2024-2025.csv",
         ])
         parser.add_argument("--seed", type=int, default=42)
-        parser.add_argument("--lr", type=float, default=1e-5)
+        parser.add_argument("--lr", type=float, default=1e-4)
         parser.add_argument("--epochs", type=int, default=500)
 
-        parser.add_argument("--batch-train", type=int, default=64)
-        parser.add_argument("--batch-test", type=int, default=256)
+        parser.add_argument("--batch-train", type=int, default=32)
+        parser.add_argument("--batch-test", type=int, default=128)
 
         parser.add_argument("--valid-size", type=float, default=0.1)
         parser.add_argument("--test-size", type=float, default=0.2)

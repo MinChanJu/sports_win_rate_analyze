@@ -6,13 +6,23 @@ import json
 import sys
 
 def main():
-    ckpt = Path("../models/04/combined_best_model.pt")  # 당신이 저장한 체크포인트 경로
+    team_code_path = Path(__file__).parent / "../train/teamcode.json"
+    if not team_code_path.exists(): 
+        print("teamcode.json 파일이 없습니다. 먼저 학습을 수행하세요.")
+        sys.exit(1)
+            
+    data = json.loads(team_code_path.read_text())
+    team_code = data.get("team_code", {})
+    
+    ckpt = Path("../models/13/combined_best_model.pt")  # 당신이 저장한 체크포인트 경로
     if not ckpt.exists():
         print("체크포인트 파일이 없습니다:", ckpt)
         sys.exit(1)
     
     df = pd.read_csv("../kbl_data_quarter_csv/2024-2025.csv").loc[909:]  # 당신의 테스트 데이터 경로
-    drop_df = df.drop(columns=["gameKey", "seasonName", "date", "H_TEAM", "A_TEAM", "quarter", "winner"])
+    drop_df = df.drop(columns=["gameKey", "seasonName", "date", "quarter", "winner"])
+    drop_df["H_TEAM"] = drop_df["H_TEAM"].map(team_code)
+    drop_df["A_TEAM"] = drop_df["A_TEAM"].map(team_code)
     result = {}
     for idx in df.index:
         gameKey = df.loc[idx, "gameKey"]

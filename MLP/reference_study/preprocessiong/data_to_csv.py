@@ -26,6 +26,16 @@ def data_to_csv(data_path: str, csv_path: str):
                         "date": metainfo["date"],
                     }
                     row["winner"] = metainfo["winner"]
+                    
+                    # if "연장" in game_stats["home"]: last_quarter = "연장"
+                    # else: last_quarter = "Q4"
+
+                    # for team in game_stats:
+                    #     for stat in game_stats[team][last_quarter]:
+                    #         t = "H" if team == "home" else "A"
+                    #         row[f"{t}_{stat}"] = game_stats[team][last_quarter][stat]
+                    # records.append(row)
+
                     for quarter in game_stats["home"]:
                         quarter_row = copy.deepcopy(row)
                         quarter_row["quarter"] = quarter
