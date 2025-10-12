@@ -2,7 +2,6 @@ import copy, os, re
 import pandas as pd
 from kbl_decoder import kbl_decoder
 
-
 def data_to_csv(data_path: str, csv_path: str):
     os.makedirs(csv_path, exist_ok=True)
     s = 1
@@ -56,4 +55,4 @@ def data_to_csv(data_path: str, csv_path: str):
     print(f"    빈 필드 ({len(empty_stats)} 개) -> {empty_stats}")
 
 if __name__ == "__main__":
-    data_to_csv("../../kbl_data", "./kbl_data_quarter_csv")
+    data_to_csv("../../../kbl_data", "../kbl_data_quarter_csv")
