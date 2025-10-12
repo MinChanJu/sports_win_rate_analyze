@@ -57,9 +57,7 @@ BASE_STAT = {
     "FTM": 0,  # 33. 자유투 성공 (중복)
     "FTA": 0,  # 34. 자유투 시도 (중복)
     "PTO": 0,  # 39. 개인 턴오버
-    "MIN": 0,  # 16. 경기 시간 (전체 시간을 계산)
-    "MIN_M": 0,  # 21. 플레이 시간, 분 (전체 시간을 분 단위로 환산)
-    "MIN_S": 0,  # 22. 플레이 시간, 초 (전체 시간을 초 단위로 환산)
+    "MIN": 0,  # 16. 경기 시간 (전체 시간을 계산 초 단위로 환산)
     "UF": 0,  # U - 파울 (추가)
     "TF": 0,  # 29. 테크니컬 파울
     "TOM": 0,  # 41. 턴오버에 의한 득점
@@ -227,9 +225,7 @@ def kbl_decoder(game_path: dict) -> tuple[dict, dict]:
             time = quarter_log[-1].get("time", "00:00")
             minutes, seconds = map(int, time.split(":"))
             for team in ["home", "away"]:
-                game_stats[team][quarter]["MIN"] += minutes + seconds / 60
-                game_stats[team][quarter]["MIN_M"] += minutes + seconds / 60
-                game_stats[team][quarter]["MIN_S"] += 60 * minutes + seconds
+                game_stats[team][quarter]["MIN"] += 60 * minutes + seconds
 
             game_stats = quarter_calculate(game_stats, quarter)
 

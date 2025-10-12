@@ -81,6 +81,10 @@ def save_model(save_path: Path, best_model_state: dict, best_metrics: dict, best
             "patience": args.patience,
             "min_delta": args.min_delta,
             "monitor": args.monitor,
+            "batch_train": args.batch_train,
+            "batch_test": args.batch_test,
+            "valid_size": args.valid_size,
+            "test_size": args.test_size,
         },
         "metrics": best_metrics,
         "saved_at": datetime.now().isoformat(timespec="seconds"),
@@ -172,6 +176,7 @@ def train_model(save_path: Path, data: dict[str, dict[str, np.ndarray]]) -> tupl
     # ----- 학습 루프 -----
     for epoch in tqdm(range(1, epochs + 1), desc=f"{save_path.name.split('_')[0]} training", dynamic_ncols=True, unit="epoch", colour="cyan"):
         model.train()
+        correct, total = 0, 0
         running_loss = 0.0
 
         for xb, yb in train_dl:
@@ -183,10 +188,15 @@ def train_model(save_path: Path, data: dict[str, dict[str, np.ndarray]]) -> tupl
             optimizer.zero_grad(set_to_none=True)
             loss.backward()
             optimizer.step()
+            
             running_loss += loss.item() * xb.size(0)
+            
+            correct += (logits.argmax(dim=1) == yb).sum().item()
+            total += yb.size(0)
 
         # ----- 주기적 평가 -----
         if epoch % eval_every == 0 or epoch == epochs:
+            train_acc = correct / max(total, 1)
             train_loss = running_loss / max(len(train_ds), 1)
             val_loss,  val_acc  = evaluate(model, valid_dl, device, amp_ctx, criterion)
             test_loss, test_acc = evaluate(model, test_dl,  device, amp_ctx, criterion)
@@ -213,7 +223,7 @@ def train_model(save_path: Path, data: dict[str, dict[str, np.ndarray]]) -> tupl
             if (epoch % print_every == 0) or (epoch == 1) or (epoch == epochs):
                 tqdm.write(
                     f"epoch {epoch:3d} | "
-                    f"train_loss {train_loss:.4f} | "
+                    f"train_loss {train_loss:.4f} train_acc {train_acc:.3f} | "
                     f"val_loss {val_loss:.4f} val_acc {val_acc:.3f} | "
                     f"test_loss {test_loss:.4f} test_acc {test_acc:.3f} | "
                     f"no_improve {no_improve}/{patience}"
