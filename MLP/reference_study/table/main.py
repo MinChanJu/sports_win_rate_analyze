@@ -1,3 +1,4 @@
+from config import get_args
 import json
 
 def quarter_to_str(quarter: dict) -> str:
@@ -14,10 +15,14 @@ def winner_to_str(winner: str) -> str:
         return '<pre style=\"border: none; background: none; padding: 0; margin: 0;\">-</pre>'
 
 def main():
-    with open('../predict/report.json', 'r') as f:
+    args = get_args()
+    
+    ckpt_path = args.ckpt_path
+
+    with open(ckpt_path + "/" + args.report_filename, 'r') as f:
         content = json.load(f)
 
-    with open('report.md', 'w', encoding='utf-8') as f:
+    with open(ckpt_path + "/" + args.output_filename, 'w', encoding='utf-8') as f:
         f.write('| <div style=\"text-align: center;\">게임키</div> | <div style=\"text-align: center;\">팀</div> | <div style=\"text-align: center;\">1쿼터</div> | <div style=\"text-align: center;\">2쿼터</div> | <div style=\"text-align: center;\">3쿼터</div> | <div style=\"text-align: center;\">4쿼터</div> | <div style=\"text-align: center;\">연장</div> | <div style=\"text-align: center;\">경기 결과</div> |\n')
         f.write('| --- | --- | --- | --- | --- | --- | --- | --- |\n')
         correct_count = 0
@@ -38,7 +43,7 @@ def main():
             total_count += 1
         accuracy = (correct_count / total_count * 100) if total_count > 0 else 0
         f.write(f'\n정확도: {accuracy:.2f}% ({correct_count}/{total_count})\n')
-    print(f"[saved] metadata -> report.md")
+    print(f"[saved] metadata -> {ckpt_path + args.output_filename}")
 
 if __name__ == "__main__":
     main()
