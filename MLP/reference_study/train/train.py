@@ -1,9 +1,10 @@
 from torch.utils.data import DataLoader, TensorDataset
 from contextlib import nullcontext
+import matplotlib.pyplot as plt
 from datetime import datetime
-from model import MLP
 from config import get_args
 from pathlib import Path
+from model import MLP
 from tqdm import tqdm
 import numpy as np
 import torch
@@ -114,6 +115,21 @@ def save_model(save_path: Path, best_model_state: dict, best_metrics: dict, best
         json.dump(json_payload, f, ensure_ascii=False, indent=2)
     print(f"[saved] metadata -> {json_path}")
 
+def draw_learning_curve(save_path: Path, train_history: list[float], val_history: list[float], test_history: list[float], name: str) -> None:
+    epochs = range(1, len(train_history) + 1)
+    plt.figure()
+    plt.plot(epochs, train_history, label=f"Train {name}")
+    plt.plot(epochs, val_history, label=f"Validation {name}")
+    plt.plot(epochs, test_history, label=f"Test {name}")
+    plt.xlabel("Epoch")
+    plt.ylabel(f"{name}")
+    plt.title(f"{name} Curve")
+    plt.legend()
+    plt.grid(True)
+    plt.savefig(save_path, dpi=200)
+    plt.close()
+    print(f"[saved] {name} learning curve -> {save_path}")
+
 def train_model(save_path: Path, data: dict[str, dict[str, np.ndarray]]) -> tuple[MLP, float]:
     set_seed()
 
@@ -173,6 +189,12 @@ def train_model(save_path: Path, data: dict[str, dict[str, np.ndarray]]) -> tupl
         else:
             return (curr - best) > min_delta   # 더 크면 개선
 
+    train_loss_history = []
+    train_acc_history = []
+    val_loss_history = []
+    val_acc_history = []
+    test_loss_history = []
+    test_acc_history = []
     # ----- 학습 루프 -----
     for epoch in tqdm(range(1, epochs + 1), desc=f"{save_path.name.split('_')[0]} training", dynamic_ncols=True, unit="epoch", colour="cyan"):
         model.train()
@@ -200,6 +222,13 @@ def train_model(save_path: Path, data: dict[str, dict[str, np.ndarray]]) -> tupl
             train_loss = running_loss / max(len(train_ds), 1)
             val_loss,  val_acc  = evaluate(model, valid_dl, device, amp_ctx, criterion)
             test_loss, test_acc = evaluate(model, test_dl,  device, amp_ctx, criterion)
+            
+            train_loss_history.append(train_loss)
+            train_acc_history.append(train_acc)
+            val_loss_history.append(val_loss)
+            val_acc_history.append(val_acc)
+            test_loss_history.append(test_loss)
+            test_acc_history.append(test_acc)
 
             # 얼리 스토핑 체크
             metric_now = val_loss if monitor == "val_loss" else val_acc
@@ -237,6 +266,9 @@ def train_model(save_path: Path, data: dict[str, dict[str, np.ndarray]]) -> tupl
     if save_best and best_model_state and best_metrics and best_optimizer_state:
         save_model(save_path, best_model_state, best_metrics, best_optimizer_state)
         model.load_state_dict(best_model_state)
+    
+    draw_learning_curve(save_path.with_name(f"{save_path.stem}_loss_curve.png"), train_loss_history, val_loss_history, test_loss_history, "Loss")
+    draw_learning_curve(save_path.with_name(f"{save_path.stem}_acc_curve.png"), train_acc_history, val_acc_history, test_acc_history, "Accuracy")
 
     final_test_loss, final_test_acc = evaluate(model, test_dl, device, amp_ctx, criterion)
     print(f"[done] final test_acc = {final_test_acc:.3f} (loss {final_test_loss:.4f})")

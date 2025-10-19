@@ -28,7 +28,11 @@ def main():
         correct_count = 0
         total_count = 0
         for gameKey, quarters in content.items():
-            f.write(f'| {gameKey} ')
+            last_quarter = quarters.get("연장", quarters.get("Q4", {}))
+            prob_winner = "home" if last_quarter.get("home") > last_quarter.get("away") else "away" if last_quarter.get("away") > last_quarter.get("home") else ""
+            answer = prob_winner == quarters.get("metainfo", {}).get("winner")
+            
+            f.write(f'| {gameKey} {answer and "✅" or "❌"}')
             f.write(f'| <pre style=\"border: none; background: none; padding: 0; margin: 0;\">home {quarters.get("metainfo", {}).get("home", "-")}<br>away {quarters.get("metainfo", {}).get("away", "-")}</pre>')
             f.write(f'| {quarter_to_str(quarters.get("Q1", {}))} ')
             f.write(f'| {quarter_to_str(quarters.get("Q2", {}))} ')
@@ -36,10 +40,8 @@ def main():
             f.write(f'| {quarter_to_str(quarters.get("Q4", {}))} ')
             f.write(f'| {quarter_to_str(quarters.get("연장", {}))} ')
             f.write(f'| {winner_to_str(quarters.get("metainfo", {}).get("winner", "-"))} |\n')
-            last_quarter = quarters.get("연장", quarters.get("Q4", {}))
-            prob_winner = "home" if last_quarter.get("home") > last_quarter.get("away") else "away" if last_quarter.get("away") > last_quarter.get("home") else ""
-            if prob_winner == quarters.get("metainfo", {}).get("winner"):
-                correct_count += 1
+            
+            if answer: correct_count += 1
             total_count += 1
         accuracy = (correct_count / total_count * 100) if total_count > 0 else 0
         f.write(f'\n정확도: {accuracy:.2f}% ({correct_count}/{total_count})\n')

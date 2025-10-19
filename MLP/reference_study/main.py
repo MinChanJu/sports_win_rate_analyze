@@ -17,7 +17,7 @@ def main():
   # 하이퍼파라미터
   seed = 42
   lr = 1e-4
-  epochs = 10
+  epochs = 500
   batch_train = 32
   batch_test = 128
   valid_size = 0.1
@@ -27,7 +27,7 @@ def main():
   patience = 20
   min_delta = 0.0
   weight_decay = 1e-2
-  no_per_season = True      # ← 참이면 플래그 추가
+  no_per_season = False     # ← 참이면 플래그 추가
   monitor = "val_loss"
   save_best = True           # ← 참이면 플래그 추가
   ckpt_folder = "../models"
@@ -57,22 +57,21 @@ def main():
     args += ["--save-best"]
 
   print("running training...")
-
-  result = subprocess.run(args, cwd=TRAIN_DIR, capture_output=True, text=True)
-  print("========= stdout =========")
-  print(result.stdout)
-  print("========= stderr =========")
-  print(result.stderr)
+  subprocess.run(args, cwd=TRAIN_DIR, text=True)
   
   PREDICT_DIR = BASE / "predict"
-
-  idx = result.stdout.rfind("모델 체크포인트가 저장될 폴더:")
-  if idx == -1:
-    print("체크포인트 폴더 정보를 찾을 수 없습니다.")
-    sys.exit(1)
-
-  ckpt_folder = Path(result.stdout[idx + len("모델 체크포인트가 저장될 폴더:"):].split()[0].strip())
   
+  subdirs = [d for d in Path("./models").iterdir() if d.is_dir() and d.name.isdigit()]
+    
+  if not subdirs:
+    print("저장된 모델 폴더가 없습니다.")
+    sys.exit(1)
+    
+  save_folder = sorted(subdirs, key=lambda x: int(x.name))[-1]
+  print("저장된 폴더:", save_folder)
+
+  ckpt_folder = Path('../', save_folder)
+
   args = [
     "python", "main.py",
     "--ckpt-path", ckpt_folder,
@@ -84,12 +83,7 @@ def main():
   ]
   
   print("running prediction...")
-
-  result = subprocess.run(args, cwd=PREDICT_DIR, capture_output=True, text=True)
-  print("========= stdout =========")
-  print(result.stdout)
-  print("========= stderr =========")
-  print(result.stderr)
+  subprocess.run(args, cwd=PREDICT_DIR, text=True)
   
   TABLE_DIR = BASE / "table"
   
@@ -101,12 +95,7 @@ def main():
   ]
   
   print("generating table report...")
-  
-  result = subprocess.run(args, cwd=TABLE_DIR, capture_output=True, text=True)
-  print("========= stdout =========")
-  print(result.stdout)
-  print("========= stderr =========")
-  print(result.stderr)
+  subprocess.run(args, cwd=TABLE_DIR, text=True)
 
 if __name__ == "__main__":
   main()
