@@ -30,7 +30,7 @@ def main():
   no_per_season = False     # ← 참이면 플래그 추가
   monitor = "val_loss"
   save_best = True           # ← 참이면 플래그 추가
-  ckpt_folder = "../models"
+  model_folder = "../models"
 
   # 인자 구성
   args = [
@@ -49,7 +49,7 @@ def main():
     "--min-delta", str(min_delta),
     "--weight-decay", str(weight_decay),
     "--monitor", monitor,
-    "--ckpt-folder", ckpt_folder,
+    "--model-folder", model_folder,
   ]
   if no_per_season:
     args += ["--no-per-season"]
@@ -70,31 +70,52 @@ def main():
   save_folder = sorted(subdirs, key=lambda x: int(x.name))[-1]
   print("저장된 폴더:", save_folder)
 
-  ckpt_folder = Path('../', save_folder)
+  model_dir = Path('../', save_folder)
+
+  if (not no_per_season):
+    for model_type in ['2021-2022', '2022-2023', '2023-2024', '2024-2025']:
+      args = [
+        "python", "main.py",
+        "--model-dir", model_dir,
+        "--model-type", model_type,
+        "--predict-range", ":",
+        "--team-code-path", "../train/teamcode.json",
+      ]
+      
+      print(f"running prediction for {model_type}...")
+      subprocess.run(args, cwd=PREDICT_DIR, text=True)
 
   args = [
     "python", "main.py",
-    "--ckpt-path", ckpt_folder,
-    "--model-filename", "combined_best_model.pt",
-    "--predict-csv", "../kbl_data_quarter_csv/2023-2024.csv",
+    "--model-dir", model_dir,
+    "--model-type", "combined",
     "--predict-range", ":",
-    "--report-path", (ckpt_folder / "predict_report.json").as_posix(),
     "--team-code-path", "../train/teamcode.json",
   ]
-  
-  print("running prediction...")
+
+  print("running prediction for combined...")
   subprocess.run(args, cwd=PREDICT_DIR, text=True)
   
   TABLE_DIR = BASE / "table"
   
+  if not no_per_season:
+    for model_type in ['2021-2022', '2022-2023', '2023-2024', '2024-2025']:
+      args = [
+        "python", "main.py",
+        "--model-dir", model_dir,
+        "--model-type", model_type,
+      ]
+      
+      print(f"generating table report for {model_type}...")
+      subprocess.run(args, cwd=TABLE_DIR, text=True)
+  
   args = [
     "python", "main.py",
-    "--ckpt-path", ckpt_folder,
-    "--report-filename", "predict_report.json",
-    "--output-filename", "table_report.md",
+    "--model-dir", model_dir,
+    "--model-type", "combined",
   ]
   
-  print("generating table report...")
+  print("generating table report for combined...")
   subprocess.run(args, cwd=TABLE_DIR, text=True)
 
 if __name__ == "__main__":

@@ -1,10 +1,34 @@
+from data import load_state, load_csv_paths
 from predict import predict_one
-from pathlib import Path
+from device import get_device
 from config import get_args
-import pandas as pd
+from confusionMatrix import save_confusion_matrix
+from pathlib import Path
+from model import MLP
 import numpy as np
 import json
 import sys
+
+predict_csv_path_map = {
+    "combined": [
+        "../kbl_data_quarter_csv/2021-2022.csv",
+        "../kbl_data_quarter_csv/2022-2023.csv",
+        "../kbl_data_quarter_csv/2023-2024.csv",
+        "../kbl_data_quarter_csv/2024-2025.csv",
+    ],
+    "2021-2022": [
+        "../kbl_data_quarter_csv/2021-2022.csv",
+    ],
+    "2022-2023": [
+        "../kbl_data_quarter_csv/2022-2023.csv",
+    ],
+    "2023-2024": [
+        "../kbl_data_quarter_csv/2023-2024.csv",
+    ],
+    "2024-2025": [
+        "../kbl_data_quarter_csv/2024-2025.csv",
+    ],
+}
 
 def main():
     args = get_args()
@@ -16,27 +40,38 @@ def main():
     data = json.loads(team_code_path.read_text())
     team_code = data.get("team_code", {})
     
-    ckpt = Path(args.ckpt_path) / args.model_filename
-    if not ckpt.exists():
-        print(f"체크포인트 파일이 없습니다: {ckpt}")
+    model_path = Path(args.model_dir) / f'{args.model_type}' / 'best_model.pt'
+    if not model_path.exists():
+        print(f"체크포인트 파일이 없습니다: {model_path}")
         sys.exit(1)
 
-    df = pd.read_csv(args.predict_csv)
-    if ':' in args.predict_range:
-        start_str, end_str = args.predict_range.split(':')
-        start_idx = int(start_str) if start_str else 0
-        end_idx = int(end_str) if end_str else len(df)
-        df = df.iloc[start_idx:end_idx]
+    predict_csv_list = predict_csv_path_map.get(args.model_type, [])
+    if not predict_csv_list:
+        print(f"알 수 없는 모델 타입입니다: {args.model_type}")
+        sys.exit(1)
 
-    drop_df = df.drop(columns=["gameKey", "seasonName", "date", "quarter", "winner"])
-    drop_df["H_TEAM"] = drop_df["H_TEAM"].map(team_code)
-    drop_df["A_TEAM"] = drop_df["A_TEAM"].map(team_code)
+    start = 0
+    end = None
+    if ":" in args.predict_range:
+        parts = args.predict_range.split(":")
+        if parts[0] != "": start = int(parts[0])
+        if parts[1] != "": end = int(parts[1])
+    
+    df, drop_df = load_csv_paths(predict_csv_list, start, end, team_code)
+    
+    device = get_device()
+    in_dim = drop_df.shape[1]
+    model = MLP(in_dim).to(device)
+    state_dict, _ = load_state(model_path)
+    model.load_state_dict(state_dict)
+    model.eval()
+    
     result = {}
     for idx in df.index:
         gameKey = df.loc[idx, "gameKey"]
         quarter = df.loc[idx, "quarter"]
         x_row = np.asarray(drop_df.loc[idx], dtype=np.float32)
-        home_prob, away_prob = predict_one(ckpt, x_row)
+        home_prob, away_prob = predict_one(model, x_row, device)
         if gameKey not in result: result[gameKey] = {"metainfo": {"home": df.loc[idx, "H_TEAM"], "away": df.loc[idx, "A_TEAM"], "winner": df.loc[idx, "winner"], "quarters": []}}
         result[gameKey]["metainfo"]["quarters"].append(quarter)
         result[gameKey][quarter] = {
@@ -46,9 +81,13 @@ def main():
             "away_score": int(df.loc[idx, "A_PP"]),
         }
 
-    with open(args.report_path, "w", encoding="utf-8") as f:
+    report_path = Path(args.model_dir) / Path(args.model_type) / 'predict_report.json'
+    with open(report_path, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
-    print(f"[saved] metadata -> {args.report_path}")
+    print(f"[saved] metadata -> {report_path}")
+
+    save_path = Path(args.model_dir) / Path(args.model_type) / 'confusion_matrix.png'
+    save_confusion_matrix(report_path, save_path)
 
 if __name__ == "__main__":
     main()

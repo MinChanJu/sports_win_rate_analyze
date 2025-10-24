@@ -32,6 +32,6 @@ def get_args() -> argparse.Namespace:
         parser.add_argument("--monitor", type=str, default="val_loss", choices=["val_loss", "val_acc"])
 
         parser.add_argument("--save-best", action="store_true", default=True)
-        parser.add_argument("--ckpt-folder", type=str, default="../models")
+        parser.add_argument("--model-folder", type=str, default="../models")
         _args = parser.parse_args()
     return _args

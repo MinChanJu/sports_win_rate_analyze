@@ -17,12 +17,16 @@ def winner_to_str(winner: str) -> str:
 def main():
     args = get_args()
     
-    ckpt_path = args.ckpt_path
+    model_dir = args.model_dir
+    model_type = args.model_type
+    
+    predict_report_path = model_dir + "/" + model_type + "/predict_report.json"
+    table_report_path = model_dir + "/" + model_type + "/table_report.md"
 
-    with open(ckpt_path + "/" + args.report_filename, 'r') as f:
+    with open(predict_report_path, 'r') as f:
         content = json.load(f)
 
-    with open(ckpt_path + "/" + args.output_filename, 'w', encoding='utf-8') as f:
+    with open(table_report_path, 'w', encoding='utf-8') as f:
         f.write('| <div style=\"text-align: center;\">게임키</div> | <div style=\"text-align: center;\">팀</div> | <div style=\"text-align: center;\">1쿼터</div> | <div style=\"text-align: center;\">2쿼터</div> | <div style=\"text-align: center;\">3쿼터</div> | <div style=\"text-align: center;\">4쿼터</div> | <div style=\"text-align: center;\">연장</div> | <div style=\"text-align: center;\">경기 결과</div> |\n')
         f.write('| --- | --- | --- | --- | --- | --- | --- | --- |\n')
         correct_count = 0
@@ -45,7 +49,7 @@ def main():
             total_count += 1
         accuracy = (correct_count / total_count * 100) if total_count > 0 else 0
         f.write(f'\n정확도: {accuracy:.2f}% ({correct_count}/{total_count})\n')
-    print(f"[saved] metadata -> {ckpt_path + args.output_filename}")
+    print(f"[saved] table report -> {table_report_path}")
 
 if __name__ == "__main__":
     main()
