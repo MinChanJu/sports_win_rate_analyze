@@ -126,6 +126,7 @@ def draw_learning_curve(save_path: Path, train_history: list[float], val_history
     plt.title(f"{name} Curve")
     plt.legend()
     plt.grid(True)
+    plt.ylim(0, 1.1)
     plt.savefig(save_path, dpi=200)
     plt.close()
     print(f"[saved] {name} learning curve -> {save_path}")
@@ -266,9 +267,9 @@ def train_model(save_path: Path, data: dict[str, dict[str, np.ndarray]]) -> tupl
     if save_best and best_model_state and best_metrics and best_optimizer_state:
         save_model(save_path, best_model_state, best_metrics, best_optimizer_state)
         model.load_state_dict(best_model_state)
-    
-    draw_learning_curve(save_path.with_name(f"{save_path.stem}_loss_curve.png"), train_loss_history, val_loss_history, test_loss_history, "Loss")
-    draw_learning_curve(save_path.with_name(f"{save_path.stem}_acc_curve.png"), train_acc_history, val_acc_history, test_acc_history, "Accuracy")
+
+    draw_learning_curve(save_path.with_name("loss_curve.png"), train_loss_history, val_loss_history, test_loss_history, "Loss")
+    draw_learning_curve(save_path.with_name("accuracy_curve.png"), train_acc_history, val_acc_history, test_acc_history, "Accuracy")
 
     final_test_loss, final_test_acc = evaluate(model, test_dl, device, amp_ctx, criterion)
     print(f"[done] final test_acc = {final_test_acc:.3f} (loss {final_test_loss:.4f})")
