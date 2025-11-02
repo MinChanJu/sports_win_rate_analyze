@@ -9,8 +9,8 @@ plt.rcParams['font.family'] = 'AppleGothic' if platform.system() == 'Darwin' els
 plt.rcParams['font.size'] = 5  # ✅ 폰트 크기 설정
 plt.rcParams['axes.unicode_minus'] = False # ✅ 마이너스 기호 깨짐 방지
 
-DEFAULT_DROP_COLS = ["gameKey", "seasonName", "date", "quarter", "split"]
-csv_path = Path(__file__).parent / "../kbl_data_quarter_csv/2021-2022.csv"
+DEFAULT_DROP_COLS = ["gameKey", "seasonName", "date", "quarter"]
+csv_path = Path(__file__).parent / "../kbl_data_csv/2021-2022.csv"
 team_code_path = Path(__file__).parent / "../train/teamcode.json"
 save_path = Path(__file__).parent / "../../../reference"
 
@@ -49,7 +49,7 @@ def main():
 
   winner_corr = corr["winner"]
   
-  filtered_vars = winner_corr[abs(winner_corr) > 0.1].index
+  filtered_vars = winner_corr[abs(winner_corr) > 0.2].index
   filtered_corr = numeric_df[filtered_vars].corr()
   plt.figure(figsize=(12, 10))
   sns.heatmap(filtered_corr, annot=True, fmt=".2f", cmap="coolwarm")

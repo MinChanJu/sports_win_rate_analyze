@@ -171,7 +171,7 @@ def load_single_csv(path: str | Path, seed: int = None) -> dict[str, dict[str, n
     args = get_args()
     test_size = args.test_size
     valid_size = args.valid_size
-    seed = args.seed if seed is None else seed
+    seed = args.split_seed if seed is None else seed
 
     df = pd.read_csv(path)
 
@@ -213,46 +213,9 @@ def load_single_csv(path: str | Path, seed: int = None) -> dict[str, dict[str, n
         "test": {"X": X_test, "y": y_test},
     }
 
-# def load_single_csv(path: str | Path, seed: int = None) -> dict[str, dict[str, np.ndarray]]:
-#     args = get_args()
-#     test_size = args.test_size
-#     valid_size = args.valid_size
-#     seed = args.seed if seed is None else seed
-
-#     df = pd.read_csv(path)
-    
-#     # 1️⃣ 고유 gameKey 목록 추출
-#     unique_keys = df["gameKey"].unique()
-#     n_total = len(unique_keys)   # 예: 270경기
-#     n_valid = int(n_total * valid_size)  # 27
-#     n_test  = int(n_total * test_size)   # 54
-#     n_train = n_total - n_valid - n_test  # 189
-    
-#     # 3️⃣ 고유 gameKey를 랜덤 섞기
-#     shuffled = pd.Series(unique_keys).sample(frac=1, random_state=seed).tolist()
-
-#     # 4️⃣ 분할
-#     train_keys = shuffled[:n_train]
-#     valid_keys = shuffled[n_train:n_train+n_valid]
-#     test_keys  = shuffled[n_train+n_valid:]
-    
-#     train_df = df[df["gameKey"].isin(train_keys)]
-#     valid_df = df[df["gameKey"].isin(valid_keys)]
-#     test_df  = df[df["gameKey"].isin(test_keys)]
-    
-#     X_train, y_train = _prepare_xy(train_df)
-#     X_valid, y_valid = _prepare_xy(valid_df)
-#     X_test,  y_test  = _prepare_xy(test_df)
-    
-#     return {
-#         "train": {"X": X_train, "y": y_train},
-#         "valid": {"X": X_valid, "y": y_valid},
-#         "test": {"X": X_test, "y": y_test},
-#     }
-
 def load_multi_csv(paths: list[str | Path]) -> dict[str, dict[str, np.ndarray]]:
     args = get_args()
-    seed = args.seed
+    seed = args.split_seed
     
     X_train = y_train = X_valid = y_valid = X_test = y_test = None
 

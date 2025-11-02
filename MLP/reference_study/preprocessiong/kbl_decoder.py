@@ -60,15 +60,27 @@ BASE_STAT = {
     "MIN": 0,  # 16. 경기 시간 (전체 시간을 계산 초 단위로 환산)
     "UF": 0,  # U - 파울 (추가)
     "TF": 0,  # 29. 테크니컬 파울
-    "TOM": 0,  # 41. 턴오버에 의한 득점
     "EJ": 0,  # 36. 반칙 퇴장
+    "TO": 0,    # 22. 총 턴오버
     
     # 2차 스탯
     "NR" : 0, # Net Rating                           NR = OR - DR
     "TS%" : 0, # TPS x 100 / (2×(PA + 0.44 × FTA))   (True Shooting Percentage 득점 효율성)
     "eFG%" : 0, # (FGM + 0.5 × 3PM) × 100 / FGA      (Effective Field Goal Percentage 3점슛 가치를 반영한 필드골 슈팅 효율성, 자유투 제외)
     "EFF": 0,  # 7. 효율성
-
+    
+    "TOV%": 0,  # 41. 턴오버 비율
+    "OREB%": 0,  # 21. 공격 리바운드 비율
+    "FT%": 0,  # 22. 자유투 얻는 비율
+    
+    "AST%": 0,  # 23. 어시스트에 의한 득점 비율
+    "AST/TO%": 0,  # 24. 어시스트 대 턴오버 비율
+    
+    # 3차 스탯 (미구현)
+    # "LC": 0,  # 47. 리드 체인지 횟수
+    # "LLP": 0,  # 48. 최대 리드 점수
+    
+    # 지울 예정
     # "TEAM": 0,  # 1. 팀명
     # "TPS" : 0, # Total Points Scored (총 득점)
     # "TOPS" : 0, # Total Opponents Points Scored (상대 팀 총 득점)
@@ -87,9 +99,8 @@ BASE_STAT = {
     # "TPS": 0,  # 27. 팀 점수 (XX)
 }
 
-
 def quarter_calculate(game_stats: dict, quarter: str) -> dict:
-    for team_stats in game_stats.values():    
+    for team_name, team_stats in game_stats.items():
         for key, stats in team_stats.items():
             if (key != quarter): continue
             stats["PP"] = (
@@ -113,12 +124,43 @@ def quarter_calculate(game_stats: dict, quarter: str) -> dict:
                 if stats["FGA"] != 0
                 else 0
             )
+            
+            stats["TO"] = stats["TTO"] + stats["PTO"]
+            
+            stats["TOV%"] = (
+                stats["TO"] * 100 / (stats["FGA"] + 0.44 * stats["FTA"] + stats["TO"])
+                if (stats["FGA"] + 0.44 * stats["FTA"] + stats["TO"]) != 0
+                else 0
+            )
+            opponent = "away" if team_name == "home" else "home"
+            opp_stats = game_stats[opponent][quarter]
+            stats["OREB%"] = (
+                stats["OREB"] * 100 / (stats["OREB"] + opp_stats["DREB"])
+                if (stats["OREB"] + opp_stats["DREB"]) > 0
+                else 0
+            )
+            stats["FT%"] = (
+                stats["FTA"] * 100 / stats["FGA"]
+                if stats["FGA"] != 0
+                else 0
+            )
+            
+            stats["AST%"] = (
+                stats["AST"] * 100 / (stats["FGM"])
+                if stats["FGM"] != 0
+                else 0
+            )
+            stats["AST/TO%"] = (
+                stats["AST"] / stats["TO"]
+                if stats["TO"] != 0
+                else 0
+            )
         
         idx = ["Q1", "Q2", "Q3", "Q4", "연장"].index(quarter)
         if (idx == 0): continue
         prev_quarter = ["Q1", "Q2", "Q3", "Q4", "연장"][idx - 1]
         for stat_key in BASE_STAT:
-            if stat_key in ["NR", "TS%", "eFG%", "EFF"]: continue
+            if stat_key in ["NR", "TS%", "eFG%", "EFF", "TOV%", "OREB%", "FT%", "AST%", "AST/TO%"]: continue
             team_stats[quarter][stat_key] += team_stats[prev_quarter][stat_key]
             
     home_stats = game_stats["home"][quarter]
@@ -193,25 +235,25 @@ def kbl_decoder(game_path: dict) -> tuple[dict, dict]:
                         if "자유투성공" in next_event:
                             game_stats[team_key][quarter]["SWM"] += 1
 
-                    if "턴오버" in event:
-                        next_team = "away" if team_key == "home" else "home"
-                        event_logs = ""
-                        for j in range(i - 1, 0, -1):
-                            prev_log_entry = quarter_log[j]
-                            prev_event = prev_log_entry.get(next_team, "")
-                            if not prev_event:
-                                break
-                            if "성공" in prev_event:
-                                event_logs = prev_event
-                                break
-                        if "2점슛성공" in event_logs:
-                            game_stats[next_team][quarter]["TOM"] += 2
-                        if "3점슛성공" in event_logs:
-                            game_stats[next_team][quarter]["TOM"] += 3
-                        if "덩크슛성공" in event_logs:
-                            game_stats[next_team][quarter]["TOM"] += 2
-                        if "자유투성공" in event_logs:
-                            game_stats[next_team][quarter]["TOM"] += 1
+                    # if "턴오버" in event:
+                    #     next_team = "away" if team_key == "home" else "home"
+                    #     event_logs = ""
+                    #     for j in range(i - 1, 0, -1):
+                    #         prev_log_entry = quarter_log[j]
+                    #         prev_event = prev_log_entry.get(next_team, "")
+                    #         if not prev_event:
+                    #             break
+                    #         if "성공" in prev_event:
+                    #             event_logs = prev_event
+                    #             break
+                    #     if "2점슛성공" in event_logs:
+                    #         game_stats[next_team][quarter]["TOM"] += 2
+                    #     if "3점슛성공" in event_logs:
+                    #         game_stats[next_team][quarter]["TOM"] += 3
+                    #     if "덩크슛성공" in event_logs:
+                    #         game_stats[next_team][quarter]["TOM"] += 2
+                    #     if "자유투성공" in event_logs:
+                    #         game_stats[next_team][quarter]["TOM"] += 1
 
                     if "퇴장" in event:
                         game_stats[team_key][quarter]["EJ"] += 1

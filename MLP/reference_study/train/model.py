@@ -1,7 +1,7 @@
 import torch.nn as nn
 
 class MLP(nn.Module):
-    def __init__(self, in_dim, dropout=0.1, out_dim=2, layers=[(120, {'batch_norm': True, 'activation': 'sigmoid', 'dropout': 0.1}),
+    def __init__(self, in_dim, out_dim=2, layers=[(120, {'batch_norm': True, 'activation': 'sigmoid', 'dropout': 0.1}),
                                                             (60, {'batch_norm': True, 'activation': 'sigmoid', 'dropout': 0.1})]):
         super().__init__()
         
