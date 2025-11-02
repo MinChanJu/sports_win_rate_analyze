@@ -12,6 +12,7 @@ def get_args() -> argparse.Namespace:
             "../kbl_data_csv/2023-2024.csv",
             "../kbl_data_csv/2024-2025.csv",
         ])
+        parser.add_argument("--split-seed", type=int, default=42)
         parser.add_argument("--seed", type=int, default=42)
         parser.add_argument("--lr", type=float, default=1e-4)
         parser.add_argument("--epochs", type=int, default=500)

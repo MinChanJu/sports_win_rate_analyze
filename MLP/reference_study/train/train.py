@@ -76,6 +76,7 @@ def save_model(save_path: Path, best_model_state: dict, best_metrics: dict, best
     payload = {
         "config": {
             "epochs": args.epochs,
+            "split_seed": args.split_seed,
             "seed": args.seed,
             "lr": args.lr,
             "weight_decay": args.weight_decay,
@@ -130,6 +131,18 @@ def draw_learning_curve(save_path: Path, train_history: list[float], val_history
     plt.savefig(save_path, dpi=200)
     plt.close()
     print(f"[saved] {name} learning curve -> {save_path}")
+    
+    history = {
+        "train": train_history,
+        "validation": val_history,
+        "test": test_history
+    }
+    
+    json_path = save_path.with_name(f"{name.lower()}_history.json")
+
+    with open(json_path, "w", encoding="utf-8") as f:
+        json.dump(history, f, ensure_ascii=False, indent=2)
+    print(f"[saved] {name} history -> {json_path}")
 
 def train_model(save_path: Path, data: dict[str, dict[str, np.ndarray]]) -> tuple[MLP, float]:
     set_seed()
@@ -197,7 +210,7 @@ def train_model(save_path: Path, data: dict[str, dict[str, np.ndarray]]) -> tupl
     test_loss_history = []
     test_acc_history = []
     # ----- 학습 루프 -----
-    for epoch in tqdm(range(1, epochs + 1), desc=f"{save_path.name.split('_')[0]} training", dynamic_ncols=True, unit="epoch", colour="cyan"):
+    for epoch in tqdm(range(1, epochs + 1), desc=f"{save_path.parts[-2]} training", dynamic_ncols=True, unit="epoch", colour="cyan"):
         model.train()
         correct, total = 0, 0
         running_loss = 0.0

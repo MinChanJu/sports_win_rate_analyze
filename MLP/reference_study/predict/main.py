@@ -44,21 +44,23 @@ def main():
     if not model_path.exists():
         print(f"체크포인트 파일이 없습니다: {model_path}")
         sys.exit(1)
+    
+    model_info_path = Path(args.model_dir) / f'{args.model_type}' / 'best_model.json'
+    if not model_info_path.exists():
+        print(f"모델 정보 파일이 없습니다: {model_info_path}")
+        sys.exit(1)
+    model_info = json.loads(model_info_path.read_text())
 
     predict_csv_list = predict_csv_path_map.get(args.model_type, [])
     if not predict_csv_list:
         print(f"알 수 없는 모델 타입입니다: {args.model_type}")
         sys.exit(1)
+        
+    if (args.predict_split):
+        df, drop_df = load_csv_paths(predict_csv_list, team_code, model_info.get("config", None))
+    else:
+        df, drop_df = load_csv_paths(predict_csv_list, team_code, None)
 
-    start = 0
-    end = None
-    if ":" in args.predict_range:
-        parts = args.predict_range.split(":")
-        if parts[0] != "": start = int(parts[0])
-        if parts[1] != "": end = int(parts[1])
-    
-    df, drop_df = load_csv_paths(predict_csv_list, start, end, team_code)
-    
     device = get_device()
     in_dim = drop_df.shape[1]
     model = MLP(in_dim).to(device)

@@ -1,8 +1,9 @@
 {
   "config": {
     "epochs": 500,
+    "split_seed": 42,
     "seed": 42,
-    "lr": 1e-05,
+    "lr": 0.0001,
     "weight_decay": 0.01,
     "patience": 20,
     "min_delta": 0.0,
@@ -13,20 +14,20 @@
     "test_size": 0.2
   },
   "metrics": {
-    "epoch": 441,
-    "train_loss": 0.21521092974950398,
-    "val_acc": 0.9814814814814815,
-    "val_loss": 0.188018798828125,
+    "epoch": 160,
+    "train_loss": 0.11776538358794318,
+    "val_acc": 0.9907407407407407,
+    "val_loss": 0.08155771565658075,
     "test_acc": 0.9722222222222222,
-    "test_loss": 0.18652485035083913
+    "test_loss": 0.08732647255614952
   },
-  "saved_at": "2025-10-24T22:28:28",
+  "saved_at": "2025-11-02T16:48:38",
   "torch_version": "2.8.0",
   "python_version": "3.11.6",
   "device": "mps",
   "model": {
     "path": "best_model.pt",
-    "size_bytes": 212725,
-    "size_mb": 0.2
+    "size_bytes": 227189,
+    "size_mb": 0.22
   }
 }
