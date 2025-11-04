@@ -21,7 +21,7 @@
     "test_acc": 0.9768518518518519,
     "test_loss": 0.09680368585719003
   },
-  "saved_at": "2025-11-02T19:09:26",
+  "saved_at": "2025-11-04T23:00:16",
   "torch_version": "2.8.0",
   "python_version": "3.11.6",
   "device": "mps",

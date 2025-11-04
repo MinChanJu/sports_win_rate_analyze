@@ -103,7 +103,7 @@ def standard_error(n: int, save_folder: str, seeds: list[int]) -> None:
   
   print(len(save_folders), "개의 모델 폴더를 사용합니다:", [f"{save_folder}/{d.name}" for d in save_folders])
   print("seeds:", seeds)
-  standard_save_folder = Path(save_folder[1:], f"standard_error_{save_folder_sorted[0].name}~{save_folder_sorted[-1].name}")
+  standard_save_folder = Path(save_folder[1:], f"standard_error_{save_folders[0].name}~{save_folders[-1].name}")
   print("표준 오차 저장 폴더:", standard_save_folder)
   
   for model_type in ['2021-2022', '2022-2023', '2023-2024', '2024-2025', 'combined']:
@@ -184,12 +184,12 @@ if __name__ == "__main__":
   import random
   random.seed(42)
   
-  n = 5
+  n = 50
   save_folder="../standard_models"
   seeds = random.sample(range(1000), n)
-  
-  for seed in seeds:
-    print(f"\n=== Running with split seed: {seed} ===")
+
+  for i, seed in enumerate(seeds):
+    print(f"\n=== {i+1}th Running with split seed: {seed} ===")
     train(split_seed=seed, no_per_season=True, save_folder=save_folder)
   
   standard_error(n, save_folder, seeds)
