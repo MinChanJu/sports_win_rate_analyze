@@ -19,7 +19,7 @@ def data_to_csv(data_path: str, csv_path: str):
             for file in files:
                 if file.endswith(".json"):
                     file_path = os.path.join(data_path, folder, file)
-                    game_stats, metainfo, last_quarter = kbl_decoder(file_path)
+                    game_stats, metainfo, last_quarter = kbl_decoder(file_path, 1)
                     row = {
                         "gameKey": metainfo["gameKey"],
                         "seasonName": metainfo["seasonName"],
