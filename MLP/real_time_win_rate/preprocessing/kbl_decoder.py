@@ -2,10 +2,7 @@ import json
 from base_stat import BASE_STAT
 
 KBL_STAT_MAP = {
-    "팀파울": {"TPF": 1},
-    "테크니컬 파울": {"TF": 1},
-    "U파울": {"UF": 1},
-    "파울": {"PF": 1},
+    "파울": {"TPF": 1, "PF": 1},
     "팀턴오버": {"TTO": 1},
     "턴오버": {"PTO": 1},
     "팀리바운드": {"TRB": 1},
@@ -13,32 +10,56 @@ KBL_STAT_MAP = {
     "3점슛성공": {"3PM": 1, "3PA": 1},
     "2점슛성공": {"2PM": 1, "2PA": 1},
     "자유투성공": {"FTM": 1, "FTA": 1},
-    "덩크슛성공": {"DKM": 1, "DKA": 1},
+    "덩크슛성공": {"DKM": 1, "DKA": 1, "2PA": 1, "2PM": 1},
     "3점슛시도": {"3PA": 1},
     "2점슛시도": {"2PA": 1},
     "자유투시도": {"FTA": 1},
-    "덩크슛시도": {"DKA": 1},
+    "덩크슛시도": {"DKA": 1, "2PA": 1},
     "어시스트": {"AST": 1},
     "블록": {"BLK": 1},
     "수비리바운드": {"DREB": 1},
     "공격리바운드": {"OREB": 1},
     "스틸": {"STL": 1},
-    "파울자유투": {}, # 파울자유투는 추후에 분석 필요
+    "파울자유투": {"TPF": 1},
+    "팀파울": {},
     "교체(IN)": {},
     "교체(OUT)": {},
     "굿디펜스": {},
     "작전타임": {},
 }
 
+def calc_possession(home, away):
+    # Home Team Possession 부분
+    home_missed_fg = home["FGA"] - home["FGM"]
+    home_orb_factor = 1.07 * (home["OREB"] / (home["OREB"] + away["DREB"])) * home_missed_fg
+
+    home_part = (
+        home["FGA"]
+        + 0.4 * home["FTA"]
+        - home_orb_factor
+        + home["TO"]
+    )
+
+    # Away Team Possession 부분
+    away_missed_fg = away["FGA"] - away["FGM"]
+    away_orb_factor = 1.07 * (away["OREB"] / (away["OREB"] + home["DREB"])) * away_missed_fg
+
+    away_part = (
+        away["FGA"]
+        + 0.4 * away["FTA"]
+        - away_orb_factor
+        + away["TO"]
+    )
+
+    # Final Possession
+    total_poss = 0.5 * (home_part + away_part)
+    return total_poss
+
 def final_calculate(game_stats: dict) -> dict:
     for team, team_stat in game_stats.items():
         # 필드골
-        team_stat["FGA"] = team_stat["2PA"] + team_stat["3PA"] + team_stat["DKA"]
-        team_stat["FGM"] = team_stat["2PM"] + team_stat["3PM"] + team_stat["DKM"]
-        
-        # 개인 득점
-        team_stat["PP"] = (team_stat["2PM"] * 2) + (team_stat["3PM"] * 3) + (team_stat["DKM"] * 2) + team_stat["FTM"]
-        team_stat["PA"] = team_stat["2PA"] + team_stat["3PA"] + team_stat["DKA"] + team_stat["FTA"]
+        team_stat["FGA"] = team_stat["2PA"] + team_stat["3PA"]
+        team_stat["FGM"] = team_stat["2PM"] + team_stat["3PM"]
         
         # 총 턴오버
         team_stat["TO"] = team_stat["PTO"] + team_stat["TTO"]
@@ -49,8 +70,8 @@ def final_calculate(game_stats: dict) -> dict:
         # 2차 스탯
         # 슈팅 효율성
         team_stat["TS%"] = (
-            team_stat["PP"] * 100 / (2 * (team_stat["PA"] + 0.44 * team_stat["FTA"]))
-            if (team_stat["PA"] + 0.44 * team_stat["FTA"]) != 0
+            team_stat["PP"] * 100 / (2 * (team_stat["FGA"] + 0.44 * team_stat["FTA"]))
+            if (team_stat["FGA"] + 0.44 * team_stat["FTA"]) != 0
             else 0
         )
         
@@ -63,15 +84,15 @@ def final_calculate(game_stats: dict) -> dict:
         
         # 턴오버 비율
         team_stat["TOV%"] = (
-            team_stat["TO"] * 100 / (team_stat["FGA"] + 0.44 * team_stat["FTA"] + team_stat["TO"])
-            if (team_stat["FGA"] + 0.44 * team_stat["FTA"] + team_stat["TO"]) != 0
+            team_stat["PTO"] * 100 / (team_stat["FGA"] + 0.44 * team_stat["FTA"] + team_stat["PTO"])
+            if (team_stat["FGA"] + 0.44 * team_stat["FTA"] + team_stat["PTO"]) != 0
             else 0
         )
         
         # 자유투 성공 비율
         team_stat["FT%"] = (
-            team_stat["FTA"] * 100 / team_stat["FGA"]
-            if team_stat["FGA"] != 0
+            team_stat["FTM"] * 100 / team_stat["FTA"]
+            if team_stat["FTA"] != 0
             else 0
         )
         
@@ -84,15 +105,15 @@ def final_calculate(game_stats: dict) -> dict:
         
         # 어시스트 대 턴오버 비율
         team_stat["AST/TO%"] = (
-            team_stat["AST"] / team_stat["TO"]
-            if team_stat["TO"] != 0
+            team_stat["AST"] / team_stat["PTO"]
+            if team_stat["PTO"] != 0
             else 0
         )
         
         # 공격 리바운드 비율
         opp_stats = game_stats["away"] if team == "home" else game_stats["home"]
         team_stat["OREB%"] = (
-            team_stat["OREB"] * 100 / (team_stat["OREB"] + team_stat["DREB"])
+            team_stat["OREB"] * 100 / (team_stat["OREB"] + opp_stats["DREB"])
             if (team_stat["OREB"] + opp_stats["DREB"]) > 0
             else 0
         )
@@ -107,12 +128,17 @@ def final_calculate(game_stats: dict) -> dict:
     # Net Rating 계산
     home_stats = game_stats["home"]
     away_stats = game_stats["away"]
-    H_TPOS = home_stats["FGA"] + 0.44 * home_stats["FTA"] + home_stats["PTO"] - home_stats["OREB"]
-    A_TPOS = away_stats["FGA"] + 0.44 * away_stats["FTA"] + away_stats["PTO"] - away_stats["OREB"]
+    H_TPOS = 0.96 * (home_stats["FGA"] + 0.44 * home_stats["FTA"] + home_stats["PTO"] - home_stats["OREB"])
+    A_TPOS = 0.96 * (away_stats["FGA"] + 0.44 * away_stats["FTA"] + away_stats["PTO"] - away_stats["OREB"])
+    TPOS = (H_TPOS + A_TPOS) / 2
+    print("Total Possessions Calculation:", f"H_TPOS={H_TPOS}, A_TPOS={A_TPOS}, TPOS={TPOS}")
     H_OR = A_DR = home_stats["PP"]*100 / H_TPOS if H_TPOS != 0 else 0
     H_DR = A_OR = away_stats["PP"]*100 / A_TPOS if A_TPOS != 0 else 0
     home_stats["NR"] = H_OR - H_DR
     away_stats["NR"] = A_OR - A_DR
+    
+    home_stats["PACE"] = ((H_TPOS + A_TPOS) / 2) * (2400 / home_stats["MIN"]) if home_stats["MIN"] != 0 else 0
+    away_stats["PACE"] = ((H_TPOS + A_TPOS) / 2) * (2400 / away_stats["MIN"]) if away_stats["MIN"] != 0 else 0
     
     return game_stats
 
@@ -132,6 +158,8 @@ def kbl_decoder(game_path: dict, verbose: int = 0) -> tuple[dict, dict]:
     not_mapping_logs = {}
     do_not_understand_logs = {}
     do_not_understand_teams = {}
+    
+    current_lead_team = None
 
     all_logs = game_log_data["logs"]
     key_json = json.load(open("./code_map.json", "r", encoding="utf-8"))
@@ -141,8 +169,8 @@ def kbl_decoder(game_path: dict, verbose: int = 0) -> tuple[dict, dict]:
             if log["a"] not in do_not_understand_logs: do_not_understand_logs[log["a"]] = json.dumps(log, ensure_ascii=False)
             continue
         if log_name == "게임시작":
-            game_stats["home"]["MIN"] += log["m"]
-            game_stats["away"]["MIN"] += log["m"]
+            game_stats["home"]["MIN"] += log["m"] * 60
+            game_stats["away"]["MIN"] += log["m"] * 60
             continue
         if log_name in ["게임종료", "미정의"]: continue
         
@@ -162,10 +190,10 @@ def kbl_decoder(game_path: dict, verbose: int = 0) -> tuple[dict, dict]:
             continue
         
         if log_name == "기타파울":
-            if log["f"] in ["TCF", "BTC"]: game_stats[team_key]["TF"] += 1
-            elif log["f"] in ["FRF"]: game_stats[team_key]["UF"] += 1
-            elif log["f"] in ["BTB", "DTF"]: pass
+            if log["f"] in ["TCF", "BTB", "BTC", "DTF"]: game_stats[team_key]["TF"] += 1
+            elif log["f"] in ["FRF", "UC1", "UC2", "UC3", "UC4", "UC5"]: game_stats[team_key]["UF"] += 1
             else: do_not_understand_logs[log["a"]+log["f"]] = json.dumps(log, ensure_ascii=False)
+            game_stats[team_key]["TPF"] += 1
             continue
         
         if log_name == "팀속공":
@@ -198,6 +226,25 @@ def kbl_decoder(game_path: dict, verbose: int = 0) -> tuple[dict, dict]:
             continue
         for stat_key, increment in key_map.items():
             game_stats[team_key][stat_key] += increment
+        
+        # 개인 득점
+        game_stats[team_key]["PP"] = (game_stats[team_key]["2PM"] * 2) + (game_stats[team_key]["3PM"] * 3)  + game_stats[team_key]["FTM"]
+        game_stats[team_key]["PA"] = game_stats[team_key]["2PA"] + game_stats[team_key]["3PA"] + game_stats[team_key]["FTA"]
+        
+        next_lead_team = None
+        if game_stats["home"]["PP"] > game_stats["away"]["PP"]: next_lead_team = "home"
+        elif game_stats["home"]["PP"] < game_stats["away"]["PP"]: next_lead_team = "away"
+        else: next_lead_team = current_lead_team
+        
+        if current_lead_team != next_lead_team:
+            game_stats['home']["LC"] += 1
+            game_stats['away']["LC"] += 1
+            current_lead_team = next_lead_team
+        
+        if game_stats["home"]["PP"] - game_stats["away"]["PP"] > game_stats["home"]["LLP"]:
+            game_stats["home"]["LLP"] = game_stats["home"]["PP"] - game_stats["away"]["PP"]
+        if game_stats["away"]["PP"] - game_stats["home"]["PP"] > game_stats["away"]["LLP"]:
+            game_stats["away"]["LLP"] = game_stats["away"]["PP"] - game_stats["home"]["PP"]
 
     game_stats = final_calculate(game_stats)
     
@@ -238,8 +285,8 @@ def kbl_decoder(game_path: dict, verbose: int = 0) -> tuple[dict, dict]:
     last_quarter = all_logs[-1]["q"]
     return game_stats, metainfo, last_quarter
 
-
 if __name__ == "__main__":
-    game_stats, all_metainfo, last_quarter = kbl_decoder("kbl_quarters_data.json", 100)
-    print(json.dumps(all_metainfo, ensure_ascii=False, indent=2))
-    print(json.dumps(game_stats, ensure_ascii=False, indent=2))
+    game_stats, all_metainfo, last_quarter = kbl_decoder("../../../kbl_log_data/2024-2025/S45G01N260.json", 100)
+    print(f"{'':10} {all_metainfo['home']['name']:10} - {all_metainfo['away']['name']:10}")
+    for stat_key in BASE_STAT.keys():
+        print(f"{stat_key:10}: {game_stats['home'][stat_key]:10.3f} - {game_stats['away'][stat_key]:10.3f}")

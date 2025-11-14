@@ -36,7 +36,7 @@ BASE_STAT = {
     
     # 2차 스탯
     "NR" : 0, # Net Rating                           NR = OR - DR
-    "TS%" : 0, # TPS x 100 / (2×(PA + 0.44 × FTA))   (True Shooting Percentage 득점 효율성)
+    "TS%" : 0, # PP x 100 / (2×(FGA + 0.44 × FTA))   (True Shooting Percentage 득점 효율성)
     "eFG%" : 0, # (FGM + 0.5 × 3PM) × 100 / FGA      (Effective Field Goal Percentage 3점슛 가치를 반영한 필드골 슈팅 효율성, 자유투 제외)
     "EFF": 0,  # 7. 효율성
     
@@ -48,10 +48,10 @@ BASE_STAT = {
     "AST/TO%": 0,  # 24. 어시스트 대 턴오버 비율
     
     # 3차 스탯 (미구현) 3차 지표는 선수의 종합적인 기여도와 영향력을 하나의 숫자로 요약하려는 통계 지표이다. 2차 지표가 어떻게 이기는지를 보여준다면, 3차 지표는 누가 이기게 만들었는지를 분석하는 데 사용된다.
-    # "CR": 0, # 49. current run 현재 연속득점/실점
-    # "LC": 0,  # 47. 리드 체인지 횟수
-    # "LLP": 0,  # 48. 최대 리드 점수
-    # "Pace": 0, # 50. 경기 페이스  {(H_TPOS + A_TPOS)/2} * (2400/MIN)
+    "CR": 0, # 49. current run 현재 연속득점/실점
+    "LC": 0,  # 47. 리드 체인지 횟수
+    "LLP": 0,  # 48. 최대 리드 점수차
+    "PACE": 0, # 50. 경기 페이스  {(H_TPOS + A_TPOS)/2} * (2400/MIN)
     
     # 지울 예정
     # "SUB": 0,  # 18. 교체 (교체 횟수)
