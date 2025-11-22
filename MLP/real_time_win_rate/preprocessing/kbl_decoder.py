@@ -128,8 +128,8 @@ def final_calculate(game_stats: dict) -> dict:
     # Net Rating 계산
     home_stats = game_stats["home"]
     away_stats = game_stats["away"]
-    H_TPOS = 0.96 * (home_stats["FGA"] + 0.44 * home_stats["FTA"] + home_stats["PTO"] - home_stats["OREB"])
-    A_TPOS = 0.96 * (away_stats["FGA"] + 0.44 * away_stats["FTA"] + away_stats["PTO"] - away_stats["OREB"])
+    H_TPOS = (home_stats["FGA"] + 0.44 * home_stats["FTA"] + home_stats["PTO"] - home_stats["OREB"])
+    A_TPOS = (away_stats["FGA"] + 0.44 * away_stats["FTA"] + away_stats["PTO"] - away_stats["OREB"])
     TPOS = (H_TPOS + A_TPOS) / 2
     print("Total Possessions Calculation:", f"H_TPOS={H_TPOS}, A_TPOS={A_TPOS}, TPOS={TPOS}")
     H_OR = A_DR = home_stats["PP"]*100 / H_TPOS if H_TPOS != 0 else 0
