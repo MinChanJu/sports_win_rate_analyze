@@ -6,7 +6,7 @@ def get_args() -> argparse.Namespace:
     global _args
     if _args is None:
         parser = argparse.ArgumentParser()
-        parser.add_argument("--csv", nargs="*", default=[
+        parser.add_argument("--csv-folders", nargs="*", default=[
             "../kbl_real_time_csv/2021-2022",
             "../kbl_real_time_csv/2022-2023",
             "../kbl_real_time_csv/2023-2024",

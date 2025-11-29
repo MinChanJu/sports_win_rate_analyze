@@ -1,5 +1,8 @@
+import os
 import json
+import shutil
 import pandas as pd
+from tqdm import tqdm
 from kbl_decoder import kbl_log_decoder
 
 def data_to_csv(game_path: str, csv_path: str):
@@ -19,6 +22,7 @@ def data_to_csv(game_path: str, csv_path: str):
             "gameKey": metainfo["gameKey"],
             "seasonName": metainfo["seasonName"],
             "date": metainfo["date"],
+            "n": idx + 1,
         }
         row["winner"] = metainfo["winner"]
         
@@ -32,9 +36,10 @@ def data_to_csv(game_path: str, csv_path: str):
     df.to_csv(csv_path, index=False, encoding="utf-8-sig")
 
 def data_to_csv_multiple(data_path: str, csv_folder: str):
-    import os
-    from tqdm import tqdm
-    os.makedirs(csv_folder, exist_ok=False)
+    if os.path.exists(csv_folder):
+        shutil.rmtree(csv_folder)
+        
+    os.makedirs(csv_folder)
     for season_folder in sorted(os.listdir(data_path)):
         season_path = os.path.join(data_path, season_folder)
         if not os.path.isdir(season_path):
