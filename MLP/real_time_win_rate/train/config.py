@@ -6,11 +6,11 @@ def get_args() -> argparse.Namespace:
     global _args
     if _args is None:
         parser = argparse.ArgumentParser()
-        parser.add_argument("--csv-folders", nargs="*", default=[
-            "../kbl_real_time_csv/2021-2022",
-            "../kbl_real_time_csv/2022-2023",
-            "../kbl_real_time_csv/2023-2024",
-            "../kbl_real_time_csv/2024-2025",
+        parser.add_argument("--csv-path-list", nargs="*", default=[
+            "../kbl_data_csv/2021-2022.csv",
+            "../kbl_data_csv/2022-2023.csv",
+            "../kbl_data_csv/2023-2024.csv",
+            "../kbl_data_csv/2024-2025.csv",
         ])
         parser.add_argument("--split-seed", type=int, default=42)
         parser.add_argument("--seed", type=int, default=42)

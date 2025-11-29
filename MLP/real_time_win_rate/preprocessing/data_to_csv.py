@@ -1,56 +1,54 @@
-import copy, os, re
+import os
+import json
+import shutil
 import pandas as pd
-from kbl_decoder import kbl_decoder
+from tqdm import tqdm
+from kbl_decoder import kbl_log_decoder
 
-def data_to_csv(data_path: str, csv_path: str):
-    os.makedirs(csv_path, exist_ok=True)
-    s = 1
-    for folder in os.listdir(data_path):
-        if os.path.isdir(os.path.join(data_path, folder)):
-            files = os.listdir(os.path.join(data_path, folder))
-            files.sort(
-                key=lambda x: (
-                    int(re.search(r"S\d+G\d+N(\d+)\.json$", x).group(1))
-                    if re.search(r"S\d+G\d+N(\d+)\.json$", x)
-                    else float("inf")
-                )
-            )
-            records = []
-            for file in files:
-                if file.endswith(".json"):
-                    file_path = os.path.join(data_path, folder, file)
-                    game_stats, metainfo, last_quarter = kbl_decoder(file_path, 1)
-                    row = {
-                        "gameKey": metainfo["gameKey"],
-                        "seasonName": metainfo["seasonName"],
-                        "date": metainfo["date"],
-                    }
-                    row["winner"] = metainfo["winner"]
-                    
-                    for team, team_stats in game_stats.items():
-                        for stat in team_stats:
-                            t = "H" if team == "home" else "A"
-                            row[f"{t}_{stat}"] = team_stats[stat]
-                    records.append(row)
+def data_to_csv(game_path: str, records: list):
+    with open(game_path, "r", encoding="utf-8") as f:
+        game_data = json.load(f)
+    
+    metainfo = game_data["metainfo"]
+    h_code = metainfo["home"]["code"]
+    a_code = metainfo["away"]["code"]
+    all_logs = game_data["logs"]
+    
+    game_stats = kbl_log_decoder(all_logs, h_code, a_code)
+    row = {
+        "gameKey": metainfo["gameKey"],
+        "seasonName": metainfo["seasonName"],
+        "date": metainfo["date"],
+    }
+    row["winner"] = metainfo["winner"]
+    
+    for team, team_stats in game_stats.items():
+        for stat in team_stats:
+            t = "H" if team == "home" else "A"
+            row[f"{t}_{stat}"] = team_stats[stat]
+    records.append(row)
 
-            fill_stats = set()
-            for row in records:
-                for stat in row:
-                    if row[stat] != 0:
-                        fill_stats.add(stat)
-
-            df = pd.DataFrame(records)
-            df.to_csv(f"{csv_path}/{folder}.csv", index=False, encoding="utf-8-sig")
-            print(f"{folder} 시즌")
-            print(f"    필드 개수 -> {len(df.columns)}개")
-            print(f"    데이터 개수 -> {len(records)}개")
-            print(f"    레코드 저장 완료 -> {csv_path}/{folder}.csv")
-            
-    stat_list = list(records[0].keys())
-    empty_stats = set(stat_list) - fill_stats
-    print("전체 시즌")
-    print(f"    필드 개수 (빈 필드 제외) -> {len(fill_stats)}개")
-    print(f"    빈 필드 ({len(empty_stats)} 개) -> {empty_stats}")
+def data_to_csv_multiple(data_path: str, csv_folder: str):
+    if os.path.exists(csv_folder):
+        shutil.rmtree(csv_folder)
+        
+    os.makedirs(csv_folder)
+    for season_folder in sorted(os.listdir(data_path)):
+        season_path = os.path.join(data_path, season_folder)
+        if not os.path.isdir(season_path):
+            continue
+        records = []
+        for file in tqdm(sorted(os.listdir(season_path)), desc=f"Processing {season_folder}"):
+            if file.endswith(".json"):
+                game_path = os.path.join(season_path, file)
+                csv_path = os.path.join(csv_folder, season_folder)
+                os.makedirs(csv_path, exist_ok=True)
+                csv_path = os.path.join(csv_path, file.replace(".json", ".csv"))
+                data_to_csv(game_path, records)
+        
+        csv_path = os.path.join(csv_folder, f"{season_folder}.csv")
+        df = pd.DataFrame(records)
+        df.to_csv(csv_path, index=False, encoding="utf-8-sig")
 
 if __name__ == "__main__":
-    data_to_csv("../../../kbl_log_data", "../kbl_data_csv")
+    data_to_csv_multiple("../../../kbl_log_data", "../kbl_data_csv")

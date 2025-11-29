@@ -130,8 +130,6 @@ def final_calculate(game_stats: dict) -> dict:
     away_stats = game_stats["away"]
     H_TPOS = (home_stats["FGA"] + 0.44 * home_stats["FTA"] + home_stats["PTO"] - home_stats["OREB"])
     A_TPOS = (away_stats["FGA"] + 0.44 * away_stats["FTA"] + away_stats["PTO"] - away_stats["OREB"])
-    TPOS = (H_TPOS + A_TPOS) / 2
-    print("Total Possessions Calculation:", f"H_TPOS={H_TPOS}, A_TPOS={A_TPOS}, TPOS={TPOS}")
     H_OR = A_DR = home_stats["PP"]*100 / H_TPOS if H_TPOS != 0 else 0
     H_DR = A_OR = away_stats["PP"]*100 / A_TPOS if A_TPOS != 0 else 0
     home_stats["NR"] = H_OR - H_DR
@@ -142,57 +140,55 @@ def final_calculate(game_stats: dict) -> dict:
     
     return game_stats
 
-def kbl_decoder(game_path: dict, verbose: int = 0) -> tuple[dict, dict]:
-    with open(game_path, "r", encoding="utf-8") as file:
-        game_log_data = json.load(file)
-
-    metainfo = game_log_data["metainfo"]
-    
-    print_url = False
-
+def kbl_log_decoder(all_logs: list, h_code: int, a_code: int) -> tuple[dict, dict]:
     game_stats = {"home": dict(BASE_STAT), "away": dict(BASE_STAT)}
 
-    game_stats["home"]["TEAM"] = metainfo["home"]["code"]
-    game_stats["away"]["TEAM"] = metainfo["away"]["code"]
-    
-    not_mapping_logs = {}
-    do_not_understand_logs = {}
-    do_not_understand_teams = {}
+    game_stats["home"]["TEAM"] = h_code
+    game_stats["away"]["TEAM"] = a_code
     
     current_lead_team = None
+    current_run = 0
+    current_goal = None
+    
+    quarter_types = ["Q1", "Q2", "Q3", "Q4", "X1", "X2", "X3"]
+    quarter_times = {"Q1": 600, "Q2": 600, "Q3": 600, "Q4": 600, "X1": 300, "X2": 300, "X3": 300}
 
-    all_logs = game_log_data["logs"]
     key_json = json.load(open("./code_map.json", "r", encoding="utf-8"))
     for idx, log in enumerate(all_logs):
         log_name = key_json[log["a"]] if log["a"] in key_json else None
         if log_name is None:
-            if log["a"] not in do_not_understand_logs: do_not_understand_logs[log["a"]] = json.dumps(log, ensure_ascii=False)
             continue
         if log_name == "게임시작":
-            game_stats["home"]["MIN"] += log["m"] * 60
-            game_stats["away"]["MIN"] += log["m"] * 60
             continue
         if log_name in ["게임종료", "미정의"]: continue
         
+        current_quarter = log["q"]
+        if current_quarter not in quarter_types:
+            print(f"알수없는 쿼터 타입: {current_quarter}")
+            continue
+        current_time = quarter_times[current_quarter] - (log["m"] * 60 + log["s"])
+        for qt in quarter_types:
+            if qt == current_quarter: break
+            current_time += quarter_times[qt]
+        game_stats["home"]["MIN"] = current_time
+        game_stats["away"]["MIN"] = current_time
+        
         team_key = None
         if log["t"].isdigit():
-            if int(log["t"]) == metainfo["home"]["code"]: team_key = "home"
-            elif int(log["t"]) == metainfo["away"]["code"]: team_key = "away"
+            if int(log["t"]) == h_code: team_key = "home"
+            elif int(log["t"]) == a_code: team_key = "away"
         if team_key is None:
-            if log["t"] not in do_not_understand_teams: do_not_understand_teams[log["t"]] = json.dumps(log, ensure_ascii=False)
             continue
         
         if log_name == '교체(OUT)':
             if 'c' in log:
                 if log['c'] in ["106_0", "106_1", "106_3", "106_4", "106_5"]: game_stats[team_key]["EJ"] += 1
                 elif log['c'] in ["101_0", "104_0"]: pass
-                else: do_not_understand_logs[log["a"]+log['c']] = json.dumps(log, ensure_ascii=False)
             continue
         
         if log_name == "기타파울":
             if log["f"] in ["TCF", "BTB", "BTC", "DTF"]: game_stats[team_key]["TF"] += 1
             elif log["f"] in ["FRF", "UC1", "UC2", "UC3", "UC4", "UC5"]: game_stats[team_key]["UF"] += 1
-            else: do_not_understand_logs[log["a"]+log["f"]] = json.dumps(log, ensure_ascii=False)
             game_stats[team_key]["TPF"] += 1
             continue
         
@@ -216,20 +212,36 @@ def kbl_decoder(game_path: dict, verbose: int = 0) -> tuple[dict, dict]:
                 elif fb_log_name == "3점슛성공": fast_break_points += 3
                 elif fb_log_name == "덩크슛성공": fast_break_points += 2
 
-            if fast_break_points == 0 and verbose > 5:
-                print(f"뭔가 이상: {json.dumps(log, ensure_ascii=False)}")
             game_stats[team_key]["SWM"] += fast_break_points
 
         key_map = KBL_STAT_MAP[log_name] if log_name in KBL_STAT_MAP else None
         if key_map is None:
-            if log_name not in not_mapping_logs: not_mapping_logs[log_name] = json.dumps(log, ensure_ascii=False)
             continue
         for stat_key, increment in key_map.items():
             game_stats[team_key][stat_key] += increment
+            
+        
+        next_pp = (game_stats[team_key]["2PM"] * 2) + (game_stats[team_key]["3PM"] * 3)  + game_stats[team_key]["FTM"]
+        next_pa = game_stats[team_key]["2PA"] + game_stats[team_key]["3PA"] + game_stats[team_key]["FTA"]
+        
+        # 현재 연속 득점/실점
+        if (team_key == "home") and (game_stats["home"]["PP"] < next_pp):
+            if current_goal == "home": current_run += next_pp - game_stats["home"]["PP"]
+            else:
+                current_run = next_pp - game_stats["home"]["PP"]
+                current_goal = "home"
+        elif (team_key == "away") and (game_stats["away"]["PP"] < next_pp):
+            if current_goal == "away": current_run += next_pp - game_stats["away"]["PP"]
+            else:
+                current_run = next_pp - game_stats["away"]["PP"]
+                current_goal = "away"
+        
+        game_stats["home"]["CR"] = current_run
+        game_stats["away"]["CR"] = current_run
         
         # 개인 득점
-        game_stats[team_key]["PP"] = (game_stats[team_key]["2PM"] * 2) + (game_stats[team_key]["3PM"] * 3)  + game_stats[team_key]["FTM"]
-        game_stats[team_key]["PA"] = game_stats[team_key]["2PA"] + game_stats[team_key]["3PA"] + game_stats[team_key]["FTA"]
+        game_stats[team_key]["PP"] = next_pp
+        game_stats[team_key]["PA"] = next_pa
         
         next_lead_team = None
         if game_stats["home"]["PP"] > game_stats["away"]["PP"]: next_lead_team = "home"
@@ -248,45 +260,17 @@ def kbl_decoder(game_path: dict, verbose: int = 0) -> tuple[dict, dict]:
 
     game_stats = final_calculate(game_stats)
     
-    if do_not_understand_logs and verbose > 0:
-        if print_url == False:
-            print(f"Decoding game log: {metainfo['url']}")
-            print_url = True
-        print("Do not understand logs:")
-        for k, v in do_not_understand_logs.items():
-            print(f"  Code: {k} -> Log: {v}")
-    if do_not_understand_teams and verbose > 1:
-        if print_url == False:
-            print(f"Decoding game log: {metainfo['url']}")
-            print_url = True
-        print("Do not understand teams:")
-        for k, v in do_not_understand_teams.items():
-            print(f"  Team: {k} -> Log: {v}")
-    if not_mapping_logs and verbose > 2:
-        if print_url == False:
-            print(f"Decoding game log: {metainfo['url']}")
-            print_url = True
-        print("Not mapping logs:")
-        for k, v in not_mapping_logs.items():
-            print(f"  Log Name: {k} -> Log: {v}")
-    
-    empty_stats = []
-    for stat_key in game_stats["home"].keys():
-        if game_stats["home"][stat_key] == 0 and game_stats["away"][stat_key] == 0:
-            empty_stats.append(stat_key)
-
-    if empty_stats and verbose > 5:
-        if print_url == False:
-            print(f"Decoding game log: {metainfo['url']}")
-            print_url = True
-        print("Empty stats:")
-        for stat in empty_stats:
-            print(f"  Stat: {stat}")
-    last_quarter = all_logs[-1]["q"]
-    return game_stats, metainfo, last_quarter
+    return game_stats
 
 if __name__ == "__main__":
-    game_stats, all_metainfo, last_quarter = kbl_decoder("../../../kbl_log_data/2024-2025/S45G01N260.json", 100)
-    print(f"{'':10} {all_metainfo['home']['name']:10} - {all_metainfo['away']['name']:10}")
+    with open("../../../kbl_log_data/2024-2025/S45G01N260.json", "r", encoding="utf-8") as f:
+        game_data = json.load(f)
+    metainfo = game_data["metainfo"]
+    all_logs = game_data["logs"]
+    h_code = metainfo["home"]["code"]
+    a_code = metainfo["away"]["code"]
+    game_stats = kbl_log_decoder(all_logs, h_code, a_code)
+    print(metainfo["url"])
+    print(f"{'':10} {metainfo['home']['name']:10} - {metainfo['away']['name']:10}")
     for stat_key in BASE_STAT.keys():
         print(f"{stat_key:10}: {game_stats['home'][stat_key]:10.3f} - {game_stats['away'][stat_key]:10.3f}")

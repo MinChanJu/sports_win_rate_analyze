@@ -2,7 +2,7 @@ from data import load_state, load_multi_csv
 from predict import predict_one
 from device import get_device
 from config import get_args
-from confusionMatrix import save_confusion_matrix
+from win_rate_graph import draw_win_rate_graph
 from pathlib import Path
 from tqdm import tqdm
 from model import MLP
@@ -51,47 +51,49 @@ def main():
         sys.exit(1)
     
     if (args.predict_split):
-        drop_df_all, df_all = load_multi_csv(predict_csv_list, model_info.get("config", {}))
+        df, drop_df, gameKey = load_multi_csv(predict_csv_list, model_info.get("data_split", {"test_game_keys": []}).get("test_game_keys", []))
     else:
-        drop_df_all, df_all = load_multi_csv(predict_csv_list, None)
+        df, drop_df, gameKey = load_multi_csv(predict_csv_list, None)
 
     device = get_device()
-    in_dim = drop_df_all.shape[1]
+    in_dim = drop_df.shape[1]
     model = MLP(in_dim).to(device)
     state_dict, _ = load_state(model_path)
     model.load_state_dict(state_dict)
     model.eval()
     
-    result = {}
-    for idx in tqdm(df_all.index, desc="Predicting"):
-        gameKey = df_all.loc[idx, "gameKey"]
-        n = df_all.loc[idx, "n"]
-        x_row = np.asarray(drop_df_all.loc[idx], dtype=np.float32)
+    result = None
+    for idx in tqdm(df.index, desc="Predicting"):
+        n = df.loc[idx, "n"]
+        x_row = np.asarray(drop_df.loc[idx], dtype=np.float32)
         home_prob, away_prob = predict_one(model, x_row, device)
-        if gameKey not in result:
-            result[gameKey] = {
+        if result is None:
+            result = {
                 "metainfo": {
-                    "home": int(df_all.loc[idx, "H_TEAM"]),
-                    "away": int(df_all.loc[idx, "A_TEAM"]),
-                    "winner": df_all.loc[idx, "winner"],
+                    "home": int(df.loc[idx, "H_TEAM"]),
+                    "away": int(df.loc[idx, "A_TEAM"]),
+                    "winner": df.loc[idx, "winner"],
                     "max_n": int(n),
+                    "gameKey": gameKey,
                 }
             }
-        result[gameKey]["metainfo"]["max_n"] = max(result[gameKey]["metainfo"]["max_n"], int(n))
-        result[gameKey][int(n)] = {
+        
+        result["metainfo"]["max_n"] = max(result["metainfo"]["max_n"], int(n))
+        result[int(n)] = {
             "home": home_prob,
             "away": away_prob,
-            "home_score": int(df_all.loc[idx, "H_PP"]),
-            "away_score": int(df_all.loc[idx, "A_PP"]),
+            "home_score": int(df.loc[idx, "H_PP"]),
+            "away_score": int(df.loc[idx, "A_PP"]),
         }
 
-    report_path = Path(args.model_dir) / Path(args.model_type) / 'predict_report.json'
+    report_path = Path(args.model_dir) / Path(args.model_type) / f'predict_{gameKey}_report.json'
     with open(report_path, "w", encoding="utf-8") as f:
         json.dump(result, f, ensure_ascii=False, indent=2)
     print(f"[saved] metadata -> {report_path}")
-
-    save_path = Path(args.model_dir) / Path(args.model_type) / 'confusion_matrix.png'
-    save_confusion_matrix(report_path, save_path)
+    
+    win_rate_graph_path = Path(args.model_dir) / Path(args.model_type) / f'predict_{gameKey}_win_rate.png'
+    draw_win_rate_graph(result, win_rate_graph_path)
+    print(f"[saved] win rate graph -> {win_rate_graph_path}")
 
 if __name__ == "__main__":
     main()

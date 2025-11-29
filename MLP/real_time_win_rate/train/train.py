@@ -71,7 +71,12 @@ def evaluate(model: MLP, data_loader: DataLoader, device: torch.device, amp_ctx:
     acc = correct / max(total, 1)
     return avg_loss, acc
 
-def save_model(save_path: Path, best_model_state: dict, best_metrics: dict, best_optimizer_state: dict) -> None:
+def save_model(save_path: Path, best_model_state: dict, best_metrics: dict, best_optimizer_state: dict, data: dict[str, dict[str, np.ndarray | list]]) -> None:
+    # ----- 데이터 꺼내기 -----
+    train_game_keys = data["train"]["gameKey"]
+    valid_game_keys = data["valid"]["gameKey"]
+    test_game_keys  = data["test"]["gameKey"]
+    
     args = get_args()
     payload = {
         "config": {
@@ -93,6 +98,11 @@ def save_model(save_path: Path, best_model_state: dict, best_metrics: dict, best
         "torch_version": torch.__version__,
         "python_version": f"{os.sys.version_info.major}.{os.sys.version_info.minor}.{os.sys.version_info.micro}",
         "device": str(get_device()),
+        "data_split": {
+            "train_game_keys": list(train_game_keys),
+            "valid_game_keys": list(valid_game_keys),
+            "test_game_keys": list(test_game_keys),
+        },
     }
 
     model_payload = dict(payload)
@@ -254,6 +264,7 @@ def train_model(save_path: Path, data: dict[str, dict[str, np.ndarray]]) -> tupl
                     best_optimizer_state = optimizer.state_dict() if optimizer else None
                     best_metrics = {
                         "epoch": epoch,
+                        "train_acc": train_acc,
                         "train_loss": train_loss,
                         "val_acc": val_acc,
                         "val_loss": val_loss,
@@ -278,7 +289,7 @@ def train_model(save_path: Path, data: dict[str, dict[str, np.ndarray]]) -> tupl
 
     # ----- 최고 성능 모델 저장/복원 & 최종 테스트 리포트 -----
     if save_best and best_model_state and best_metrics and best_optimizer_state:
-        save_model(save_path, best_model_state, best_metrics, best_optimizer_state)
+        save_model(save_path, best_model_state, best_metrics, best_optimizer_state, data)
         model.load_state_dict(best_model_state)
 
     draw_learning_curve(save_path.with_name("loss_curve.png"), train_loss_history, val_loss_history, test_loss_history, "Loss")
