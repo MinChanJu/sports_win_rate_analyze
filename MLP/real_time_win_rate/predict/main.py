@@ -79,11 +79,14 @@ def main():
             }
         
         result["metainfo"]["max_n"] = max(result["metainfo"]["max_n"], int(n))
+        
+        last_total_sec = df.loc[idx, "H_MIN"]
         result[int(n)] = {
             "home": home_prob,
             "away": away_prob,
             "home_score": int(df.loc[idx, "H_PP"]),
             "away_score": int(df.loc[idx, "A_PP"]),
+            "total_sec": int(last_total_sec),
         }
 
     report_path = Path(args.model_dir) / Path(args.model_type) / f'predict_{gameKey}_report.json'
