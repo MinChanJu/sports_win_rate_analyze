@@ -39,14 +39,15 @@ async def crawl_kbl_match_chart(URL, seasonName, full_log):
                 "seasonName": seasonName,
                 "gameKey": gameKey,
                 "date": date,
-                "home": {"name": "", "score": 0, "players": []},
-                "away": {"name": "", "score": 0, "players": []},
+                "home": {"name": "", "code": "", "score": 0, "players": []},
+                "away": {"name": "", "code": "", "score": 0, "players": []}
             }
 
             # 1. 페이지 접속
             if full_log:
                 print(f"페이지 접속 중... {URL}")
-            
+                
+
             # 페이지 로딩 대기
             await page.goto(URL, wait_until="networkidle")
             await asyncio.sleep(1) # 안전장치

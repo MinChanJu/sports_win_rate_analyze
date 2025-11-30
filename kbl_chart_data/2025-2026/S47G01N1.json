@@ -6,11 +6,13 @@
     "date": "20251003",
     "home": {
       "name": "창원 LG",
+      "code": "",
       "score": 81,
       "players": []
     },
     "away": {
       "name": "서울 SK",
+      "code": "",
       "score": 89,
       "players": []
     }
