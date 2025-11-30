@@ -9,7 +9,6 @@ from pathlib import Path
 from model import MLP
 import asyncio
 import signal
-import time
 import json
 import sys
 
@@ -55,8 +54,15 @@ async def main(URL: str):
     h_name = meta_data["home"]["name"]
     a_name = meta_data["away"]["name"]
     
-    print(f"실시간 승률 예측 시작: {h_name}({h_code}) vs {a_name}({a_code})")
+    print("실시간 승률 예측 시작")
+    print(f"경기 URL: {URL}")
+    print("경기 정보:")
+    print(f"    - 팀 정보: 팀 이름 (팀 코드)")
+    print(f"    - home: {h_name} ({h_code})")
+    print(f"    - away: {a_name} ({a_code})")
+    print("종료하려면 Ctrl+C를 누르세요.\n")
     
+    print(f"{'Quarter':<8} {'Time':<6} {'Home Win%':<12} {'Away Win%':<12}")
     while True:
         all_logs = await crawl_all_logs(URL)
 
@@ -88,7 +94,8 @@ async def main(URL: str):
             await close_browser()
             sys.exit(1)
         
-        print(f"{last_quarter} {last_time} = 홈팀 승률 {h_code}: {home_prob*100:.2f}%, 어웨이팀 승률 {a_code}: {away_prob*100:.2f}%")
+        print(f"{last_quarter:<8} {last_time:<6} {home_prob*100:<12.2f} {away_prob*100:<12.2f}")
+        
         if record and record[-1]["total_time_sec"] == total_time_sec:
             record[-1] = {
                 "home_code": h_code,
