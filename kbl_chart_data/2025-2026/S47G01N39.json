@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S47G01N39/20251025",
-    "seasonName": "2025-2026",
     "gameKey": "S47G01N39",
     "date": "20251025",
     "home": {
       "name": "대구 한국가스공사",
-      "score": 61,
-      "players": []
+      "code": "64",
+      "score": 61
     },
     "away": {
       "name": "부산 KCC",
-      "score": 71,
-      "players": []
+      "code": "60",
+      "score": 71
     }
   },
   "shootLog": [

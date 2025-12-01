@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S47G01N7/20251005",
-    "seasonName": "2025-2026",
     "gameKey": "S47G01N7",
     "date": "20251005",
     "home": {
       "name": "서울 SK",
-      "score": 104,
-      "players": []
+      "code": "55",
+      "score": 104
     },
     "away": {
       "name": "수원 KT",
-      "score": 64,
-      "players": []
+      "code": "06",
+      "score": 64
     }
   },
   "shootLog": [

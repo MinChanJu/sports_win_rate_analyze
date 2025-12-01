@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S47G01N13/20251008",
-    "seasonName": "2025-2026",
     "gameKey": "S47G01N13",
     "date": "20251008",
     "home": {
       "name": "고양 소노",
-      "score": 82,
-      "players": []
+      "code": "66",
+      "score": 82
     },
     "away": {
       "name": "서울 SK",
-      "score": 78,
-      "players": []
+      "code": "55",
+      "score": 78
     }
   },
   "shootLog": [

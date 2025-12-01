@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S47G01N29/20251018",
-    "seasonName": "2025-2026",
     "gameKey": "S47G01N29",
     "date": "20251018",
     "home": {
       "name": "창원 LG",
-      "score": 75,
-      "players": []
+      "code": "50",
+      "score": 75
     },
     "away": {
       "name": "서울 삼성",
-      "score": 64,
-      "players": []
+      "code": "35",
+      "score": 64
     }
   },
   "shootLog": [

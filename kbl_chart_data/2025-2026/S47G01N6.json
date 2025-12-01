@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S47G01N6/20251004",
-    "seasonName": "2025-2026",
     "gameKey": "S47G01N6",
     "date": "20251004",
     "home": {
       "name": "안양 정관장",
-      "score": 69,
-      "players": []
+      "code": "70",
+      "score": 69
     },
     "away": {
       "name": "고양 소노",
-      "score": 50,
-      "players": []
+      "code": "66",
+      "score": 50
     }
   },
   "shootLog": [

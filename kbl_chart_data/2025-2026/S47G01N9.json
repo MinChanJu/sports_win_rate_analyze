@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S47G01N9/20251005",
-    "seasonName": "2025-2026",
     "gameKey": "S47G01N9",
     "date": "20251005",
     "home": {
       "name": "고양 소노",
-      "score": 72,
-      "players": []
+      "code": "66",
+      "score": 72
     },
     "away": {
       "name": "울산 현대모비스",
-      "score": 80,
-      "players": []
+      "code": "10",
+      "score": 80
     }
   },
   "shootLog": [

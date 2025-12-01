@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S47G01N33/20251020",
-    "seasonName": "2025-2026",
     "gameKey": "S47G01N33",
     "date": "20251020",
     "home": {
       "name": "창원 LG",
-      "score": 76,
-      "players": []
+      "code": "50",
+      "score": 76
     },
     "away": {
       "name": "대구 한국가스공사",
-      "score": 68,
-      "players": []
+      "code": "64",
+      "score": 68
     }
   },
   "shootLog": [
@@ -138,15 +137,15 @@
         },
         {
           "q": "Q4",
-          "x": 654,
-          "y": 227,
+          "x": 658,
+          "y": 179,
           "o": "O",
           "d": "1"
         },
         {
           "q": "Q4",
-          "x": 658,
-          "y": 179,
+          "x": 654,
+          "y": 227,
           "o": "O",
           "d": "1"
         }

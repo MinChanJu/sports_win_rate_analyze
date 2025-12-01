@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S47G01N42/20251026",
-    "seasonName": "2025-2026",
     "gameKey": "S47G01N42",
     "date": "20251026",
     "home": {
       "name": "대구 한국가스공사",
-      "score": 83,
-      "players": []
+      "code": "64",
+      "score": 83
     },
     "away": {
       "name": "서울 SK",
-      "score": 81,
-      "players": []
+      "code": "55",
+      "score": 81
     }
   },
   "shootLog": [
@@ -495,6 +494,13 @@
       "logs": [
         {
           "q": "Q1",
+          "x": 179,
+          "y": 141,
+          "o": "O",
+          "d": "2"
+        },
+        {
+          "q": "Q1",
           "x": 89,
           "y": 216,
           "o": "X",
@@ -533,13 +539,6 @@
           "x": 176,
           "y": 191,
           "o": "X",
-          "d": "2"
-        },
-        {
-          "q": "Q1",
-          "x": 179,
-          "y": 141,
-          "o": "O",
           "d": "2"
         },
         {

@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S47G01N10/20251006",
-    "seasonName": "2025-2026",
     "gameKey": "S47G01N10",
     "date": "20251006",
     "home": {
       "name": "안양 정관장",
-      "score": 83,
-      "players": []
+      "code": "70",
+      "score": 83
     },
     "away": {
       "name": "대구 한국가스공사",
-      "score": 66,
-      "players": []
+      "code": "64",
+      "score": 66
     }
   },
   "shootLog": [

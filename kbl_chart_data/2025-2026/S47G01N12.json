@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S47G01N12/20251008",
-    "seasonName": "2025-2026",
     "gameKey": "S47G01N12",
     "date": "20251008",
     "home": {
       "name": "원주 DB",
-      "score": 75,
-      "players": []
+      "code": "16",
+      "score": 75
     },
     "away": {
       "name": "안양 정관장",
-      "score": 69,
-      "players": []
+      "code": "70",
+      "score": 69
     }
   },
   "shootLog": [
@@ -274,15 +273,15 @@
         },
         {
           "q": "Q2",
-          "x": 63,
-          "y": 35,
+          "x": 179,
+          "y": 363,
           "o": "X",
           "d": "2"
         },
         {
           "q": "Q2",
-          "x": 179,
-          "y": 363,
+          "x": 63,
+          "y": 35,
           "o": "X",
           "d": "2"
         },

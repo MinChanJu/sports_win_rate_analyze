@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S47G01N38/20251025",
-    "seasonName": "2025-2026",
     "gameKey": "S47G01N38",
     "date": "20251025",
     "home": {
       "name": "울산 현대모비스",
-      "score": 75,
-      "players": []
+      "code": "10",
+      "score": 75
     },
     "away": {
       "name": "창원 LG",
-      "score": 87,
-      "players": []
+      "code": "50",
+      "score": 87
     }
   },
   "shootLog": [
