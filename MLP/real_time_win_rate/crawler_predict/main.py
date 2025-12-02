@@ -122,5 +122,5 @@ async def main(URL: str):
         await asyncio.sleep(10)  # 10초 대기
     
 if __name__ == "__main__":
-    URL = "https://kbl.or.kr/match/record/S41G01N171/20230128"
+    URL = "https://kbl.or.kr/match/record/S48G01N18/20251202"
     asyncio.run(main(URL))

@@ -110,7 +110,7 @@ async def crawl_all_logs(URL: str) -> list | None:
                 all_logs.extend(data)
 
             except:
-                print(f"{quarter['name']} 처리 오류")
+                continue
 
         return all_logs
 
