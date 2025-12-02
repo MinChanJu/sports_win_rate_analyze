@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N111/20211218",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N111",
     "date": "20211218",
     "home": {
       "name": "안양 KGC",
-      "score": 102,
-      "players": []
+      "code": "70",
+      "score": 102
     },
     "away": {
       "name": "수원 KT",
-      "score": 79,
-      "players": []
+      "code": "06",
+      "score": 79
     }
   },
   "shootLog": [

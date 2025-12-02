@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N158/20220112",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N158",
     "date": "20220112",
     "home": {
       "name": "안양 KGC",
-      "score": 79,
-      "players": []
+      "code": "70",
+      "score": 79
     },
     "away": {
       "name": "대구 한국가스공사",
-      "score": 73,
-      "players": []
+      "code": "64",
+      "score": 73
     }
   },
   "shootLog": [

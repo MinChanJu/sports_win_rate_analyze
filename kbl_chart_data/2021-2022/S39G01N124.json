@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N124/20211225",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N124",
     "date": "20211225",
     "home": {
       "name": "안양 KGC",
-      "score": 96,
-      "players": []
+      "code": "70",
+      "score": 96
     },
     "away": {
       "name": "전주 KCC",
-      "score": 92,
-      "players": []
+      "code": "60",
+      "score": 92
     }
   },
   "shootLog": [

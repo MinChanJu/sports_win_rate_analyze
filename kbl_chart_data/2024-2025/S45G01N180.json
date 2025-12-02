@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S45G01N180/20250207",
-    "seasonName": "2024-2025",
     "gameKey": "S45G01N180",
     "date": "20250207",
     "home": {
       "name": "서울 삼성",
-      "score": 77,
-      "players": []
+      "code": "35",
+      "score": 77
     },
     "away": {
       "name": "고양 소노",
-      "score": 63,
-      "players": []
+      "code": "66",
+      "score": 63
     }
   },
   "shootLog": [

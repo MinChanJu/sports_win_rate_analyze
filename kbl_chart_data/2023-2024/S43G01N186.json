@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S43G01N186/20240203",
-    "seasonName": "2023-2024",
     "gameKey": "S43G01N186",
     "date": "20240203",
     "home": {
       "name": "서울 삼성",
-      "score": 88,
-      "players": []
+      "code": "35",
+      "score": 88
     },
     "away": {
       "name": "창원 LG",
-      "score": 86,
-      "players": []
+      "code": "50",
+      "score": 86
     }
   },
   "shootLog": [
@@ -329,16 +328,16 @@
         },
         {
           "q": "Q4",
-          "x": 76,
-          "y": 222,
-          "o": "O",
+          "x": 210,
+          "y": 90,
+          "o": "X",
           "d": "2"
         },
         {
           "q": "Q4",
-          "x": 210,
-          "y": 90,
-          "o": "X",
+          "x": 76,
+          "y": 222,
+          "o": "O",
           "d": "2"
         }
       ]

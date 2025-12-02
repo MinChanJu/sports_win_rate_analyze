@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S45G01N211/20250308",
-    "seasonName": "2024-2025",
     "gameKey": "S45G01N211",
     "date": "20250308",
     "home": {
       "name": "안양 정관장",
-      "score": 74,
-      "players": []
+      "code": "70",
+      "score": 74
     },
     "away": {
       "name": "울산 현대모비스",
-      "score": 81,
-      "players": []
+      "code": "10",
+      "score": 81
     }
   },
   "shootLog": [

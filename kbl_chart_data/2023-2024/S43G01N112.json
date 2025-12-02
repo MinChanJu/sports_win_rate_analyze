@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S43G01N112/20231222",
-    "seasonName": "2023-2024",
     "gameKey": "S43G01N112",
     "date": "20231222",
     "home": {
       "name": "안양 정관장",
-      "score": 75,
-      "players": []
+      "code": "70",
+      "score": 75
     },
     "away": {
       "name": "부산 KCC",
-      "score": 104,
-      "players": []
+      "code": "60",
+      "score": 104
     }
   },
   "shootLog": [

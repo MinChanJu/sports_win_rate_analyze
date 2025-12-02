@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S41G01N108/20221218",
-    "seasonName": "2022-2023",
     "gameKey": "S41G01N108",
     "date": "20221218",
     "home": {
       "name": "대구 한국가스공사",
-      "score": 80,
-      "players": []
+      "code": "64",
+      "score": 80
     },
     "away": {
       "name": "원주 DB",
-      "score": 111,
-      "players": []
+      "code": "16",
+      "score": 111
     }
   },
   "shootLog": [

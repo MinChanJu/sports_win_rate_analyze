@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N17/20211016",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N17",
     "date": "20211016",
     "home": {
       "name": "고양 오리온",
-      "score": 89,
-      "players": []
+      "code": "30",
+      "score": 89
     },
     "away": {
       "name": "대구 한국가스공사",
-      "score": 67,
-      "players": []
+      "code": "64",
+      "score": 67
     }
   },
   "shootLog": [

@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S45G01N176/20250205",
-    "seasonName": "2024-2025",
     "gameKey": "S45G01N176",
     "date": "20250205",
     "home": {
       "name": "서울 삼성",
-      "score": 68,
-      "players": []
+      "code": "35",
+      "score": 68
     },
     "away": {
       "name": "울산 현대모비스",
-      "score": 77,
-      "players": []
+      "code": "10",
+      "score": 77
     }
   },
   "shootLog": [

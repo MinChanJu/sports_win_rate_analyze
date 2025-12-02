@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S43G01N49/20231117",
-    "seasonName": "2023-2024",
     "gameKey": "S43G01N49",
     "date": "20231117",
     "home": {
       "name": "안양 정관장",
-      "score": 77,
-      "players": []
+      "code": "70",
+      "score": 77
     },
     "away": {
       "name": "창원 LG",
-      "score": 106,
-      "players": []
+      "code": "50",
+      "score": 106
     }
   },
   "shootLog": [

@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S45G01N20/20241028",
-    "seasonName": "2024-2025",
     "gameKey": "S45G01N20",
     "date": "20241028",
     "home": {
       "name": "고양 소노",
-      "score": 83,
-      "players": []
+      "code": "66",
+      "score": 83
     },
     "away": {
       "name": "안양 정관장",
-      "score": 70,
-      "players": []
+      "code": "70",
+      "score": 70
     }
   },
   "shootLog": [

@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S41G01N179/20230131",
-    "seasonName": "2022-2023",
     "gameKey": "S41G01N179",
     "date": "20230131",
     "home": {
       "name": "전주 KCC",
-      "score": 81,
-      "players": []
+      "code": "60",
+      "score": 81
     },
     "away": {
       "name": "안양 KGC",
-      "score": 83,
-      "players": []
+      "code": "70",
+      "score": 83
     }
   },
   "shootLog": [
@@ -340,6 +339,13 @@
       "logs": [
         {
           "q": "Q1",
+          "x": 63,
+          "y": 375,
+          "o": "X",
+          "d": "2"
+        },
+        {
+          "q": "Q1",
           "x": 93,
           "y": 40,
           "o": "O",
@@ -349,13 +355,6 @@
           "q": "Q1",
           "x": 92,
           "y": 255,
-          "o": "X",
-          "d": "2"
-        },
-        {
-          "q": "Q1",
-          "x": 63,
-          "y": 375,
           "o": "X",
           "d": "2"
         },

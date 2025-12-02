@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S41G01N105/20221217",
-    "seasonName": "2022-2023",
     "gameKey": "S41G01N105",
     "date": "20221217",
     "home": {
       "name": "고양 캐롯",
-      "score": 106,
-      "players": []
+      "code": "73",
+      "score": 106
     },
     "away": {
       "name": "서울 SK",
-      "score": 84,
-      "players": []
+      "code": "55",
+      "score": 84
     }
   },
   "shootLog": [

@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S41G01N238/20230313",
-    "seasonName": "2022-2023",
     "gameKey": "S41G01N238",
     "date": "20230313",
     "home": {
       "name": "수원 KT",
-      "score": 72,
-      "players": []
+      "code": "06",
+      "score": 72
     },
     "away": {
       "name": "고양 캐롯",
-      "score": 76,
-      "players": []
+      "code": "73",
+      "score": 76
     }
   },
   "shootLog": [

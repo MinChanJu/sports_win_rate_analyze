@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S45G01N59/20241130",
-    "seasonName": "2024-2025",
     "gameKey": "S45G01N59",
     "date": "20241130",
     "home": {
       "name": "서울 삼성",
-      "score": 66,
-      "players": []
+      "code": "35",
+      "score": 66
     },
     "away": {
       "name": "원주 DB",
-      "score": 76,
-      "players": []
+      "code": "16",
+      "score": 76
     }
   },
   "shootLog": [

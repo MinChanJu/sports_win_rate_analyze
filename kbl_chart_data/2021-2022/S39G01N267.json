@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N267/20220405",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N267",
     "date": "20220405",
     "home": {
       "name": "원주 DB",
-      "score": 100,
-      "players": []
+      "code": "16",
+      "score": 100
     },
     "away": {
       "name": "창원 LG",
-      "score": 89,
-      "players": []
+      "code": "50",
+      "score": 89
     }
   },
   "shootLog": [
@@ -959,13 +958,6 @@
         },
         {
           "q": "Q4",
-          "x": 63,
-          "y": 149,
-          "o": "O",
-          "d": "2"
-        },
-        {
-          "q": "Q4",
           "x": 84,
           "y": 231,
           "o": "O",
@@ -997,6 +989,13 @@
           "x": 118,
           "y": 187,
           "o": "X",
+          "d": "2"
+        },
+        {
+          "q": "Q4",
+          "x": 63,
+          "y": 149,
+          "o": "O",
           "d": "2"
         }
       ]

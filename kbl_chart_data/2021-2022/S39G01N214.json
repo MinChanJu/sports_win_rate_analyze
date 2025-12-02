@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N214/20220215",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N214",
     "date": "20220215",
     "home": {
       "name": "울산 현대모비스",
-      "score": 70,
-      "players": []
+      "code": "10",
+      "score": 70
     },
     "away": {
       "name": "서울 SK",
-      "score": 76,
-      "players": []
+      "code": "55",
+      "score": 76
     }
   },
   "shootLog": [

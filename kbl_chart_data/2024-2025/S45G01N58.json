@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S45G01N58/20241130",
-    "seasonName": "2024-2025",
     "gameKey": "S45G01N58",
     "date": "20241130",
     "home": {
       "name": "고양 소노",
-      "score": 78,
-      "players": []
+      "code": "66",
+      "score": 78
     },
     "away": {
       "name": "창원 LG",
-      "score": 86,
-      "players": []
+      "code": "50",
+      "score": 86
     }
   },
   "shootLog": [

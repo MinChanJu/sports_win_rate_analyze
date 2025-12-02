@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S45G01N243/20250327",
-    "seasonName": "2024-2025",
     "gameKey": "S45G01N243",
     "date": "20250327",
     "home": {
       "name": "수원 KT",
-      "score": 90,
-      "players": []
+      "code": "06",
+      "score": 90
     },
     "away": {
       "name": "고양 소노",
-      "score": 81,
-      "players": []
+      "code": "66",
+      "score": 81
     }
   },
   "shootLog": [

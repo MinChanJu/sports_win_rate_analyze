@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S43G01N66/20231126",
-    "seasonName": "2023-2024",
     "gameKey": "S43G01N66",
     "date": "20231126",
     "home": {
       "name": "수원 KT",
-      "score": 88,
-      "players": []
+      "code": "06",
+      "score": 88
     },
     "away": {
       "name": "서울 삼성",
-      "score": 83,
-      "players": []
+      "code": "35",
+      "score": 83
     }
   },
   "shootLog": [

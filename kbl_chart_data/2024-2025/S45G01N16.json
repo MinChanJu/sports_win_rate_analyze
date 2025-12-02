@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S45G01N16/20241026",
-    "seasonName": "2024-2025",
     "gameKey": "S45G01N16",
     "date": "20241026",
     "home": {
       "name": "안양 정관장",
-      "score": 68,
-      "players": []
+      "code": "70",
+      "score": 68
     },
     "away": {
       "name": "원주 DB",
-      "score": 60,
-      "players": []
+      "code": "16",
+      "score": 60
     }
   },
   "shootLog": [
@@ -295,13 +294,6 @@
         },
         {
           "q": "Q2",
-          "x": 62,
-          "y": 193,
-          "o": "X",
-          "d": "2"
-        },
-        {
-          "q": "Q2",
           "x": 182,
           "y": 101,
           "o": "O",
@@ -312,6 +304,13 @@
           "x": 85,
           "y": 200,
           "o": "O",
+          "d": "2"
+        },
+        {
+          "q": "Q2",
+          "x": 62,
+          "y": 193,
+          "o": "X",
           "d": "2"
         },
         {

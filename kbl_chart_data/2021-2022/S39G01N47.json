@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N47/20211102",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N47",
     "date": "20211102",
     "home": {
       "name": "전주 KCC",
-      "score": 86,
-      "players": []
+      "code": "60",
+      "score": 86
     },
     "away": {
       "name": "창원 LG",
-      "score": 85,
-      "players": []
+      "code": "50",
+      "score": 85
     }
   },
   "shootLog": [
@@ -608,6 +607,13 @@
       "logs": [
         {
           "q": "Q1",
+          "x": 520,
+          "y": 299,
+          "o": "O",
+          "d": "1"
+        },
+        {
+          "q": "Q1",
           "x": 565,
           "y": 64,
           "o": "X",
@@ -617,13 +623,6 @@
           "q": "Q1",
           "x": 492,
           "y": 243,
-          "o": "O",
-          "d": "1"
-        },
-        {
-          "q": "Q1",
-          "x": 520,
-          "y": 299,
           "o": "O",
           "d": "1"
         },

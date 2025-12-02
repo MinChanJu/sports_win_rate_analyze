@@ -104,7 +104,7 @@ def visualize_shot_chart(json_path):
         return
 
     # 1. 캔버스 설정
-    fig, ax = plt.subplots(figsize=(14, 8)) 
+    fig, ax = plt.subplots(figsize=(16, 10)) 
     plt.subplots_adjust(left=0.25, bottom=0.1) 
 
     draw_full_court(ax, color='black')
@@ -128,8 +128,8 @@ def visualize_shot_chart(json_path):
                 scatter_dict[(team, q, made)] = plot
 
     # 3. 통계 텍스트 객체
-    home_stat_text = ax.text(175, -50, "", fontsize=16, fontweight='bold', ha='center', va='top', color='blue')
-    away_stat_text = ax.text(525, -50, "", fontsize=16, fontweight='bold', ha='center', va='top', color='green')
+    home_stat_text = ax.text(175, -50, "", fontsize=16, fontweight='bold', ha='center', va='top', color='black')
+    away_stat_text = ax.text(525, -50, "", fontsize=16, fontweight='bold', ha='center', va='top', color='black')
 
     # 팀 이름 및 타이틀
     ax.text(175, 430, f"HOME\n{home_name}", fontsize=14, fontweight='bold', ha='center', va='bottom', color='#333333')

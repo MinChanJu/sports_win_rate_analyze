@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N145/20220107",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N145",
     "date": "20220107",
     "home": {
       "name": "서울 삼성",
-      "score": 85,
-      "players": []
+      "code": "35",
+      "score": 85
     },
     "away": {
       "name": "대구 한국가스공사",
-      "score": 73,
-      "players": []
+      "code": "64",
+      "score": 73
     }
   },
   "shootLog": [

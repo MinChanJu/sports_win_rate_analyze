@@ -80,4 +80,4 @@ if __name__ == "__main__":
     # 22-23시즌: 30, 37
     # 21-22시즌: 42, 50
 
-    asyncio.run(main(1, 2, "../kbl_chart_data", True))
+    asyncio.run(main(7, 51, "../kbl_chart_data", True))

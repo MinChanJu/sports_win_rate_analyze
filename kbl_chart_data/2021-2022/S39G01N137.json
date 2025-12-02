@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N137/20220102",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N137",
     "date": "20220102",
     "home": {
       "name": "창원 LG",
-      "score": 69,
-      "players": []
+      "code": "50",
+      "score": 69
     },
     "away": {
       "name": "대구 한국가스공사",
-      "score": 65,
-      "players": []
+      "code": "64",
+      "score": 65
     }
   },
   "shootLog": [

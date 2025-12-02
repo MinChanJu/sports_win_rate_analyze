@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S41G01N224/20230304",
-    "seasonName": "2022-2023",
     "gameKey": "S41G01N224",
     "date": "20230304",
     "home": {
       "name": "서울 삼성",
-      "score": 88,
-      "players": []
+      "code": "35",
+      "score": 88
     },
     "away": {
       "name": "울산 현대모비스",
-      "score": 92,
-      "players": []
+      "code": "10",
+      "score": 92
     }
   },
   "shootLog": [

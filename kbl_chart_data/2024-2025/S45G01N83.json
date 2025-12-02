@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S45G01N83/20241214",
-    "seasonName": "2024-2025",
     "gameKey": "S45G01N83",
     "date": "20241214",
     "home": {
       "name": "부산 KCC",
-      "score": 88,
-      "players": []
+      "code": "60",
+      "score": 88
     },
     "away": {
       "name": "원주 DB",
-      "score": 92,
-      "players": []
+      "code": "16",
+      "score": 92
     }
   },
   "shootLog": [

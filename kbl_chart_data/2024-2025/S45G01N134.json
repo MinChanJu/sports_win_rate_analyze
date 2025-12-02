@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S45G01N134/20250110",
-    "seasonName": "2024-2025",
     "gameKey": "S45G01N134",
     "date": "20250110",
     "home": {
       "name": "대구 한국가스공사",
-      "score": 84,
-      "players": []
+      "code": "64",
+      "score": 84
     },
     "away": {
       "name": "원주 DB",
-      "score": 61,
-      "players": []
+      "code": "16",
+      "score": 61
     }
   },
   "shootLog": [
@@ -462,6 +461,13 @@
       "logs": [
         {
           "q": "Q1",
+          "x": 240,
+          "y": 189,
+          "o": "X",
+          "d": "2"
+        },
+        {
+          "q": "Q1",
           "x": 63,
           "y": 223,
           "o": "O",
@@ -472,13 +478,6 @@
           "x": 131,
           "y": 206,
           "o": "O",
-          "d": "2"
-        },
-        {
-          "q": "Q1",
-          "x": 240,
-          "y": 189,
-          "o": "X",
           "d": "2"
         },
         {

@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S45G01N256/20250403",
-    "seasonName": "2024-2025",
     "gameKey": "S45G01N256",
     "date": "20250403",
     "home": {
       "name": "창원 LG",
-      "score": 77,
-      "players": []
+      "code": "50",
+      "score": 77
     },
     "away": {
       "name": "안양 정관장",
-      "score": 62,
-      "players": []
+      "code": "70",
+      "score": 62
     }
   },
   "shootLog": [
@@ -688,15 +687,15 @@
       "logs": [
         {
           "q": "Q1",
-          "x": 680,
-          "y": 33,
+          "x": 640,
+          "y": 249,
           "o": "O",
           "d": "1"
         },
         {
           "q": "Q1",
-          "x": 640,
-          "y": 249,
+          "x": 680,
+          "y": 33,
           "o": "O",
           "d": "1"
         },

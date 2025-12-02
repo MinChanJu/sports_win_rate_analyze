@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N12/20211013",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N12",
     "date": "20211013",
     "home": {
       "name": "서울 삼성",
-      "score": 88,
-      "players": []
+      "code": "35",
+      "score": 88
     },
     "away": {
       "name": "전주 KCC",
-      "score": 86,
-      "players": []
+      "code": "60",
+      "score": 86
     }
   },
   "shootLog": [

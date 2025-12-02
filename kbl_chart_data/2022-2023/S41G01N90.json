@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S41G01N90/20221208",
-    "seasonName": "2022-2023",
     "gameKey": "S41G01N90",
     "date": "20221208",
     "home": {
       "name": "울산 현대모비스",
-      "score": 91,
-      "players": []
+      "code": "10",
+      "score": 91
     },
     "away": {
       "name": "수원 KT",
-      "score": 82,
-      "players": []
+      "code": "06",
+      "score": 82
     }
   },
   "shootLog": [
@@ -246,6 +245,13 @@
         },
         {
           "q": "Q4",
+          "x": 510,
+          "y": 96,
+          "o": "X",
+          "d": "1"
+        },
+        {
+          "q": "Q4",
           "x": 640,
           "y": 223,
           "o": "O",
@@ -263,13 +269,6 @@
           "x": 525,
           "y": 87,
           "o": "O",
-          "d": "1"
-        },
-        {
-          "q": "Q4",
-          "x": 510,
-          "y": 96,
-          "o": "X",
           "d": "1"
         }
       ]

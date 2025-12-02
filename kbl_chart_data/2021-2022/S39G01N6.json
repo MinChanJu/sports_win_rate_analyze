@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N6/20211010",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N6",
     "date": "20211010",
     "home": {
       "name": "전주 KCC",
-      "score": 78,
-      "players": []
+      "code": "60",
+      "score": 78
     },
     "away": {
       "name": "고양 오리온",
-      "score": 85,
-      "players": []
+      "code": "30",
+      "score": 85
     }
   },
   "shootLog": [

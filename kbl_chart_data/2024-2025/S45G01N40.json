@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S45G01N40/20241109",
-    "seasonName": "2024-2025",
     "gameKey": "S45G01N40",
     "date": "20241109",
     "home": {
       "name": "수원 KT",
-      "score": 65,
-      "players": []
+      "code": "06",
+      "score": 65
     },
     "away": {
       "name": "창원 LG",
-      "score": 59,
-      "players": []
+      "code": "50",
+      "score": 59
     }
   },
   "shootLog": [

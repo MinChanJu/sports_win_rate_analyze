@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S45G01N107/20241227",
-    "seasonName": "2024-2025",
     "gameKey": "S45G01N107",
     "date": "20241227",
     "home": {
       "name": "부산 KCC",
-      "score": 79,
-      "players": []
+      "code": "60",
+      "score": 79
     },
     "away": {
       "name": "울산 현대모비스",
-      "score": 95,
-      "players": []
+      "code": "10",
+      "score": 95
     }
   },
   "shootLog": [

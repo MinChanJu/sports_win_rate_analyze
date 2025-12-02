@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S43G01N260/20240325",
-    "seasonName": "2023-2024",
     "gameKey": "S43G01N260",
     "date": "20240325",
     "home": {
       "name": "서울 SK",
-      "score": 80,
-      "players": []
+      "code": "55",
+      "score": 80
     },
     "away": {
       "name": "수원 KT",
-      "score": 99,
-      "players": []
+      "code": "06",
+      "score": 99
     }
   },
   "shootLog": [

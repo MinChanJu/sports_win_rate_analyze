@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N177/20220323",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N177",
     "date": "20220323",
     "home": {
       "name": "고양 오리온",
-      "score": 75,
-      "players": []
+      "code": "30",
+      "score": 75
     },
     "away": {
       "name": "원주 DB",
-      "score": 73,
-      "players": []
+      "code": "16",
+      "score": 73
     }
   },
   "shootLog": [

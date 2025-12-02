@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S41G01N97/20221211",
-    "seasonName": "2022-2023",
     "gameKey": "S41G01N97",
     "date": "20221211",
     "home": {
       "name": "원주 DB",
-      "score": 68,
-      "players": []
+      "code": "16",
+      "score": 68
     },
     "away": {
       "name": "서울 SK",
-      "score": 97,
-      "players": []
+      "code": "55",
+      "score": 97
     }
   },
   "shootLog": [

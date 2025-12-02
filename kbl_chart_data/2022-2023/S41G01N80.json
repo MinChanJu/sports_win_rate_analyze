@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S41G01N80/20221203",
-    "seasonName": "2022-2023",
     "gameKey": "S41G01N80",
     "date": "20221203",
     "home": {
       "name": "창원 LG",
-      "score": 98,
-      "players": []
+      "code": "50",
+      "score": 98
     },
     "away": {
       "name": "서울 SK",
-      "score": 100,
-      "players": []
+      "code": "55",
+      "score": 100
     }
   },
   "shootLog": [

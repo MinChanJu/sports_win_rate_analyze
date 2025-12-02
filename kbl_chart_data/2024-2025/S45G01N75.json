@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S45G01N75/20241208",
-    "seasonName": "2024-2025",
     "gameKey": "S45G01N75",
     "date": "20241208",
     "home": {
       "name": "울산 현대모비스",
-      "score": 71,
-      "players": []
+      "code": "10",
+      "score": 71
     },
     "away": {
       "name": "안양 정관장",
-      "score": 95,
-      "players": []
+      "code": "70",
+      "score": 95
     }
   },
   "shootLog": [
@@ -595,13 +594,6 @@
       "logs": [
         {
           "q": "Q1",
-          "x": 79,
-          "y": 37,
-          "o": "O",
-          "d": "2"
-        },
-        {
-          "q": "Q1",
           "x": 225,
           "y": 265,
           "o": "X",
@@ -626,6 +618,13 @@
           "x": 213,
           "y": 282,
           "o": "X",
+          "d": "2"
+        },
+        {
+          "q": "Q1",
+          "x": 79,
+          "y": 37,
+          "o": "O",
           "d": "2"
         },
         {

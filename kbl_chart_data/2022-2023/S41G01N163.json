@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S41G01N163/20230122",
-    "seasonName": "2022-2023",
     "gameKey": "S41G01N163",
     "date": "20230122",
     "home": {
       "name": "안양 KGC",
-      "score": 91,
-      "players": []
+      "code": "70",
+      "score": 91
     },
     "away": {
       "name": "서울 삼성",
-      "score": 66,
-      "players": []
+      "code": "35",
+      "score": 66
     }
   },
   "shootLog": [

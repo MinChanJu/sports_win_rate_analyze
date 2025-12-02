@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S45G01N95/20241220",
-    "seasonName": "2024-2025",
     "gameKey": "S45G01N95",
     "date": "20241220",
     "home": {
       "name": "수원 KT",
-      "score": 88,
-      "players": []
+      "code": "06",
+      "score": 88
     },
     "away": {
       "name": "대구 한국가스공사",
-      "score": 86,
-      "players": []
+      "code": "64",
+      "score": 86
     }
   },
   "shootLog": [

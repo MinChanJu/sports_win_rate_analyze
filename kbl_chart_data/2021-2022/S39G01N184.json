@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N184/20220322",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N184",
     "date": "20220322",
     "home": {
       "name": "안양 KGC",
-      "score": 82,
-      "players": []
+      "code": "70",
+      "score": 82
     },
     "away": {
       "name": "서울 삼성",
-      "score": 66,
-      "players": []
+      "code": "35",
+      "score": 66
     }
   },
   "shootLog": [

@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S43G01N156/20240119",
-    "seasonName": "2023-2024",
     "gameKey": "S43G01N156",
     "date": "20240119",
     "home": {
       "name": "부산 KCC",
-      "score": 95,
-      "players": []
+      "code": "60",
+      "score": 95
     },
     "away": {
       "name": "창원 LG",
-      "score": 101,
-      "players": []
+      "code": "50",
+      "score": 101
     }
   },
   "shootLog": [

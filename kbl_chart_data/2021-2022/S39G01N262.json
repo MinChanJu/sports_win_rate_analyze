@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N262/20220326",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N262",
     "date": "20220326",
     "home": {
       "name": "서울 삼성",
-      "score": 75,
-      "players": []
+      "code": "35",
+      "score": 75
     },
     "away": {
       "name": "원주 DB",
-      "score": 82,
-      "players": []
+      "code": "16",
+      "score": 82
     }
   },
   "shootLog": [
@@ -649,15 +648,15 @@
         },
         {
           "q": "Q4",
-          "x": 87,
-          "y": 63,
+          "x": 160,
+          "y": 67,
           "o": "X",
           "d": "2"
         },
         {
           "q": "Q4",
-          "x": 160,
-          "y": 67,
+          "x": 87,
+          "y": 63,
           "o": "X",
           "d": "2"
         }

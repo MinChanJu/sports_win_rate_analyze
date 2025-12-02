@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S41G01N114/20221222",
-    "seasonName": "2022-2023",
     "gameKey": "S41G01N114",
     "date": "20221222",
     "home": {
       "name": "고양 캐롯",
-      "score": 93,
-      "players": []
+      "code": "73",
+      "score": 93
     },
     "away": {
       "name": "서울 삼성",
-      "score": 72,
-      "players": []
+      "code": "35",
+      "score": 72
     }
   },
   "shootLog": [
@@ -624,13 +623,6 @@
       "logs": [
         {
           "q": "Q1",
-          "x": 506,
-          "y": 82,
-          "o": "X",
-          "d": "1"
-        },
-        {
-          "q": "Q1",
           "x": 645,
           "y": 195,
           "o": "O",
@@ -641,6 +633,13 @@
           "x": 552,
           "y": 236,
           "o": "O",
+          "d": "1"
+        },
+        {
+          "q": "Q1",
+          "x": 506,
+          "y": 82,
+          "o": "X",
           "d": "1"
         },
         {

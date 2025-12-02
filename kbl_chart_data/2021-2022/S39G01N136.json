@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N136/20220101",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N136",
     "date": "20220101",
     "home": {
       "name": "수원 KT",
-      "score": 85,
-      "players": []
+      "code": "06",
+      "score": 85
     },
     "away": {
       "name": "서울 삼성",
-      "score": 68,
-      "players": []
+      "code": "35",
+      "score": 68
     }
   },
   "shootLog": [

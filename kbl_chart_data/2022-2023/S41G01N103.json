@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S41G01N103/20221216",
-    "seasonName": "2022-2023",
     "gameKey": "S41G01N103",
     "date": "20221216",
     "home": {
       "name": "울산 현대모비스",
-      "score": 89,
-      "players": []
+      "code": "10",
+      "score": 89
     },
     "away": {
       "name": "원주 DB",
-      "score": 75,
-      "players": []
+      "code": "16",
+      "score": 75
     }
   },
   "shootLog": [

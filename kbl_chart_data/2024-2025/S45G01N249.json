@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S45G01N249/20250329",
-    "seasonName": "2024-2025",
     "gameKey": "S45G01N249",
     "date": "20250329",
     "home": {
       "name": "수원 KT",
-      "score": 69,
-      "players": []
+      "code": "06",
+      "score": 69
     },
     "away": {
       "name": "원주 DB",
-      "score": 67,
-      "players": []
+      "code": "16",
+      "score": 67
     }
   },
   "shootLog": [
@@ -706,6 +705,13 @@
         },
         {
           "q": "Q4",
+          "x": 654,
+          "y": 188,
+          "o": "O",
+          "d": "1"
+        },
+        {
+          "q": "Q4",
           "x": 517,
           "y": 311,
           "o": "X",
@@ -723,13 +729,6 @@
           "x": 508,
           "y": 294,
           "o": "X",
-          "d": "1"
-        },
-        {
-          "q": "Q4",
-          "x": 654,
-          "y": 188,
-          "o": "O",
           "d": "1"
         }
       ]

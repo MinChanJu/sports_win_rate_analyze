@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S41G01N166/20230124",
-    "seasonName": "2022-2023",
     "gameKey": "S41G01N166",
     "date": "20230124",
     "home": {
       "name": "울산 현대모비스",
-      "score": 82,
-      "players": []
+      "code": "10",
+      "score": 82
     },
     "away": {
       "name": "창원 LG",
-      "score": 75,
-      "players": []
+      "code": "50",
+      "score": 75
     }
   },
   "shootLog": [

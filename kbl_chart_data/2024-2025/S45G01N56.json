@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S45G01N56/20241129",
-    "seasonName": "2024-2025",
     "gameKey": "S45G01N56",
     "date": "20241129",
     "home": {
       "name": "안양 정관장",
-      "score": 85,
-      "players": []
+      "code": "70",
+      "score": 85
     },
     "away": {
       "name": "부산 KCC",
-      "score": 79,
-      "players": []
+      "code": "60",
+      "score": 79
     }
   },
   "shootLog": [
@@ -1111,6 +1110,13 @@
       "logs": [
         {
           "q": "Q3",
+          "x": 565,
+          "y": 64,
+          "o": "X",
+          "d": "1"
+        },
+        {
+          "q": "Q3",
           "x": 507,
           "y": 298,
           "o": "X",
@@ -1121,13 +1127,6 @@
           "x": 646,
           "y": 37,
           "o": "O",
-          "d": "1"
-        },
-        {
-          "q": "Q3",
-          "x": 565,
-          "y": 64,
-          "o": "X",
           "d": "1"
         }
       ]

@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N19/20211017",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N19",
     "date": "20211017",
     "home": {
       "name": "원주 DB",
-      "score": 81,
-      "players": []
+      "code": "16",
+      "score": 81
     },
     "away": {
       "name": "대구 한국가스공사",
-      "score": 82,
-      "players": []
+      "code": "64",
+      "score": 82
     }
   },
   "shootLog": [

@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S41G01N235/20230312",
-    "seasonName": "2022-2023",
     "gameKey": "S41G01N235",
     "date": "20230312",
     "home": {
       "name": "전주 KCC",
-      "score": 78,
-      "players": []
+      "code": "60",
+      "score": 78
     },
     "away": {
       "name": "서울 삼성",
-      "score": 75,
-      "players": []
+      "code": "35",
+      "score": 75
     }
   },
   "shootLog": [

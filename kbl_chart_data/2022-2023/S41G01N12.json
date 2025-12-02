@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S41G01N12/20221022",
-    "seasonName": "2022-2023",
     "gameKey": "S41G01N12",
     "date": "20221022",
     "home": {
       "name": "대구 한국가스공사",
-      "score": 90,
-      "players": []
+      "code": "64",
+      "score": 90
     },
     "away": {
       "name": "서울 SK",
-      "score": 105,
-      "players": []
+      "code": "55",
+      "score": 105
     }
   },
   "shootLog": [

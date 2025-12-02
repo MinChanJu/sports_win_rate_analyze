@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N87/20211205",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N87",
     "date": "20211205",
     "home": {
       "name": "서울 삼성",
-      "score": 67,
-      "players": []
+      "code": "35",
+      "score": 67
     },
     "away": {
       "name": "창원 LG",
-      "score": 65,
-      "players": []
+      "code": "50",
+      "score": 65
     }
   },
   "shootLog": [

@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S43G01N93/20231211",
-    "seasonName": "2023-2024",
     "gameKey": "S43G01N93",
     "date": "20231211",
     "home": {
       "name": "울산 현대모비스",
-      "score": 80,
-      "players": []
+      "code": "10",
+      "score": 80
     },
     "away": {
       "name": "창원 LG",
-      "score": 88,
-      "players": []
+      "code": "50",
+      "score": 88
     }
   },
   "shootLog": [
@@ -501,13 +500,6 @@
         },
         {
           "q": "Q4",
-          "x": 661,
-          "y": 213,
-          "o": "O",
-          "d": "1"
-        },
-        {
-          "q": "Q4",
           "x": 531,
           "y": 94,
           "o": "O",
@@ -524,6 +516,13 @@
           "q": "Q4",
           "x": 560,
           "y": 336,
+          "o": "O",
+          "d": "1"
+        },
+        {
+          "q": "Q4",
+          "x": 661,
+          "y": 213,
           "o": "O",
           "d": "1"
         }

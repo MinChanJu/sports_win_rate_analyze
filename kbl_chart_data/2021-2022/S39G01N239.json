@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N239/20220313",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N239",
     "date": "20220313",
     "home": {
       "name": "서울 SK",
-      "score": 103,
-      "players": []
+      "code": "55",
+      "score": 103
     },
     "away": {
       "name": "서울 삼성",
-      "score": 86,
-      "players": []
+      "code": "35",
+      "score": 86
     }
   },
   "shootLog": [

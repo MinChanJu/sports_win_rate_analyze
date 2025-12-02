@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N147/20220108",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N147",
     "date": "20220108",
     "home": {
       "name": "서울 SK",
-      "score": 81,
-      "players": []
+      "code": "55",
+      "score": 81
     },
     "away": {
       "name": "고양 오리온",
-      "score": 59,
-      "players": []
+      "code": "30",
+      "score": 59
     }
   },
   "shootLog": [

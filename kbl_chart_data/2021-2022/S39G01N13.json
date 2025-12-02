@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N13/20211014",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N13",
     "date": "20211014",
     "home": {
       "name": "수원 KT",
-      "score": 95,
-      "players": []
+      "code": "06",
+      "score": 95
     },
     "away": {
       "name": "대구 한국가스공사",
-      "score": 78,
-      "players": []
+      "code": "64",
+      "score": 78
     }
   },
   "shootLog": [

@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N122/20211225",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N122",
     "date": "20211225",
     "home": {
       "name": "창원 LG",
-      "score": 84,
-      "players": []
+      "code": "50",
+      "score": 84
     },
     "away": {
       "name": "원주 DB",
-      "score": 75,
-      "players": []
+      "code": "16",
+      "score": 75
     }
   },
   "shootLog": [

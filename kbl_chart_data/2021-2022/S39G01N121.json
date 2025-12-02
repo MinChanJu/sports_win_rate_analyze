@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N121/20211224",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N121",
     "date": "20211224",
     "home": {
       "name": "고양 오리온",
-      "score": 98,
-      "players": []
+      "code": "30",
+      "score": 98
     },
     "away": {
       "name": "울산 현대모비스",
-      "score": 95,
-      "players": []
+      "code": "10",
+      "score": 95
     }
   },
   "shootLog": [

@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S45G01N259/20250404",
-    "seasonName": "2024-2025",
     "gameKey": "S45G01N259",
     "date": "20250404",
     "home": {
       "name": "고양 소노",
-      "score": 86,
-      "players": []
+      "code": "66",
+      "score": 86
     },
     "away": {
       "name": "원주 DB",
-      "score": 70,
-      "players": []
+      "code": "16",
+      "score": 70
     }
   },
   "shootLog": [

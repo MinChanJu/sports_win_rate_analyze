@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S45G01N41/20241109",
-    "seasonName": "2024-2025",
     "gameKey": "S45G01N41",
     "date": "20241109",
     "home": {
       "name": "서울 SK",
-      "score": 93,
-      "players": []
+      "code": "55",
+      "score": 93
     },
     "away": {
       "name": "부산 KCC",
-      "score": 57,
-      "players": []
+      "code": "60",
+      "score": 57
     }
   },
   "shootLog": [

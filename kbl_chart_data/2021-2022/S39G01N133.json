@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N133/20211231",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N133",
     "date": "20211231",
     "home": {
       "name": "안양 KGC",
-      "score": 90,
-      "players": []
+      "code": "70",
+      "score": 90
     },
     "away": {
       "name": "원주 DB",
-      "score": 89,
-      "players": []
+      "code": "16",
+      "score": 89
     }
   },
   "shootLog": [

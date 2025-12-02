@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S39G01N182/20220130",
-    "seasonName": "2021-2022",
     "gameKey": "S39G01N182",
     "date": "20220130",
     "home": {
       "name": "서울 SK",
-      "score": 100,
-      "players": []
+      "code": "55",
+      "score": 100
     },
     "away": {
       "name": "원주 DB",
-      "score": 84,
-      "players": []
+      "code": "16",
+      "score": 84
     }
   },
   "shootLog": [
@@ -445,6 +444,13 @@
         },
         {
           "q": "Q3",
+          "x": 76,
+          "y": 185,
+          "o": "O",
+          "d": "2"
+        },
+        {
+          "q": "Q3",
           "x": 217,
           "y": 104,
           "o": "O",
@@ -454,13 +460,6 @@
           "q": "Q3",
           "x": 254,
           "y": 216,
-          "o": "O",
-          "d": "2"
-        },
-        {
-          "q": "Q3",
-          "x": 76,
-          "y": 185,
           "o": "O",
           "d": "2"
         },

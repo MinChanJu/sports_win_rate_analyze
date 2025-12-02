@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S43G01N127/20231230",
-    "seasonName": "2023-2024",
     "gameKey": "S43G01N127",
     "date": "20231230",
     "home": {
       "name": "고양 소노",
-      "score": 67,
-      "players": []
+      "code": "66",
+      "score": 67
     },
     "away": {
       "name": "서울 삼성",
-      "score": 86,
-      "players": []
+      "code": "35",
+      "score": 86
     }
   },
   "shootLog": [

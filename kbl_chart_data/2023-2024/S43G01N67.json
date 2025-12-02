@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S43G01N67/20231126",
-    "seasonName": "2023-2024",
     "gameKey": "S43G01N67",
     "date": "20231126",
     "home": {
       "name": "안양 정관장",
-      "score": 80,
-      "players": []
+      "code": "70",
+      "score": 80
     },
     "away": {
       "name": "원주 DB",
-      "score": 97,
-      "players": []
+      "code": "16",
+      "score": 97
     }
   },
   "shootLog": [

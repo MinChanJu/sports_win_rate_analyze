@@ -1,18 +1,17 @@
 {
   "metainfo": {
     "url": "https://www.kbl.or.kr/match/record/S45G01N38/20241108",
-    "seasonName": "2024-2025",
     "gameKey": "S45G01N38",
     "date": "20241108",
     "home": {
       "name": "울산 현대모비스",
-      "score": 79,
-      "players": []
+      "code": "10",
+      "score": 79
     },
     "away": {
       "name": "원주 DB",
-      "score": 70,
-      "players": []
+      "code": "16",
+      "score": 70
     }
   },
   "shootLog": [
