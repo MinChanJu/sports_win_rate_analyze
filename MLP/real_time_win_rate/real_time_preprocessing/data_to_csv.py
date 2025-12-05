@@ -5,7 +5,7 @@ import pandas as pd
 from tqdm import tqdm
 from kbl_decoder import kbl_log_decoder
 
-def data_to_csv(game_path: str, csv_path: str):
+def data_to_csv(game_path: str, csv_path: str) -> list[str]:
     with open(game_path, "r", encoding="utf-8") as f:
         game_data = json.load(f)
     
@@ -34,12 +34,17 @@ def data_to_csv(game_path: str, csv_path: str):
     
     df = pd.DataFrame(records)
     df.to_csv(csv_path, index=False, encoding="utf-8-sig")
+    
+    # feature 순서도 함께 저장
+    feature_order = list(df.columns)
+    return feature_order
 
 def data_to_csv_multiple(data_path: str, csv_folder: str):
     if os.path.exists(csv_folder):
         shutil.rmtree(csv_folder)
         
     os.makedirs(csv_folder)
+    feature_order = []
     for season_folder in sorted(os.listdir(data_path)):
         season_path = os.path.join(data_path, season_folder)
         if not os.path.isdir(season_path):
@@ -50,7 +55,16 @@ def data_to_csv_multiple(data_path: str, csv_folder: str):
                 csv_path = os.path.join(csv_folder, season_folder)
                 os.makedirs(csv_path, exist_ok=True)
                 csv_path = os.path.join(csv_path, file.replace(".json", ".csv"))
-                data_to_csv(game_path, csv_path)
+                new_feature_order = data_to_csv(game_path, csv_path)
+                if not feature_order:
+                    feature_order = new_feature_order
+                if feature_order != new_feature_order:
+                    tqdm.write(f"Warning: Feature order mismatch in {file}")
+
+    # 저장된 feature 순서를 파일로도 저장
+    feature_order_path = os.path.join(csv_folder, "feature_order.json")
+    with open(feature_order_path, "w", encoding="utf-8") as f:
+        json.dump(feature_order, f, ensure_ascii=False, indent=4)
 
 if __name__ == "__main__":
     data_to_csv_multiple("../../../kbl_log_data", "../kbl_real_time_csv")
