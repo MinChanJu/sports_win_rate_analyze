@@ -62,15 +62,20 @@ async def main(URL: str):
     print(f"    - away: {a_name} ({a_code})")
     print("종료하려면 Ctrl+C를 누르세요.\n")
     
-    print(f"{'Quarter':<8} {'Time':<6} {'Home Win%':<12} {'Away Win%':<12}")
+    print(f"{'Quarter':<8} {'Time':<6} {'Home Win%':<12} {'Away Win%':<12} {'log count':<10} {'total sec':<10}")
     while True:
-        all_logs = await crawl_all_logs(URL)
+        all_logs = []
+        crawl_logs = await crawl_all_logs(URL)
 
-        if all_logs is None:
+        if crawl_logs is None:
             print("크롤링에 실패하여 예측을 종료합니다.")
             await close_browser()
             sys.exit(1)
         
+        if len(crawl_logs) <= len(all_logs):
+            continue  # 이전보다 로그가 적으면 무시
+        
+        all_logs = crawl_logs
         game_stats = kbl_log_decoder(all_logs, h_code, a_code)
         
         x_row = transform_stats_to_array(game_stats)
@@ -81,12 +86,14 @@ async def main(URL: str):
         last_sec = int(last_log['s'])
         last_time = f"{last_min:02}:{last_sec:02}"
         last_quarter = last_log['q']
-        last_time_sec = last_min * 60 + last_sec
+        # 마지막 쿼티 시간 계산 09:15 -> 45로 변환
+        last_time_sec = 600 - (last_min * 60 + last_sec) if last_quarter.startswith("Q") else 300 - (last_min * 60 + last_sec)
+        
         
         total_time_sec = (
-            int(last_quarter[1]) * 10 + last_time_sec
+            (int(last_quarter[1]) - 1) * 10 * 60 + last_time_sec
         ) if last_quarter.startswith("Q") else (
-            2400 + int(last_quarter[1]) * 5 + last_time_sec if last_quarter.startswith("X") else None
+            2400 + (int(last_quarter[1]) - 1) * 5 * 60 + last_time_sec if last_quarter.startswith("X") else None
         )
         
         if total_time_sec is None:
@@ -94,7 +101,7 @@ async def main(URL: str):
             await close_browser()
             sys.exit(1)
         
-        print(f"{last_quarter:<8} {last_time:<6} {home_prob*100:<12.2f} {away_prob*100:<12.2f}")
+        print(f"{last_quarter:<8} {last_time:<6} {home_prob*100:<12.2f} {away_prob*100:<12.2f} {len(all_logs):<10} {total_time_sec:<10}")
         
         if record and record[-1]["total_time_sec"] == total_time_sec:
             record[-1] = {
@@ -122,5 +129,7 @@ async def main(URL: str):
         await asyncio.sleep(10)  # 10초 대기
     
 if __name__ == "__main__":
-    URL = "https://kbl.or.kr/match/record/S48G01N18/20251202"
+    # URL = "https://kbl.or.kr/match/record/S48G01N18/20251202"
+    URL = "https://kbl.or.kr/match/record/S47G01N86/20251205"  # 12월 5일 경기 예시
+    
     asyncio.run(main(URL))

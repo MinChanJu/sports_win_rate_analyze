@@ -1,83 +1,92 @@
 [
     {
-        "home_code": 57,
-        "away_code": 28,
-        "home_win_rate": 0.8043951988220215,
-        "away_win_rate": 0.19560477137565613,
-        "quarter": "Q2",
-        "time": "05:31",
-        "total_time_sec": 351
+        "home_code": 66,
+        "away_code": 55,
+        "home_win_rate": 0.37138062715530396,
+        "away_win_rate": 0.6286193132400513,
+        "quarter": "Q3",
+        "time": "01:51",
+        "total_time_sec": 1689
     },
     {
-        "home_code": 57,
-        "away_code": 28,
-        "home_win_rate": 0.8072973489761353,
-        "away_win_rate": 0.19270266592502594,
-        "quarter": "Q2",
-        "time": "04:59",
-        "total_time_sec": 319
+        "home_code": 66,
+        "away_code": 55,
+        "home_win_rate": 0.37207910418510437,
+        "away_win_rate": 0.627920925617218,
+        "quarter": "Q3",
+        "time": "01:40",
+        "total_time_sec": 1700
     },
     {
-        "home_code": 57,
-        "away_code": 28,
-        "home_win_rate": 0.8073350787162781,
-        "away_win_rate": 0.19266493618488312,
-        "quarter": "Q2",
-        "time": "05:01",
-        "total_time_sec": 321
+        "home_code": 66,
+        "away_code": 55,
+        "home_win_rate": 0.37305623292922974,
+        "away_win_rate": 0.6269437670707703,
+        "quarter": "Q3",
+        "time": "01:30",
+        "total_time_sec": 1710
     },
     {
-        "home_code": 57,
-        "away_code": 28,
-        "home_win_rate": 0.8072973489761353,
-        "away_win_rate": 0.19270266592502594,
-        "quarter": "Q2",
-        "time": "04:59",
-        "total_time_sec": 319
+        "home_code": 66,
+        "away_code": 55,
+        "home_win_rate": 0.37207910418510437,
+        "away_win_rate": 0.627920925617218,
+        "quarter": "Q3",
+        "time": "01:40",
+        "total_time_sec": 1700
     },
     {
-        "home_code": 57,
-        "away_code": 28,
-        "home_win_rate": 0.8043844103813171,
-        "away_win_rate": 0.19561561942100525,
-        "quarter": "Q2",
-        "time": "04:38",
-        "total_time_sec": 298
+        "home_code": 66,
+        "away_code": 55,
+        "home_win_rate": 0.37305623292922974,
+        "away_win_rate": 0.6269437670707703,
+        "quarter": "Q3",
+        "time": "01:30",
+        "total_time_sec": 1710
     },
     {
-        "home_code": 57,
-        "away_code": 28,
-        "home_win_rate": 0.8093647956848145,
-        "away_win_rate": 0.19063521921634674,
-        "quarter": "Q2",
-        "time": "04:27",
-        "total_time_sec": 287
+        "home_code": 66,
+        "away_code": 55,
+        "home_win_rate": 0.38764750957489014,
+        "away_win_rate": 0.6123524904251099,
+        "quarter": "Q3",
+        "time": "00:56",
+        "total_time_sec": 1744
     },
     {
-        "home_code": 57,
-        "away_code": 28,
-        "home_win_rate": 0.8055015802383423,
-        "away_win_rate": 0.19449840486049652,
-        "quarter": "Q2",
-        "time": "04:10",
-        "total_time_sec": 270
+        "home_code": 66,
+        "away_code": 55,
+        "home_win_rate": 0.3779444098472595,
+        "away_win_rate": 0.6220556497573853,
+        "quarter": "Q3",
+        "time": "01:11",
+        "total_time_sec": 1729
     },
     {
-        "home_code": 57,
-        "away_code": 28,
-        "home_win_rate": 0.8103842735290527,
-        "away_win_rate": 0.18961571156978607,
-        "quarter": "Q2",
-        "time": "03:54",
-        "total_time_sec": 254
+        "home_code": 66,
+        "away_code": 55,
+        "home_win_rate": 0.3896113634109497,
+        "away_win_rate": 0.6103886365890503,
+        "quarter": "Q3",
+        "time": "00:35",
+        "total_time_sec": 1765
     },
     {
-        "home_code": 57,
-        "away_code": 28,
-        "home_win_rate": 0.7992401719093323,
-        "away_win_rate": 0.20075982809066772,
-        "quarter": "Q2",
-        "time": "02:54",
-        "total_time_sec": 194
+        "home_code": 66,
+        "away_code": 55,
+        "home_win_rate": 0.39039286971092224,
+        "away_win_rate": 0.6096071004867554,
+        "quarter": "Q3",
+        "time": "00:26",
+        "total_time_sec": 1774
+    },
+    {
+        "home_code": 66,
+        "away_code": 55,
+        "home_win_rate": 0.3896113634109497,
+        "away_win_rate": 0.6103886365890503,
+        "quarter": "Q3",
+        "time": "00:35",
+        "total_time_sec": 1765
     }
 ]

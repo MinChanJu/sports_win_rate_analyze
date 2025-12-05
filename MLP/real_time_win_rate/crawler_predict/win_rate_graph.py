@@ -53,8 +53,9 @@ def draw_win_rate_graph(record: dict, URL: str):
     ax.set_ylim(-5, 105)
     labels = [100, 90, 80, 70, 60, 50, 60, 70, 80, 90, 100]
     ax.set_yticks(ticks=range(0, 101, 10), labels=labels)
-    ax.set_xlim(-60, secs[-1]+60)
-    ax.set_xticks(np.arange(0, secs[-1]+1, 300))
+    last_time = max(secs[-1], 2400)
+    ax.set_xlim(-60, last_time + 60)
+    ax.set_xticks(np.arange(0, last_time + 1, 300))
     ax.grid(True, alpha=0.4)
 
     # 🔥 그래프 갱신
