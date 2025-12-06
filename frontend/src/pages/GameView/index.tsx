@@ -82,32 +82,22 @@ const GameView = () => {
       <h1 className="text-2xl font-bold">
         {gameData.meta_info.home.name} vs {gameData.meta_info.away.name}
       </h1>
-
       <div className="text-lg">
         {gameData.meta_info.home.score} - {gameData.meta_info.away.score}
       </div>
 
-      <div className="text-sm text-gray-500">Date: {gameData.meta_info.gameDate}</div>
+      <button
+        onClick={handleReload}
+        className="cursor-pointer rounded bg-blue-500 px-4 py-2 text-white disabled:opacity-50"
+        disabled={isFetching}
+      >
+        {!finished ? `Reload (${countSeconds}s)` : `Reload`}
+      </button>
 
-      {!finished && <div className="text-sm text-gray-500">Next auto update in: {countSeconds} seconds</div>}
-
-      <div className="flex items-center gap-3">
-        <button
-          onClick={handleReload}
-          className="cursor-pointer rounded bg-blue-500 px-4 py-2 text-white disabled:opacity-50"
-          disabled={isFetching}
-        >
-          {isFetching ? "Loading..." : "Reload Now"}
-        </button>
-      </div>
-
-      {finished ? (
-        <div className="font-semibold text-green-600">Game Finished</div>
-      ) : (
-        <div className="font-semibold text-orange-600">Game In Progress</div>
-      )}
-
+      {!finished && <div className="font-semibold text-orange-600">Game In Progress</div>}
+      <h3 className="mt-8 text-xl font-bold">Win Rate Chart</h3>
       <WinRateChart probLogs={gameData.records} />
+      <h3 className="mt-8 text-xl font-bold">Shooting Chart</h3>
       <ShootingChart
         h_code={gameData.meta_info.home.code}
         a_code={gameData.meta_info.away.code}
