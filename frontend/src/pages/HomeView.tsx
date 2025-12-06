@@ -1,16 +1,24 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 import type { GameInfo, GameList } from "@/types/game_data";
 
 export const HomeView = () => {
   const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const currentDate = new Date();
-  const [year, setYear] = useState(currentDate.getFullYear().toString());
-  const [month, setMonth] = useState((currentDate.getMonth() + 1).toString().padStart(2, "0"));
+
+  const [year, setYear] = useState(searchParams.get("year") || currentDate.getFullYear().toString());
+  const [month, setMonth] = useState(
+    searchParams.get("month") || (currentDate.getMonth() + 1).toString().padStart(2, "0"),
+  );
   const [gameList, setGameList] = useState<GameInfo[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    setSearchParams({ year, month }, { replace: true });
+  }, [year, month, setSearchParams]);
 
   useEffect(() => {
     const fetchGameList = async () => {
