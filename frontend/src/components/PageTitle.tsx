@@ -1,7 +1,8 @@
-import { useEffect } from "react";
-import { useLocation, matchPath } from "react-router-dom";
 import { ROUTES } from "../constants/routes";
 import { getLastPathParam } from "../utils/path";
+
+import { useEffect } from "react";
+import { matchPath, useLocation } from "react-router-dom";
 
 export const PageTitle: React.FC = () => {
   const location = useLocation();
@@ -12,13 +13,17 @@ export const PageTitle: React.FC = () => {
 
     // 페이지별 제목 매핑
     const titleMap: { [key: string]: string } = {
-      [ROUTES.HOME] : "홈",
+      [ROUTES.HOME]: "홈",
     };
 
     let title = titleMap[path] || "오류";
 
     if (matchPath(ROUTES.SEASON, path)) {
       title = param + " 시즌";
+    }
+
+    if (matchPath(ROUTES.GAME, path)) {
+      title = param + " 경기 상세";
     }
 
     document.title = title + " | Sports Win Rate Analyze";

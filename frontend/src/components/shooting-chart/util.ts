@@ -1,4 +1,4 @@
-import type { ShootingResponse } from "@/types/game_data";
+import type { PlayerShootingRecord } from "@/types/game_data";
 
 // constants.ts 같은 데 빼도 됨
 const COURT_W = 726;
@@ -14,10 +14,10 @@ export type ShotPoint = {
   quarter: string;
 };
 
-export const convertShootingResponse = (data: ShootingResponse, h_code: string, a_code: string): ShotPoint[] => {
+export const convertShootingResponse = (data: PlayerShootingRecord[], h_code: string, a_code: string): ShotPoint[] => {
   const shots: ShotPoint[] = [];
 
-  for (const player of data.shooting_records) {
+  for (const player of data) {
     const tcode = player.tcode.trim();
 
     let targetSide: "Left" | "Right";

@@ -7,18 +7,18 @@ export type ProbLog = {
 export type TeamInfo = {
   code: number;
   name: string;
-  score: number;
+  score: number | null;
 };
 
-export type GameData = {
-  meta_info: {
-    gameKey: string;
-    gameDate: string;
-    home: TeamInfo;
-    away: TeamInfo;
-    finished: boolean;
-  };
-  records: ProbLog[];
+export type GameInfo = {
+  gameKey: string;
+  gameDate: string;
+  gameStart: string;
+  isStarted: number;
+  isEnded: number;
+  seasonName: string;
+  home: TeamInfo;
+  away: TeamInfo;
 };
 
 export type ShootLog = {
@@ -37,6 +37,12 @@ export type PlayerShootingRecord = {
   logs: ShootLog[];
 };
 
-export type ShootingResponse = {
+export type GameData = {
+  game_info: GameInfo;
+  prediction_records: ProbLog[];
   shooting_records: PlayerShootingRecord[];
+};
+
+export type GameList = {
+  games: GameInfo[];
 };

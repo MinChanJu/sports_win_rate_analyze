@@ -1,9 +1,8 @@
 import { type ShotPoint, type TeamLabel, convertShootingResponse } from "./util";
 
 import { useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
 
-import type { ShootingResponse } from "@/types/game_data";
+import type { PlayerShootingRecord } from "@/types/game_data";
 
 const COURT_W = 726;
 const COURT_H = 412;
@@ -15,35 +14,22 @@ interface ShootingChartProps {
   awayName: string;
   width?: number;
   height?: number;
+  shootingLogs: PlayerShootingRecord[];
 }
 
-const ShootingChart = ({ h_code, a_code, homeName, awayName, width = 528, height = 300 }: ShootingChartProps) => {
-  const { gameKey, gameDate } = useParams();
-  const [shootingData, setShootingData] = useState<ShootingResponse | null>(null);
-
-  useEffect(() => {
-    if (!gameKey || !gameDate) return;
-
-    const fetchShootingData = async () => {
-      try {
-        const res = await fetch(`${import.meta.env.VITE_API_URL}/shoot/${gameKey}/${gameDate}`);
-        if (!res.ok) {
-          throw new Error("Failed to fetch shooting data");
-        }
-        const data: ShootingResponse = await res.json();
-        setShootingData(data);
-      } catch (error) {
-        console.error("Error fetching shooting data:", error);
-      }
-    };
-
-    fetchShootingData();
-  }, [gameKey, gameDate]);
-
+const ShootingChart = ({
+  h_code,
+  a_code,
+  homeName,
+  awayName,
+  width = 528,
+  height = 300,
+  shootingLogs,
+}: ShootingChartProps) => {
   const shots: ShotPoint[] = useMemo(() => {
-    if (!shootingData) return [];
-    return convertShootingResponse(shootingData, String(h_code), String(a_code));
-  }, [shootingData, h_code, a_code]);
+    if (!shootingLogs) return [];
+    return convertShootingResponse(shootingLogs, String(h_code), String(a_code));
+  }, [shootingLogs, h_code, a_code]);
 
   const allQuarters = useMemo(() => Array.from(new Set(shots.map((s) => s.quarter))).sort(), [shots]);
 
@@ -81,10 +67,6 @@ const ShootingChart = ({ h_code, a_code, homeName, awayName, width = 528, height
   const toggleQuarter = (q: string) => {
     setActiveQuarters((prev) => (prev.includes(q) ? prev.filter((v) => v !== q) : [...prev, q]));
   };
-
-  if (!shootingData) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div className="flex gap-4">

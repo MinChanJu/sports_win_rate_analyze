@@ -1,4 +1,3 @@
-import styles from "../assets/css/SessionView.module.css";
 import { Error } from "../components";
 import { type Game } from "../types";
 
@@ -19,10 +18,10 @@ export const SeasonView: React.FC<ProjectViewProps> = ({ game }) => {
 
   return (
     <>
-      <h1 className={styles.title}>Season: {seasonId}</h1>
-      <div className={styles.sessionContainer}>
+      <h1 className="mb-5 text-center">Season: {seasonId}</h1>
+      <div className="box-border grid w-full grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-4 justify-self-center p-5">
         {seasonGames.map((g, index) => (
-          <div key={index} className={styles.sessionItem}>
+          <div key={index} className="min-w-[200px] flex-1 rounded-lg border border-black bg-blue-200 p-4">
             <h2>
               {g.home} - {g.away}
             </h2>

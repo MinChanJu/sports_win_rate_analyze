@@ -21,7 +21,7 @@ interface WinRateChartProps {
 
 const WinRateChart = ({ width = 600, height = 300, probLogs }: WinRateChartProps) => {
   if (probLogs.length === 0) {
-    return <div style={{ width, height }}>No data available</div>;
+    probLogs.push({ home_probability: 50, away_probability: 50, total_time_sec: 0 });
   }
 
   const chartData = probLogs.map((p) => ({
