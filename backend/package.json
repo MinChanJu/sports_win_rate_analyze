@@ -1,0 +1,7 @@
+{
+  "scripts": {
+    "venv": "source venv/bin/activate",
+    "dev": "uvicorn app.main:app --reload --reload-dir app",
+    "start": "python main.py"
+  }
+}

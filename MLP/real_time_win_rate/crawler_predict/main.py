@@ -68,32 +68,32 @@ async def main(URL: str):
     )
 
     all_logs = []
-    # backup_logs = None
-    # log_idx = 0
+    backup_logs = None
+    log_idx = 0
     while True:
-        crawl_logs = await crawl_all_logs(URL)
+        # crawl_logs = await crawl_all_logs(URL)
 
-        if crawl_logs is None:
-            print("크롤링에 실패하여 예측을 종료합니다.")
-            await close_browser()
-            sys.exit(1)
-
-        if len(crawl_logs) <= len(all_logs):
-            continue  # 이전보다 로그가 적으면 무시
-
-        # if backup_logs is None:
-        #     backup_logs =  await crawl_all_logs(URL)
-
-        # if backup_logs is None:
-        #     await asyncio.sleep(10)
-        #     continue
-
-        # if (len(backup_logs) > log_idx):
-        #     log_idx += 1
-        #     crawl_logs = backup_logs[:log_idx]
-        # else:
+        # if crawl_logs is None:
+        #     print("크롤링에 실패하여 예측을 종료합니다.")
         #     await close_browser()
-        #     continue
+        #     sys.exit(1)
+
+        # if len(crawl_logs) <= len(all_logs):
+        #     continue  # 이전보다 로그가 적으면 무시
+
+        if backup_logs is None:
+            backup_logs = await crawl_all_logs(URL)
+
+        if backup_logs is None:
+            await asyncio.sleep(10)
+            continue
+
+        if len(backup_logs) > log_idx:
+            log_idx += 1
+            crawl_logs = backup_logs[:log_idx]
+        else:
+            await close_browser()
+            continue
 
         all_logs = crawl_logs
         game_stats = kbl_log_decoder(all_logs, h_code, a_code)
@@ -163,6 +163,6 @@ async def main(URL: str):
 if __name__ == "__main__":
     # URL = "https://kbl.or.kr/match/record/S48G01N18/20251202"
     # URL = "https://kbl.or.kr/match/record/S47G01N84/20251204"  # 12월 5일 경기 예시
-    URL = "https://kbl.or.kr/match/record/S43G01N132/20231231"  # 12월 5일 경기 예시
+    URL = "https://kbl.or.kr/match/record/S47G01N86/20251205"  # 12월 5일 경기 예시
 
     asyncio.run(main(URL))
