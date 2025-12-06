@@ -1,7 +1,6 @@
 from fastapi import APIRouter, HTTPException
 from app.schemas.shooting import ShootingResponse
 from app.services.data_service import DataService
-from app.services.prediction_service import PredictionService
 
 router = APIRouter()
 

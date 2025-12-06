@@ -20,3 +20,23 @@ export type GameData = {
   };
   records: ProbLog[];
 };
+
+export type ShootLog = {
+  q: string;
+  x: number;
+  y: number;
+  o: string;
+  d: string;
+};
+
+export type PlayerShootingRecord = {
+  pcode: string;
+  pname: string;
+  ename: string;
+  tcode: string;
+  logs: ShootLog[];
+};
+
+export type ShootingResponse = {
+  shooting_records: PlayerShootingRecord[];
+};

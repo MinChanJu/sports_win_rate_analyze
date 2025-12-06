@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 
 import HotZoneChart from "@/components/HotZoneChart";
 import WinRateChart from "@/components/WinRateChart";
+import { ShootingChart } from "@/components/shooting-chart";
 
 const dummyData = [
   { zone: "rim", percentage: 57.4 }, // 골밑
@@ -107,6 +108,12 @@ const GameView = () => {
       )}
 
       <WinRateChart probLogs={gameData.records} />
+      <ShootingChart
+        h_code={gameData.meta_info.home.code}
+        a_code={gameData.meta_info.away.code}
+        homeName={gameData.meta_info.home.name}
+        awayName={gameData.meta_info.away.name}
+      />
       <HotZoneChart
         data={dummyData} // 준비한 데이터 전달
         width={600} // 기준 너비 설정 (반응형을 위해 컨테이너 크기에 맞춤)
