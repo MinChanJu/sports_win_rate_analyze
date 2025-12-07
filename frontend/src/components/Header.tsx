@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-export const Header: React.FC = () => {
+const Header: React.FC = () => {
   const navigate = useNavigate();
   return (
     <header className="mt-5 mb-5 flex items-center justify-center gap-2.5">
@@ -8,22 +8,18 @@ export const Header: React.FC = () => {
         Sports Win Rate Analyze
       </button>
       <div className="flex border-t border-b border-l">
-        <button className="cursor-pointer border-r px-4 py-2 break-all" onClick={() => navigate("/2021-2022")}>
-          2021-2022
-        </button>
-        <button className="cursor-pointer border-r px-4 py-2 break-all" onClick={() => navigate("/2022-2023")}>
-          2022-2023
-        </button>
-        <button className="cursor-pointer border-r px-4 py-2 break-all" onClick={() => navigate("/2023-2024")}>
-          2023-2024
-        </button>
-        <button className="cursor-pointer border-r px-4 py-2 break-all" onClick={() => navigate("/2024-2025")}>
-          2024-2025
-        </button>
-        <button className="cursor-pointer border-r px-4 py-2 break-all" onClick={() => navigate("/2025-2026")}>
-          2025-2026
-        </button>
+        {["2021-2022", "2022-2023", "2023-2024", "2024-2025", "2025-2026"].map((season) => (
+          <button
+            key={season}
+            className="cursor-pointer border-r px-4 py-2 break-all"
+            onClick={() => navigate(`/${season}`)}
+          >
+            {season}
+          </button>
+        ))}
       </div>
     </header>
   );
 };
+
+export default Header;

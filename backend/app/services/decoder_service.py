@@ -133,9 +133,6 @@ class DecoderService:
       log_name = key_json[log["a"]] if log["a"] in key_json else None
       if log_name is None:
         continue
-      if log_name == "게임시작":
-        continue
-      if log_name in ["게임종료", "미정의"]: continue
       
       current_quarter = log["q"]
       if current_quarter not in quarter_types:
@@ -153,19 +150,18 @@ class DecoderService:
         if int(log["t"]) == h_code: team_key = "home"
         elif int(log["t"]) == a_code: team_key = "away"
       if team_key is None:
+        if log_name != "게임시작" and log_name != "게임종료": print(f"알수없는 팀 코드: '{log}', h_code: {h_code}, a_code: {a_code}, log_name: {log_name}")
         continue
       
       if log_name == '교체(OUT)':
         if 'c' in log:
           if log['c'] in ["106_0", "106_1", "106_3", "106_4", "106_5"]: game_stats[team_key]["EJ"] += 1
           elif log['c'] in ["101_0", "104_0"]: pass
-        continue
       
       if log_name == "기타파울":
         if log["f"] in ["TCF", "BTB", "BTC", "DTF"]: game_stats[team_key]["TF"] += 1
         elif log["f"] in ["FRF", "UC1", "UC2", "UC3", "UC4", "UC5"]: game_stats[team_key]["UF"] += 1
         game_stats[team_key]["TPF"] += 1
-        continue
       
       if log_name == "팀속공":
         fast_break_logs = []
@@ -194,7 +190,6 @@ class DecoderService:
         continue
       for stat_key, increment in key_map.items():
         game_stats[team_key][stat_key] += increment
-        
       
       next_pp = (game_stats[team_key]["2PM"] * 2) + (game_stats[team_key]["3PM"] * 3)  + game_stats[team_key]["FTM"]
       next_pa = game_stats[team_key]["2PA"] + game_stats[team_key]["3PA"] + game_stats[team_key]["FTA"]

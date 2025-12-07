@@ -1,4 +1,4 @@
-import type { PlayerShootingRecord } from "@/types/game_data";
+import type { PlayerShootingRecord } from "@/types/game";
 
 // constants.ts 같은 데 빼도 됨
 const COURT_W = 726;

@@ -25,19 +25,23 @@ class DataService:
     return {
       "gameKey": game.get("gmkey"),
       "gameDate": game.get("gameDate"),
+      "weekDay": game.get("weekDay"),
       "gameStart": game.get("gameStart"),
       "isStarted": game.get("isStarted"),
       "isEnded": game.get("isEnded"),
       "seasonName": game.get("seasonName"),
+      "stadiumName": game.get("stadiumnameF"),
       "home": {
         "code": game.get("tcodeH"),
         "name": game.get("tnameH"),
         "score": h_score,
+        "logo": game.get("tlogoH"),
       },
       "away": {
         "code": game.get("tcodeA"),
         "name": game.get("tnameA"),
         "score": a_score,
+        "logo": game.get("tlogoA"),
       }
     }
 
@@ -80,19 +84,23 @@ class DataService:
     game_list = [{
       "gameKey": game["gmkey"],
       "gameDate": game["gameDate"],
+      "weekDay": game["weekDay"],
       "gameStart": game["gameStart"],
       "isStarted": game["isStarted"],
       "isEnded": game["isEnded"],
       "seasonName": game["seasonName1"],
+      "stadiumName": game["stadiumnameF"],
       "home": {
         "code": int(game["tcodeH"]),
         "name": game["tnameH"],
         "score": game["scoreH"],
+        "logo": game["logoH"],
       },
       "away": {
         "code": int(game["tcodeA"]),
         "name": game["tnameA"],
         "score": game["scoreA"],
+        "logo": game["logoA"],
       }
       } for game in game_list if game["seasonCategoryName"] == "정규시즌"]
     return game_list

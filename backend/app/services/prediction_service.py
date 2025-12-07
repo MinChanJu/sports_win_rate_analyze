@@ -10,15 +10,6 @@ class PredictionService:
     
     @staticmethod
     def predict(total_records: list[dict]) -> list[dict]:
-        """
-        입력 데이터로 승률을 예측합니다.
-        
-        Args:
-            input_data: shape (1, 88) 모델 입력 numpy 배열
-            
-        Returns:
-            예측 결과 딕셔너리
-        """
         model = get_model()
         
         total_records_probs = []

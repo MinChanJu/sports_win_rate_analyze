@@ -4,14 +4,17 @@ class TeamInfo(BaseModel):
     code: int
     name: str
     score: int | None
+    logo: str | None
 
 class GameInfo(BaseModel):
     gameKey: str
     gameDate: str
+    weekDay: str
     gameStart: str
     isStarted: int
     isEnded: int
     seasonName: str
+    stadiumName: str
     home: TeamInfo
     away: TeamInfo
 

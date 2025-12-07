@@ -1,21 +1,25 @@
 // src/hooks/useGameData.ts
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
-import type { GameData } from "@/types/game_data";
+import { QUERY_KEYS } from "@/constants/query-key";
+import type { GameData } from "@/types/game";
 import { useQuery } from "@tanstack/react-query";
 
-const fetchGameData = async (gameKey: string) => {
+const fetchGameData = async (gameKey: string): Promise<GameData> => {
   const res = await fetch(`${import.meta.env.VITE_API_URL}/game/${gameKey}`);
   if (!res.ok) {
     throw new Error("Network response was not ok");
   }
-  return (await res.json()) as GameData;
+  return await res.json();
 };
 
-export const useGameData = (gameKey?: string) => {
+const useGame = () => {
+  const { gameKey } = useParams();
+
   const [countSeconds, setCountSeconds] = useState(30);
-  const query = useQuery<GameData, Error>({
-    queryKey: ["game", gameKey],
+  const query = useQuery({
+    queryKey: QUERY_KEYS.GAME_DETAIL(gameKey as string),
     queryFn: () => fetchGameData(gameKey as string),
     enabled: !!gameKey,
     refetchInterval: (q) => {
@@ -61,3 +65,5 @@ export const useGameData = (gameKey?: string) => {
     isFetching: query.isFetching,
   };
 };
+
+export default useGame;

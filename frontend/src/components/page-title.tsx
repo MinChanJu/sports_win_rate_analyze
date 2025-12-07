@@ -4,7 +4,7 @@ import { getLastPathParam } from "../utils/path";
 import { useEffect } from "react";
 import { matchPath, useLocation } from "react-router-dom";
 
-export const PageTitle: React.FC = () => {
+const PageTitle = () => {
   const location = useLocation();
 
   useEffect(() => {
@@ -31,3 +31,5 @@ export const PageTitle: React.FC = () => {
 
   return null;
 };
+
+export default PageTitle;

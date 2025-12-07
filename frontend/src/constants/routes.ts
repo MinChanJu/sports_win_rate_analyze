@@ -1,7 +1,7 @@
 export const ROUTES = {
   HOME: "/",
-  SEASON: "/:seasonId",
-  SEASON_ID: (seasonId: number) => `/${seasonId}`,
+  SEASON: "/:seasonName",
+  SEASON_ID: (seasonName: string) => `/${seasonName}`,
   GAME: "/game/:gameKey",
 
   NOT_FOUND: "*",
