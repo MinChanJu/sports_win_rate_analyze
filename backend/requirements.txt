@@ -1,7 +1,7 @@
 fastapi
 uvicorn[standard]
 torch
+numpy
 pydantic
 pydantic-settings
-playwright
-numpy
+requests
