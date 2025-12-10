@@ -17,5 +17,4 @@ ENV/
 *.swp
 
 # Project
-best_model.pt
 *.log
