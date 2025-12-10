@@ -2,10 +2,8 @@ import { type ShotPoint, type TeamLabel, convertShootingResponse } from "./util"
 
 import { useEffect, useMemo, useState } from "react";
 
+import { COURT_H, COURT_W } from "@/constants/court";
 import type { GameData } from "@/types/game";
-
-const COURT_W = 726;
-const COURT_H = 412;
 
 interface ShootingChartProps {
   gameData: GameData;
@@ -13,7 +11,7 @@ interface ShootingChartProps {
   height?: number;
 }
 
-const ShootingChart = ({ gameData, width = 528, height = 300 }: ShootingChartProps) => {
+const ShootingChart = ({ gameData, width = 352, height = 200 }: ShootingChartProps) => {
   const { code: h_code, name: home_name } = gameData.game_info.home;
   const { code: a_code, name: away_name } = gameData.game_info.away;
   const shootingLogs = gameData.shooting_records;
@@ -62,7 +60,7 @@ const ShootingChart = ({ gameData, width = 528, height = 300 }: ShootingChartPro
 
   return (
     <>
-      <h3 className="mt-8 text-xl font-bold">Shooting Chart</h3>
+      <h3 className="mt-8 text-center text-xl font-bold">Shooting Chart</h3>
       <div className="flex gap-4">
         {/* 왼쪽: 필터 패널 */}
         <div className="flex flex-col gap-3 text-xs sm:text-sm">
@@ -80,11 +78,11 @@ const ShootingChart = ({ gameData, width = 528, height = 300 }: ShootingChartPro
             <div className="mb-1 font-bold">팀</div>
             <label className="flex items-center gap-1">
               <input type="checkbox" checked={showHome} onChange={() => setShowHome((v) => !v)} />
-              {home_name} (Home)
+              {home_name}
             </label>
             <label className="flex items-center gap-1">
               <input type="checkbox" checked={showAway} onChange={() => setShowAway((v) => !v)} />
-              {away_name} (Away)
+              {away_name}
             </label>
           </div>
         </div>
@@ -92,7 +90,14 @@ const ShootingChart = ({ gameData, width = 528, height = 300 }: ShootingChartPro
         {/* 중앙: 코트 + 슛 */}
         <div>
           <svg viewBox={`0 0 ${COURT_W} ${COURT_H}`} width={width} height={height}>
-            <image href="https://kbl.or.kr/assets/img/game/court.png" x={0} y={0} width={COURT_W} height={COURT_H} />
+            <image
+              href="https://kbl.or.kr/assets/img/game/court.png"
+              x={0}
+              y={0}
+              width={COURT_W}
+              height={COURT_H}
+              style={{ objectFit: "fill" }}
+            />
 
             {filteredShots.map((s, idx) =>
               s.made ? (

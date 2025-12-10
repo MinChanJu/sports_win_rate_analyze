@@ -22,7 +22,8 @@ class DataService:
       v if isinstance(v, int) else sum(v)
       for v in teamRecords.get("away").values()
     )
-    return {
+    
+    gameInfo = {
       "gameKey": game.get("gmkey"),
       "gameDate": game.get("gameDate"),
       "weekDay": game.get("weekDay"),
@@ -44,6 +45,10 @@ class DataService:
         "logo": game.get("tlogoA"),
       }
     }
+    
+    team_score_record = teamRecords
+    
+    return {"game": gameInfo, "team_score_record": team_score_record}
 
   @staticmethod
   async def get_all_logs(gameKey: str) -> list[dict] | None:
@@ -71,8 +76,8 @@ class DataService:
     meta_data = await DataService.get_meta_data(gameKey)
     if meta_data is None:
       raise ValueError("메타 데이터 크롤링 실패")
-    total_records = DecoderService.preprocess_data({"logs": all_logs, "meta": meta_data})
-    return {"meta": meta_data, "records": total_records}
+    total_records, last_game_stats = DecoderService.preprocess_data({"logs": all_logs, "meta": meta_data["game"]})
+    return {"meta": meta_data, "records": total_records, "last_game_stats": last_game_stats}
   
   @staticmethod
   async def get_game_list(fromDate: str, toDate: str) -> list[dict] | None:

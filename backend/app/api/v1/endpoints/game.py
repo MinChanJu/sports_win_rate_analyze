@@ -14,9 +14,11 @@ async def predict_game(gameKey: str):
   shooting_records = await DataService.get_shoot_log(gameKey)
   
   return GameDataResponse(
-    game_info=raw_data["meta"],
+    game_info=raw_data["meta"]["game"],
+    team_score_record=raw_data["meta"]["team_score_record"],
     prediction_records=prediction_result,
-    shooting_records=shooting_records
+    shooting_records=shooting_records,
+    last_game_stats=raw_data["last_game_stats"]
   )
 
 @router.get("/list/{fromDate}/{toDate}")

@@ -257,4 +257,5 @@ class DecoderService:
         continue
       total_records.append({"total_time_sec": total_time_sec, "array": array})
     
-    return total_records
+    last_game_stats = game_stats
+    return total_records, last_game_stats

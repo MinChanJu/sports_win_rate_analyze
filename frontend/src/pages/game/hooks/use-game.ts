@@ -1,10 +1,8 @@
 // src/hooks/useGameData.ts
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import { QUERY_KEYS } from "@/constants/query-key";
 import type { GameData } from "@/types/game";
-import { useQuery } from "@tanstack/react-query";
 
 const fetchGameData = async (gameKey: string): Promise<GameData> => {
   const res = await fetch(`${import.meta.env.VITE_API_URL}/game/${gameKey}`);
@@ -17,52 +15,72 @@ const fetchGameData = async (gameKey: string): Promise<GameData> => {
 const useGame = () => {
   const { gameKey } = useParams();
 
-  const [countSeconds, setCountSeconds] = useState(30);
-  const query = useQuery({
-    queryKey: QUERY_KEYS.GAME_DETAIL(gameKey as string),
-    queryFn: () => fetchGameData(gameKey as string),
-    enabled: !!gameKey,
-    refetchInterval: (q) => {
-      const data = q.state.data;
-      if (!data) return false;
-      return data.game_info.isStarted && !data.game_info.isEnded ? 30_000 : false;
-    },
-    refetchIntervalInBackground: true,
-    // 메모리 관리를 위한 설정
-    gcTime: 0, // 사용 안 하면 바로 가비지 컬렉션
-    staleTime: 0, // 즉시 stale 처리
-    refetchOnMount: false, // 마운트 시 리패치 방지
-    refetchOnWindowFocus: false, // 윈도우 포커스 시 리패치 방지
-  });
+  const intervalRef = useRef<number | null>(null);
+
+  const [gameData, setGameData] = useState<GameData | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isError, setIsError] = useState<boolean>(false);
+  const [error, setError] = useState<Error | null>(null);
+  const [isFetching, setIsFetching] = useState<boolean>(false);
+
+  const fetchData = useCallback(async () => {
+    if (!gameKey) return;
+    setIsFetching(true);
+    try {
+      const data = await fetchGameData(gameKey);
+      setGameData(data);
+      setIsError(false);
+      setError(null);
+    } catch (err) {
+      setIsError(true);
+      setError(err as Error);
+    } finally {
+      setIsLoading(false);
+      setIsFetching(false);
+    }
+  }, [gameKey]);
 
   useEffect(() => {
-    const hasGame = !!query.data;
-    const finished = query.data?.game_info.isStarted && !query.data?.game_info.isEnded;
-    if (!hasGame || !finished) return;
+    fetchData();
+  }, [fetchData]);
 
-    setCountSeconds(30);
+  useEffect(() => {
+    const isGameInProgress = gameData?.game_info.isStarted && !gameData?.game_info.isEnded;
 
-    const id = window.setInterval(() => {
-      setCountSeconds((prev) => (prev <= 1 ? 30 : prev - 1));
-    }, 1000);
+    // 기존 인터벌 정리
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
 
-    return () => clearInterval(id);
-  }, [query.data]);
+    if (!isGameInProgress) {
+      return;
+    }
+
+    // 경기 진행 중일 때만 30초마다 자동 새로고침
+    intervalRef.current = window.setInterval(() => {
+      fetchData();
+    }, 30000);
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [gameData?.game_info.isStarted, gameData?.game_info.isEnded, fetchData]);
 
   const handleReload = () => {
-    setCountSeconds(30);
-    query.refetch();
+    fetchData();
   };
 
   return {
-    gameData: query.data,
-    isLoading: query.isLoading,
-    isError: query.isError,
-    error: query.error,
-    countSeconds,
+    gameData,
+    isLoading,
+    isError,
+    error,
     handleReload,
-    refetch: query.refetch,
-    isFetching: query.isFetching,
+    isFetching,
   };
 };
 

@@ -1,15 +1,6 @@
-import {
-  Area,
-  CartesianGrid,
-  ComposedChart,
-  ReferenceLine,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from "recharts";
+import { Area, CartesianGrid, ComposedChart, ReferenceLine, Tooltip, XAxis, YAxis } from "recharts";
 
-import type { GameData } from "@/types";
+import type { GameData } from "@/types/game";
 import { formatTime } from "@/utils/time";
 
 interface WinRateChartProps {
@@ -18,7 +9,7 @@ interface WinRateChartProps {
   gameData: GameData;
 }
 
-const WinRateChart = ({ width = 800, height = 400, gameData }: WinRateChartProps) => {
+const WinRateChart = ({ width = 700, height = 400, gameData }: WinRateChartProps) => {
   const probLogs = gameData.prediction_records;
   if (probLogs.length === 0) {
     probLogs.push({ home_probability: 50, away_probability: 50, total_time_sec: 0 });
@@ -40,8 +31,8 @@ const WinRateChart = ({ width = 800, height = 400, gameData }: WinRateChartProps
 
   return (
     <>
-      <h3 className="mt-8 text-xl font-bold">Win Rate Chart</h3>
-      <div className="flex flex-row gap-3">
+      <h3 className="mt-8 text-center text-xl font-bold">Win Rate Chart</h3>
+      <div className="flex flex-row justify-center gap-3">
         <div>
           {formatTime(probLogs[probLogs.length - 1].total_time_sec, {
             home: gameData.game_info.home.score,
@@ -56,119 +47,93 @@ const WinRateChart = ({ width = 800, height = 400, gameData }: WinRateChartProps
           {gameData.game_info.away.name}: {probLogs[probLogs.length - 1].away_probability}%
         </div>
       </div>
-      <div className="relative" style={{ width, height }}>
-        <ResponsiveContainer width={width} height={height}>
-          <ComposedChart data={chartData}>
-            <defs>
-              <linearGradient id="colorBlue" x1="0" y1="1" x2="0" y2="0">
-                <stop offset="0%" stopColor="rgba(0, 100, 255, 0.7)" />
-                <stop offset="100%" stopColor="rgba(0, 100, 255, 0.2)" />
-              </linearGradient>
-              <linearGradient id="colorRed" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="rgba(255, 0, 0, 0.7)" />
-                <stop offset="100%" stopColor="rgba(255, 0, 0, 0.2)" />
-              </linearGradient>
-            </defs>
-            <CartesianGrid strokeDasharray="3 3" />
-            <Area
-              type="monotone"
-              dataKey="upper_bound"
-              fill="url(#colorRed)"
-              strokeWidth={0}
-              activeDot={false}
-              pointerEvents="none"
-            />
+      <div className="flex justify-center">
+        <ComposedChart width={width} height={height} data={chartData}>
+          <defs>
+            <linearGradient id="colorBlue" x1="0" y1="1" x2="0" y2="0">
+              <stop offset="0%" stopColor="rgba(0, 100, 255, 0.7)" />
+              <stop offset="100%" stopColor="rgba(0, 100, 255, 0.2)" />
+            </linearGradient>
+            <linearGradient id="colorRed" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="rgba(255, 0, 0, 0.7)" />
+              <stop offset="100%" stopColor="rgba(255, 0, 0, 0.2)" />
+            </linearGradient>
+          </defs>
+          <CartesianGrid strokeDasharray="3 3" />
+          <Area
+            type="monotone"
+            dataKey="upper_bound"
+            fill="url(#colorRed)"
+            strokeWidth={0}
+            activeDot={false}
+            pointerEvents="none"
+          />
 
-            <Area
-              type="monotone"
-              dataKey="home_probability"
-              fill="#ffffff"
-              strokeWidth={0}
-              fillOpacity={1}
-              activeDot={false}
-              pointerEvents="none"
-            />
-            <Area
-              type="monotone"
-              dataKey="home_probability"
-              fill="url(#colorBlue)"
-              fillOpacity={1}
-              activeDot={true}
-              pointerEvents="none"
-            />
+          <Area
+            type="monotone"
+            dataKey="home_probability"
+            fill="#ffffff"
+            strokeWidth={0}
+            fillOpacity={1}
+            activeDot={false}
+            pointerEvents="none"
+          />
+          <Area
+            type="monotone"
+            dataKey="home_probability"
+            fill="url(#colorBlue)"
+            fillOpacity={1}
+            activeDot={true}
+            pointerEvents="none"
+          />
 
-            <XAxis
-              dataKey="total_time_sec"
-              type="number"
-              ticks={xTicks}
-              tickFormatter={(value) => `${Math.floor(value / 60)}`}
-              domain={[0, maxTime]}
-              pointerEvents="none"
-            />
-            <YAxis
-              type="number"
-              ticks={yTicks}
-              tickFormatter={(value) => `${value}%`}
-              domain={["dataMin", "dataMax"]}
-              pointerEvents="none"
-            />
-            {[0, 600, 1200, 1800, 2400].map((time) => (
-              <ReferenceLine key={time} x={time} stroke="#000" strokeDasharray="3 3" />
-            ))}
-            {[0, 50, 100].map((percent) => (
-              <ReferenceLine key={percent} y={percent} stroke="#000" strokeDasharray="3 3" />
-            ))}
-            <Tooltip
-              content={({ active, payload, label }) => {
-                if (!active || !payload || payload.length === 0) return null;
+          <XAxis
+            dataKey="total_time_sec"
+            type="number"
+            ticks={xTicks}
+            tickFormatter={(value) => `${Math.floor(value / 60)}`}
+            domain={[0, maxTime]}
+            pointerEvents="none"
+          />
+          <YAxis
+            type="number"
+            ticks={yTicks}
+            tickFormatter={(value) => `${value}%`}
+            domain={["dataMin", "dataMax"]}
+            pointerEvents="none"
+          />
+          {[0, 600, 1200, 1800, 2400].map((time) => (
+            <ReferenceLine key={time} x={time} stroke="#000" strokeDasharray="3 3" />
+          ))}
+          {[0, 50, 100].map((percent) => (
+            <ReferenceLine key={percent} y={percent} stroke="#000" strokeDasharray="3 3" />
+          ))}
+          <Tooltip
+            content={({ active, payload, label }) => {
+              if (!active || !payload || payload.length === 0) return null;
 
-                const data = gameData.prediction_records.find((d) => d.total_time_sec === label);
-                if (!data) return `오류 발생 시간: ${label}`;
+              const data = gameData.prediction_records.find((d) => d.total_time_sec === label);
+              if (!data) return `오류 발생 시간: ${label}`;
 
-                const time = formatTime(data.total_time_sec, {
-                  home: gameData.game_info.home.score,
-                  away: gameData.game_info.away.score,
-                });
+              const time = formatTime(data.total_time_sec, {
+                home: gameData.game_info.home.score,
+                away: gameData.game_info.away.score,
+              });
 
-                return (
-                  <div className="rounded-lg border border-gray-300 bg-white p-2.5">
-                    <div>{time}</div>
-                    <div>홈팀 승률: {data.home_probability}%</div>
-                    <div>원정팀 승률: {data.away_probability}%</div>
-                  </div>
-                );
-              }}
-            />
-          </ComposedChart>
-        </ResponsiveContainer>
-        <div
-          style={{
-            position: "absolute",
-            right: 0,
-            top: 5,
-            color: "red",
-            fontSize: 14,
-            fontWeight: 600,
-            pointerEvents: "none",
-            transform: "translateX(100%)",
-          }}
-        >
-          {gameData.game_info.away.name}
-        </div>
-        <div
-          style={{
-            position: "absolute",
-            right: 0,
-            bottom: 35,
-            color: "blue",
-            fontSize: 14,
-            fontWeight: 600,
-            pointerEvents: "none",
-            transform: "translateX(100%)",
-          }}
-        >
-          {gameData.game_info.home.name}
-        </div>
+              return (
+                <div className="rounded-lg border border-gray-300 bg-white p-2.5">
+                  <div>{time}</div>
+                  <div>홈팀 승률: {data.home_probability}%</div>
+                  <div>원정팀 승률: {data.away_probability}%</div>
+                </div>
+              );
+            }}
+          />
+        </ComposedChart>
+      </div>
+      <div className="flex justify-center gap-4 text-sm font-semibold">
+        <div className="text-blue-600">{gameData.game_info.home.name}</div>
+        <div className="text-red-600">{gameData.game_info.away.name}</div>
       </div>
     </>
   );
