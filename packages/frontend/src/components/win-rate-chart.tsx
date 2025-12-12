@@ -132,8 +132,8 @@ const WinRateChart = ({ width = 700, height = 400, gameData }: WinRateChartProps
         </ComposedChart>
       </div>
       <div className="flex justify-center gap-4 text-sm font-semibold">
-        <div className="text-blue-600">{gameData.game_info.home.name}</div>
-        <div className="text-red-600">{gameData.game_info.away.name}</div>
+        <div className="text-blue-600">home: {gameData.game_info.home.name}</div>
+        <div className="text-red-600">away: {gameData.game_info.away.name}</div>
       </div>
     </>
   );

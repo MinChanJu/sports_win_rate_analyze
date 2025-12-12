@@ -48,7 +48,39 @@ class DataService:
     
     team_score_record = teamRecords
     
-    return {"game": gameInfo, "team_score_record": team_score_record}
+    response = requests.get(settings.TEAM_STATS_URL(gameKey, gameInfo["home"]["code"], gameInfo["away"]["code"]), headers=settings.HEADERS, timeout=5)
+    if response.status_code != 200:
+      print(f"메타 데이터 API 응답 오류: {response.status_code}")
+      return None
+    data = response.json()
+    home_stats = data.get("a")
+    away_stats = data.get("b")
+    previous_stats = {
+      "home": {
+        "thisSeasonWin": home_stats.get("win"),
+        "thisSeasonLose": home_stats.get("loss"),
+        "headToHeadWin": home_stats.get("vsWin"),
+        "headToHeadLose": home_stats.get("vsLoss"),
+        "last5gamesWin": home_stats.get("rntWin"),
+        "last5gamesLose": home_stats.get("rntLoss"),
+        "allTimeHeadToHeadWin": home_stats.get("totWin"),
+        "allTimeHeadToHeadLose": home_stats.get("totLoss"),
+        "logo": home_stats.get("team").get("teamLogoClass"),
+      },
+      "away": {
+        "thisSeasonWin": away_stats.get("win"),
+        "thisSeasonLose": away_stats.get("loss"),
+        "headToHeadWin": away_stats.get("vsWin"),
+        "headToHeadLose": away_stats.get("vsLoss"),
+        "last5gamesWin": away_stats.get("rntWin"),
+        "last5gamesLose": away_stats.get("rntLoss"),
+        "allTimeHeadToHeadWin": away_stats.get("totWin"),
+        "allTimeHeadToHeadLose": away_stats.get("totLoss"),
+        "logo": away_stats.get("team").get("teamLogoClass"),
+      }
+    }
+    
+    return {"game": gameInfo, "team_score_record": team_score_record, "previous_stats": previous_stats}
 
   @staticmethod
   async def get_all_logs(gameKey: str) -> list[dict] | None:
@@ -76,8 +108,8 @@ class DataService:
     meta_data = await DataService.get_meta_data(gameKey)
     if meta_data is None:
       raise ValueError("메타 데이터 크롤링 실패")
-    total_records, last_game_stats = DecoderService.preprocess_data({"logs": all_logs, "meta": meta_data["game"]})
-    return {"meta": meta_data, "records": total_records, "last_game_stats": last_game_stats}
+    total_records, last_game_stats, quarter_net_ratings = DecoderService.preprocess_data({"logs": all_logs, "meta": meta_data["game"]})
+    return {"meta": meta_data, "records": total_records, "last_game_stats": last_game_stats, "quarter_net_ratings": quarter_net_ratings}
   
   @staticmethod
   async def get_game_list(fromDate: str, toDate: str) -> list[dict] | None:

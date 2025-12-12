@@ -16,6 +16,8 @@ async def predict_game(gameKey: str):
   return GameDataResponse(
     game_info=raw_data["meta"]["game"],
     team_score_record=raw_data["meta"]["team_score_record"],
+    previous_stats=raw_data["meta"]["previous_stats"],
+    quarter_net_ratings=raw_data["quarter_net_ratings"],
     prediction_records=prediction_result,
     shooting_records=shooting_records,
     last_game_stats=raw_data["last_game_stats"]

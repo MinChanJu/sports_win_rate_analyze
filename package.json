@@ -1,0 +1,10 @@
+{
+  "name": "sports_win_rate_analyze",
+  "version": "1.0.0",
+  "description": "- 지도교수: 안수현 교수님 - 팀리더: 김승준 - 팀원: 주민찬",
+  "scripts": {
+    "dev": "pnpm -r dev",
+    "dev:backend": "pnpm -F backend dev",
+    "dev:frontend": "pnpm -F frontend dev"
+  }
+}

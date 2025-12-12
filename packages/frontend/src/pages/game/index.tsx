@@ -4,6 +4,8 @@ import ReloadIcon from "@/assets/icons/reload.svg?react";
 import DonutChart from "@/components/donut-chart";
 import HotZoneChart from "@/components/hot-zone-chart";
 import Loading from "@/components/loading";
+import NetRatingTable from "@/components/net-rating-table";
+import PreviousStatsTable from "@/components/previous-stats-table";
 import ShootingChart from "@/components/shooting-chart";
 import TeamLogo from "@/components/team-logo";
 import WinRateChart from "@/components/win-rate-chart";
@@ -38,15 +40,17 @@ const Game = () => {
   const gameMinute = gameInfo.gameStart.slice(2, 4);
 
   return (
-    <div className="flex flex-row justify-center">
-      <div className="flex flex-1 flex-col items-center">
-        <DonutChart gameData={gameData} field="PP" />
-        <DonutChart gameData={gameData} field="BLK" />
-        <DonutChart gameData={gameData} field="AST" />
+    <div className="flex flex-row justify-center gap-5 p-5">
+      <div className="flex min-w-0 flex-1 flex-col items-center">
+        <DonutChart gameData={gameData} field="PP" title="득점" />
+        <DonutChart gameData={gameData} field="TRB" title="리바운드" />
+        <DonutChart gameData={gameData} field="AST" title="어시스트" />
+        <DonutChart gameData={gameData} field="STL" title="스틸" />
+        <DonutChart gameData={gameData} field="BLK" title="블록" />
       </div>
-      <div className="m-10 flex flex-2 flex-col items-center gap-5">
-        <div className="game-detail flex w-full max-w-3xl flex-col gap-5 rounded-lg bg-gray-100 p-5">
-          <div className="flex w-full flex-row gap-10">
+      <div className="flex min-w-0 flex-2 flex-col items-center gap-5">
+        <div className="game-detail flex w-full flex-col gap-5 rounded-lg bg-gray-100 p-5">
+          <div className="flex flex-row gap-10">
             <div className="home-team flex flex-1 flex-row items-center justify-end gap-10">
               <div className="flex w-50 flex-col items-center">
                 <TeamLogo teamLogo={gameInfo.home.logo} className="h-15 w-15" />
@@ -157,7 +161,10 @@ const Game = () => {
         <ShootingChart gameData={gameData} />
         <HotZoneChart data={gameData} />
       </div>
-      <div className="flex flex-1 flex-col items-center"></div>
+      <div className="flex min-w-0 flex-1 flex-col items-center gap-10">
+        <PreviousStatsTable previousStats={gameData.previous_stats} />
+        <NetRatingTable gameInfo={gameInfo} quarterNetRatings={gameData.quarter_net_ratings} />
+      </div>
     </div>
   );
 };

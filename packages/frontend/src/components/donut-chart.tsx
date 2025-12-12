@@ -5,10 +5,11 @@ import type { GameData, TeamStats } from "@/types/game";
 interface DonutChartProps {
   gameData: GameData;
   field: keyof TeamStats;
+  title?: string;
   size?: number; // 도넛 지름(px)
 }
 
-const DonutChart = ({ gameData, field, size = 220 }: DonutChartProps) => {
+const DonutChart = ({ gameData, field, title, size = 200 }: DonutChartProps) => {
   const homeValue = gameData.last_game_stats.home[field];
   const awayValue = gameData.last_game_stats.away[field];
   const total = homeValue + awayValue;
@@ -34,8 +35,8 @@ const DonutChart = ({ gameData, field, size = 220 }: DonutChartProps) => {
           paddingAngle={2}
           dataKey="value"
         >
-          <text x="50%" y="35%" textAnchor="middle" dominantBaseline="middle" fontSize="20" fontWeight="bold">
-            {field}
+          <text x="50%" y="33%" textAnchor="middle" dominantBaseline="middle" fontSize="18" fontWeight="bold">
+            {title ?? field}
           </text>
           <Cell key="home" fill="#1217ff" />
           <Cell key="away" fill="#f54242" />
@@ -44,6 +45,7 @@ const DonutChart = ({ gameData, field, size = 220 }: DonutChartProps) => {
         <Legend
           verticalAlign="bottom"
           height={LEGEND_HEIGHT}
+          wrapperStyle={{ fontSize: "14px" }}
           formatter={(value) => {
             const percent = value === gameData.game_info.home.name ? homePercent : awayPercent;
             return `${value}: ${percent.toFixed(1)}%`;

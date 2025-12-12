@@ -101,9 +101,31 @@ class TeamScoreRecord(BaseModel):
   home: ScoreRecord
   away: ScoreRecord
 
+class PreviousTeamStats(BaseModel):
+  thisSeasonWin: int
+  thisSeasonLose: int
+  headToHeadWin: int
+  headToHeadLose: int
+  last5gamesWin: int
+  last5gamesLose: int
+  allTimeHeadToHeadWin: int
+  allTimeHeadToHeadLose: int
+  logo: str
+
+class TotalPreviousStats(BaseModel):
+  home: PreviousTeamStats
+  away: PreviousTeamStats
+
+class QuarterNetRatings(BaseModel):
+  home: list[float]
+  away: list[float]
+  order: list[str]
+
 class GameDataResponse(BaseModel):
   game_info: GameInfo
   team_score_record: TeamScoreRecord
+  previous_stats: TotalPreviousStats
+  quarter_net_ratings: QuarterNetRatings
   prediction_records: list[ProbabilityRecord]
   shooting_records: list[PlayerShootingRecord]
   last_game_stats: GameStats

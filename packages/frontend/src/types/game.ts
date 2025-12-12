@@ -105,9 +105,34 @@ export type TeamScoreRecord = {
   away: ScoreBoard;
 };
 
+export type PreviousTeamStats = {
+  thisSeasonWin: number;
+  thisSeasonLose: number;
+  headToHeadWin: number;
+  headToHeadLose: number;
+  last5gamesWin: number;
+  last5gamesLose: number;
+  allTimeHeadToHeadWin: number;
+  allTimeHeadToHeadLose: number;
+  logo: string;
+};
+
+export type TotalPreviousStats = {
+  home: PreviousTeamStats;
+  away: PreviousTeamStats;
+};
+
+export type QuarterNetRatings = {
+  home: number[];
+  away: number[];
+  order: string[];
+};
+
 export type GameData = {
   game_info: GameInfo;
   team_score_record: TeamScoreRecord;
+  previous_stats: TotalPreviousStats;
+  quarter_net_ratings: QuarterNetRatings;
   prediction_records: ProbabilityRecord[];
   shooting_records: PlayerShootingRecord[];
   last_game_stats: GameStats;

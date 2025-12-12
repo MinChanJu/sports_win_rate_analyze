@@ -128,7 +128,8 @@ class DecoderService:
     feature_order = json.loads(FEATURE_ORDER_PATH.read_text(encoding="utf-8"))
   
     total_records = []
-
+    prev_quarter = "Q1"
+    quarter_net_ratings = { "home": [], "away": [], "order": [] }
     for idx, log in enumerate(all_logs):
       log_name = key_json[log["a"]] if log["a"] in key_json else None
       if log_name is None:
@@ -138,6 +139,14 @@ class DecoderService:
       if current_quarter not in quarter_types:
         print(f"알수없는 쿼터 타입: {current_quarter}")
         continue
+      
+      if current_quarter != prev_quarter:
+        # 쿼터별 Net Rating 저장
+        quarter_net_ratings["home"].append(game_stats["home"]["NR"])
+        quarter_net_ratings["away"].append(game_stats["away"]["NR"])
+        quarter_net_ratings["order"].append(prev_quarter)
+        prev_quarter = current_quarter
+      
       current_time = quarter_times[current_quarter] - (log["m"] * 60 + log["s"])
       for qt in quarter_types:
         if qt == current_quarter: break
@@ -257,5 +266,10 @@ class DecoderService:
         continue
       total_records.append({"total_time_sec": total_time_sec, "array": array})
     
+    # 쿼터별 Net Rating 마지막 저장
+    quarter_net_ratings["home"].append(game_stats["home"]["NR"])
+    quarter_net_ratings["away"].append(game_stats["away"]["NR"])
+    quarter_net_ratings["order"].append(prev_quarter)
+    
     last_game_stats = game_stats
-    return total_records, last_game_stats
+    return total_records, last_game_stats, quarter_net_ratings

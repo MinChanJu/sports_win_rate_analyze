@@ -18,6 +18,9 @@ class Settings(BaseSettings):
   @staticmethod
   def GAME_LIST_URL(fromDate: str, toDate: str) -> str:
     return f"https://api.kbl.or.kr/match/list?fromDate={fromDate}&toDate={toDate}"
+  @staticmethod
+  def TEAM_STATS_URL(gameKey: str, teamA: int, teamB: int) -> str:
+    return f"https://api.kbl.or.kr/league/{gameKey}/vs/team-statsByGmKey?teamA={teamA}&teamB={teamB}"
   HEADERS: dict = {
     "channel": "WEB",
     "teamcode": "XX",
