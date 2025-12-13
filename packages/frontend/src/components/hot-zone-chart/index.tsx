@@ -4,29 +4,25 @@ import { classifyShotZone, getPolarPoint, getZoneColor, intersectTopBoundary, sc
 
 import { useMemo } from "react";
 
-import { COURT_H, COURT_W } from "@/constants/court";
+import { COURT_H, COURT_W, FLOOR_H, FLOOR_W } from "@/constants/court";
 import type { GameData } from "@/types/game";
 
 interface HotZoneChartProps {
   gameData: GameData;
   team: "Home" | "Away";
-  width?: number;
-  height?: number;
+  ratio?: number;
 }
 
-const HotZoneChart = ({ gameData, team, width = 600, height = 400 }: HotZoneChartProps) => {
+const HotZoneChart = ({ gameData, team, ratio = 0.7 }: HotZoneChartProps) => {
   const filteredShots: ShotPoint[] = useMemo(() => {
-    const allShots = convertShootingResponse(
-      gameData.shooting_records,
-      gameData.game_info.home.code.toString(),
-      gameData.game_info.away.code.toString(),
-    );
+    const allShots = convertShootingResponse(gameData.shooting_records, gameData.game_info.home.code);
     return allShots.filter((shot) => shot.team === team);
   }, [gameData, team]);
 
   // Calculate zone geometry
   const breakYDelta = Math.sqrt(Math.pow(ZONES.THREE_PT_ARC, 2) - Math.pow(ZONES.THREE_PT_SIDE_DIST, 2));
   const breakY = HOOP.Y + breakYDelta;
+
   const breakAngleDeg = Math.acos(ZONES.THREE_PT_SIDE_DIST / ZONES.THREE_PT_ARC) * (180 / Math.PI);
   const baseAngle5m = Math.asin(-HOOP.Y / ZONES.MID_RANGE_5M) * (180 / Math.PI);
 
@@ -46,8 +42,8 @@ const HotZoneChart = ({ gameData, team, width = 600, height = 400 }: HotZoneChar
       }
 
       // Convert pixels to meters
-      const meterX = (py / COURT_H) * COURT.WIDTH;
-      const meterY = (px / (COURT_W / 2)) * COURT.HEIGHT;
+      const meterX = (py / COURT_H) * FLOOR_H - COURT.LANE_WIDTH;
+      const meterY = (px / COURT_W) * FLOOR_W - COURT.LANE_WIDTH;
 
       const zoneID = classifyShotZone(meterX, meterY, breakY);
       if (stats[zoneID]) {
@@ -193,8 +189,14 @@ const HotZoneChart = ({ gameData, team, width = 600, height = 400 }: HotZoneChar
   }, [breakY, breakAngleDeg, baseAngle5m]);
 
   return (
-    <div style={{ width, height }}>
-      <svg width={width} height={height} viewBox={`0 0 ${SVG.WIDTH} ${SVG.HEIGHT}`}>
+    <div>
+      <div className="mb-2 text-center text-lg">Hot Zone Chart - {team} Team</div>
+      <svg
+        width={SVG.WIDTH * ratio}
+        height={SVG.HEIGHT * ratio}
+        viewBox={`0 0 ${SVG.WIDTH} ${SVG.HEIGHT}`}
+        style={{ backgroundColor: "#f0f0f0" }}
+      >
         {Object.entries(zonePaths).map(([zoneID, path]) => {
           const stat = zoneStats[zoneID];
           const color = getZoneColor(stat.attempts, stat.pct);
@@ -202,25 +204,15 @@ const HotZoneChart = ({ gameData, team, width = 600, height = 400 }: HotZoneChar
         })}
 
         <g stroke="black" strokeWidth="2" fill="none" style={{ pointerEvents: "none" }}>
-          <rect
-            x={scaleX(0)}
-            y={scaleY(COURT.HEIGHT)}
-            width={scaleX(COURT.WIDTH) - scaleX(0)}
-            height={scaleY(COURT.HEIGHT) - scaleY(0)}
-            strokeWidth="3"
-          />
           {Object.values(zonePaths).map((d, i) => (
             <path key={i} d={d} />
           ))}
         </g>
 
         <g strokeWidth="2" fill="none" style={{ pointerEvents: "none" }}>
-          <path
-            stroke="black"
-            d={`M ${scaleX(HOOP.X + ZONES.THREE_PT_SIDE_DIST)} ${scaleY(0)} L ${scaleX(HOOP.X + ZONES.THREE_PT_SIDE_DIST)} ${scaleY(breakY)} A ${ZONES.THREE_PT_ARC * COURT.SCALE} ${ZONES.THREE_PT_ARC * COURT.SCALE} 0 0 0 ${scaleX(HOOP.X - ZONES.THREE_PT_SIDE_DIST)} ${scaleY(breakY)} L ${scaleX(HOOP.X - ZONES.THREE_PT_SIDE_DIST)} ${scaleY(0)}`}
-          />
           <rect
             stroke="orange"
+            strokeWidth="2"
             x={scaleX(HOOP.X - PAINT.WIDTH / 2)}
             y={scaleY(PAINT.HEIGHT)}
             width={scaleX(PAINT.WIDTH) - scaleX(0)}
@@ -228,44 +220,45 @@ const HotZoneChart = ({ gameData, team, width = 600, height = 400 }: HotZoneChar
           />
           <line
             stroke="black"
+            strokeWidth="2"
             x1={scaleX(HOOP.X - PAINT.WIDTH)}
             y1={scaleY(0)}
             x2={scaleX(HOOP.X + PAINT.WIDTH)}
             y2={scaleY(0)}
           />
-          {/* 이 원의 밑의 반원은 안 그려지도록 */}
           <path
             stroke="orange"
+            strokeWidth="2"
             d={`
-              M ${scaleX(HOOP.X - PAINT.WIDTH / 2)} ${scaleY(PAINT.HEIGHT)}
-              A ${(PAINT.WIDTH / 2) * COURT.SCALE} ${(PAINT.WIDTH / 2) * COURT.SCALE} 0 0 1 ${scaleX(HOOP.X + PAINT.WIDTH / 2)} ${scaleY(PAINT.HEIGHT)}
+              M ${scaleX(HOOP.X - 1.8)} ${scaleY(PAINT.HEIGHT)}
+              A ${1.8 * COURT.SCALE} ${1.8 * COURT.SCALE} 0 0 1 ${scaleX(HOOP.X + 1.8)} ${scaleY(PAINT.HEIGHT)}
             `}
           />
         </g>
 
         <line
-          x1={scaleX(HOOP.X - 0.9)}
-          y1={scaleY(1.2)}
-          x2={scaleX(HOOP.X + 0.9)}
-          y2={scaleY(1.2)}
+          x1={scaleX(HOOP.X - 1)}
+          y1={scaleY(HOOP.BACK)}
+          x2={scaleX(HOOP.X + 1)}
+          y2={scaleY(HOOP.BACK)}
           stroke="black"
-          strokeWidth="4"
+          strokeWidth="2"
         />
         <circle
           cx={scaleX(HOOP.X)}
           cy={scaleY(HOOP.Y)}
-          r={HOOP.RIM_RADIUS * COURT.SCALE * 2}
+          r={HOOP.RIM_RADIUS * COURT.SCALE}
           stroke="orange"
-          strokeWidth="3"
+          strokeWidth="2"
           fill="none"
         />
         <line
           x1={scaleX(HOOP.X)}
-          y1={scaleY(1.2)}
+          y1={scaleY(HOOP.BACK)}
           x2={scaleX(HOOP.X)}
           y2={scaleY(HOOP.Y - HOOP.RIM_RADIUS)}
-          stroke="orange"
-          strokeWidth="3"
+          stroke="black"
+          strokeWidth="2"
         />
 
         {Object.entries(ZONE_CENTERS).map(([zoneID, pos]) => {

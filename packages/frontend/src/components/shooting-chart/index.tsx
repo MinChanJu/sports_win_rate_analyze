@@ -7,19 +7,20 @@ import type { GameData } from "@/types/game";
 
 interface ShootingChartProps {
   gameData: GameData;
+  ratio?: number;
   width?: number;
   height?: number;
 }
 
-const ShootingChart = ({ gameData, width = 352, height = 200 }: ShootingChartProps) => {
-  const { code: h_code, name: home_name } = gameData.game_info.home;
-  const { code: a_code, name: away_name } = gameData.game_info.away;
+const ShootingChart = ({ gameData, ratio = 1.3 }: ShootingChartProps) => {
+  const { name: home_name } = gameData.game_info.home;
+  const { name: away_name } = gameData.game_info.away;
   const shootingLogs = gameData.shooting_records;
 
   const shots: ShotPoint[] = useMemo(() => {
     if (!shootingLogs) return [];
-    return convertShootingResponse(shootingLogs, String(h_code), String(a_code));
-  }, [shootingLogs, h_code, a_code]);
+    return convertShootingResponse(shootingLogs, gameData.game_info.home.code);
+  }, [shootingLogs, gameData.game_info.home.code]);
 
   const allQuarters = useMemo(() => Array.from(new Set(shots.map((s) => s.quarter))).sort(), [shots]);
 
@@ -60,7 +61,7 @@ const ShootingChart = ({ gameData, width = 352, height = 200 }: ShootingChartPro
 
   return (
     <>
-      <h3 className="mt-8 text-center text-xl font-bold">Shooting Chart</h3>
+      <div className="mt-8 text-center text-xl font-bold">Shooting Chart</div>
       <div className="flex gap-4">
         {/* 왼쪽: 필터 패널 */}
         <div className="flex flex-col gap-3 text-xs sm:text-sm">
@@ -89,7 +90,7 @@ const ShootingChart = ({ gameData, width = 352, height = 200 }: ShootingChartPro
 
         {/* 중앙: 코트 + 슛 */}
         <div>
-          <svg viewBox={`0 0 ${COURT_W} ${COURT_H}`} width={width} height={height}>
+          <svg viewBox={`0 0 ${COURT_W} ${COURT_H}`} width={350 * ratio} height={200 * ratio}>
             <image
               href="https://kbl.or.kr/assets/img/game/court.png"
               x={0}

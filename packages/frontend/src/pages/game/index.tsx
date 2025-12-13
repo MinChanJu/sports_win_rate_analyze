@@ -159,8 +159,10 @@ const Game = () => {
 
         <WinRateChart gameData={gameData} />
         <ShootingChart gameData={gameData} />
-        <HotZoneChart gameData={gameData} team="Home" />
-        <HotZoneChart gameData={gameData} team="Away" />
+        <div className="flex w-full flex-row justify-center gap-10">
+          <HotZoneChart gameData={gameData} team="Home" />
+          <HotZoneChart gameData={gameData} team="Away" />
+        </div>
       </div>
       <div className="flex min-w-0 flex-1 flex-col items-center gap-10">
         <PreviousStatsTable previousStats={gameData.previous_stats} />

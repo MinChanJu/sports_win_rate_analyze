@@ -1,25 +1,27 @@
 export const COURT = {
   WIDTH: 15, // meters
   HEIGHT: 14, // meters
-  SCALE: 45, // pixels per meter
+  SCALE: 40, // pixels per meter
   LANE_WIDTH: 2, // meters (padding on each side)
+  PADDING: 10, // pixels
 } as const;
 
 export const SVG = {
-  WIDTH: (COURT.WIDTH + COURT.LANE_WIDTH * 2) * COURT.SCALE,
-  HEIGHT: (COURT.HEIGHT + COURT.LANE_WIDTH * 2) * COURT.SCALE,
-  PADDING: COURT.LANE_WIDTH * COURT.SCALE,
+  WIDTH: COURT.WIDTH * COURT.SCALE + COURT.PADDING * 2,
+  HEIGHT: COURT.HEIGHT * COURT.SCALE + COURT.PADDING * 2,
+  PADDING: COURT.PADDING,
 } as const;
 
 export const HOOP = {
   X: 7.5,
   Y: 1.575,
   RIM_RADIUS: 0.225,
+  BACK: 1.2,
 } as const;
 
 export const PAINT = {
   WIDTH: 4.9,
-  HEIGHT: 5,
+  HEIGHT: 5.8,
 } as const;
 
 export const ZONES = {

@@ -14,24 +14,15 @@ export type ShotPoint = {
   quarter: string;
 };
 
-export const convertShootingResponse = (data: PlayerShootingRecord[], h_code: string, a_code: string): ShotPoint[] => {
+export const convertShootingResponse = (data: PlayerShootingRecord[], h_code: number): ShotPoint[] => {
   const shots: ShotPoint[] = [];
 
   for (const player of data) {
-    const tcode = player.tcode.trim();
-
-    let targetSide: "Left" | "Right";
     let teamLabel: TeamLabel;
 
-    if (tcode === h_code.trim()) {
-      targetSide = "Left";
+    if (player.tcode.trim() === h_code.toString().trim()) {
       teamLabel = "Home";
-    } else if (tcode === a_code.trim()) {
-      targetSide = "Right";
-      teamLabel = "Away";
     } else {
-      // 혹시 코드가 안 맞는 기록은 일단 Away 취급
-      targetSide = "Right";
       teamLabel = "Away";
     }
 
@@ -42,29 +33,20 @@ export const convertShootingResponse = (data: PlayerShootingRecord[], h_code: st
       const made = log.o === "O";
       const q = String(log.q ?? "");
 
-      let norm_x: number;
-      let norm_y: number;
-      if (d === "1") {
-        norm_x = COURT_W - x;
-        norm_y = COURT_H - y;
-      } else {
-        norm_x = x;
-        norm_y = y;
-      }
+      const flip = (x: number, y: number) => ({ x: COURT_W - x, y: COURT_H - y });
 
-      let final_x: number;
-      let final_y: number;
-      if (targetSide === "Left") {
-        final_x = norm_x;
-        final_y = norm_y;
+      let fx = x,
+        fy = y;
+
+      if (teamLabel === "Home") {
+        if (d === "1") ({ x: fx, y: fy } = flip(x, y));
       } else {
-        final_x = COURT_W - norm_x;
-        final_y = COURT_H - norm_y;
+        if (d !== "1") ({ x: fx, y: fy } = flip(x, y));
       }
 
       shots.push({
-        x: final_x,
-        y: final_y,
+        x: fx,
+        y: fy,
         made,
         team: teamLabel,
         quarter: q,
