@@ -42,9 +42,6 @@ export const convertShootingResponse = (data: PlayerShootingRecord[], h_code: st
       const made = log.o === "O";
       const q = String(log.q ?? "");
 
-      // Python 코드:
-      // if d == '1': norm_x = COURT_W - x; norm_y = COURT_H - y
-      // else: norm_x = x; norm_y = y
       let norm_x: number;
       let norm_y: number;
       if (d === "1") {
@@ -55,8 +52,6 @@ export const convertShootingResponse = (data: PlayerShootingRecord[], h_code: st
         norm_y = y;
       }
 
-      // if target_side == "Left": final_x, final_y = norm_x, norm_y
-      // else: final_x, final_y = COURT_W - norm_x, COURT_H - norm_y
       let final_x: number;
       let final_y: number;
       if (targetSide === "Left") {
