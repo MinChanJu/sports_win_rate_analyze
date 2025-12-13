@@ -43,7 +43,7 @@ const Game = () => {
     <div className="flex flex-row justify-center gap-5 p-5">
       <div className="flex min-w-0 flex-1 flex-col items-center">
         <DonutChart gameData={gameData} field="PP" title="득점" />
-        <DonutChart gameData={gameData} field="TRB" title="리바운드" />
+        <DonutChart gameData={gameData} field="PRB" title="리바운드" />
         <DonutChart gameData={gameData} field="AST" title="어시스트" />
         <DonutChart gameData={gameData} field="STL" title="스틸" />
         <DonutChart gameData={gameData} field="BLK" title="블록" />
@@ -159,7 +159,7 @@ const Game = () => {
 
         <WinRateChart gameData={gameData} />
         <ShootingChart gameData={gameData} />
-        <HotZoneChart data={gameData} />
+        <HotZoneChart gameData={gameData} />
       </div>
       <div className="flex min-w-0 flex-1 flex-col items-center gap-10">
         <PreviousStatsTable previousStats={gameData.previous_stats} />
