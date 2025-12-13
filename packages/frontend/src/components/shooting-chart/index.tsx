@@ -8,8 +8,6 @@ import type { GameData } from "@/types/game";
 interface ShootingChartProps {
   gameData: GameData;
   ratio?: number;
-  width?: number;
-  height?: number;
 }
 
 const ShootingChart = ({ gameData, ratio = 1.3 }: ShootingChartProps) => {
