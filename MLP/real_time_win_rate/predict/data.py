@@ -41,6 +41,34 @@ def load_multi_csv(csv_folder_list: list[Path], test_game_keys: list[str] | None
 
     return df, drop_df, gameKey
 
+def load_multi_csv_all(csv_folder_list: list[Path], test_game_keys: list[str] | None) -> tuple[pd.DataFrame, pd.DataFrame, str] | None:
+    total_csv_paths: list[Path] = []
+    for folder in csv_folder_list:
+        csv_paths = list(folder.glob("*.csv"))
+        total_csv_paths.extend(csv_paths)
+    
+    if test_game_keys is not None:
+        total_csv_paths = [path for path in total_csv_paths if path.stem in test_game_keys]
+        if not total_csv_paths:
+            print("테스트용 CSV 파일이 없습니다.")
+            return None
+        else:
+            print(f"선택된 테스트용 CSV 파일 개수: {len(total_csv_paths)}")
+    else:
+        print("테스트 게임 키가 제공되지 않았습니다")
+        return None
+          
+    total_df_list = []
+    total_drop_df_list = []
+    for specific_csv_path in total_csv_paths:
+        df, drop_df = load_single_csv(csv_path=specific_csv_path)
+        total_df_list.append(df)
+        total_drop_df_list.append(drop_df)
+        
+    df = pd.concat(total_df_list, ignore_index=True)
+    drop_df = pd.concat(total_drop_df_list, ignore_index=True)
+    return df, drop_df
+
 if __name__ == "__main__":
     csv_folder_list = [
         Path("../kbl_real_time_csv/2021-2022"),
