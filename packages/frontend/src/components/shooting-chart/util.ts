@@ -20,7 +20,7 @@ export const convertShootingResponse = (data: PlayerShootingRecord[], h_code: nu
   for (const player of data) {
     let teamLabel: TeamLabel;
 
-    if (player.tcode.trim() === h_code.toString().trim()) {
+    if (Number(player.tcode) === h_code) {
       teamLabel = "Home";
     } else {
       teamLabel = "Away";

@@ -33,7 +33,7 @@ def main():
   filtered_corr = numeric_df[filtered_vars].corr()
   plt.figure(figsize=(12, 10))
   sns.heatmap(filtered_corr, annot=True, fmt=".2f", cmap="coolwarm")
-  plt.title("‘winner’와 |r| > 0.1 변수들 간 Heatmap")
+  plt.title("‘winner’와 |r| > 0.2 변수들 간 Heatmap")
   plt.savefig(save_path / "winner_correlation_heatmap.png", bbox_inches='tight', dpi=300)
 
   winner_corr_sorted = winner_corr.sort_values(ascending=False)
