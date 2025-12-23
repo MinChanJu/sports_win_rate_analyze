@@ -121,6 +121,20 @@ class QuarterNetRatings(BaseModel):
   away: list[float]
   order: list[str]
 
+class TeamScoreChartRecord(BaseModel):
+  q1: list[int] | None = None
+  q2: list[int] | None = None
+  q3: list[int] | None = None
+  q4: list[int] | None = None
+  eq1: list[int] | None = None
+  eq2: list[int] | None = None
+  eq3: list[int] | None = None
+  eq4: list[int] | None = None
+
+class ScoreChartRecord(BaseModel):
+  home: TeamScoreChartRecord
+  away: TeamScoreChartRecord
+
 class GameDataResponse(BaseModel):
   game_info: GameInfo
   team_score_record: TeamScoreRecord
@@ -128,6 +142,7 @@ class GameDataResponse(BaseModel):
   quarter_net_ratings: QuarterNetRatings
   prediction_records: list[ProbabilityRecord]
   shooting_records: list[PlayerShootingRecord]
+  score_chart: ScoreChartRecord
   last_game_stats: GameStats
 
 class GameListResponse(BaseModel):

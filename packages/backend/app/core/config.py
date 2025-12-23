@@ -13,7 +13,7 @@ class Settings(BaseSettings):
   def ALL_LOGS_URL(gameKey: str) -> str:
     return f"https://api.kbl.or.kr/match/{gameKey}/text-cast?quarterList=Q1,Q2,Q3,Q4,X1,X2,X3,X4,X5"
   @staticmethod
-  def SHOOT_LOG_URL(gameKey: str) -> str:
+  def MATCH_CHART_URL(gameKey: str) -> str:
     return f"https://api.kbl.or.kr/match/{gameKey}/match-chart"
   @staticmethod
   def GAME_LIST_URL(fromDate: str, toDate: str) -> str:

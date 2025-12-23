@@ -11,7 +11,7 @@ async def predict_game(gameKey: str):
   
   prediction_result = PredictionService.predict(raw_data["records"])
 
-  shooting_records = await DataService.get_shoot_log(gameKey)
+  shooting_records, score_chart = await DataService.get_match_chart(gameKey)
   
   return GameDataResponse(
     game_info=raw_data["meta"]["game"],
@@ -20,6 +20,7 @@ async def predict_game(gameKey: str):
     quarter_net_ratings=raw_data["quarter_net_ratings"],
     prediction_records=prediction_result,
     shooting_records=shooting_records,
+    score_chart=score_chart,
     last_game_stats=raw_data["last_game_stats"]
   )
 

@@ -6,6 +6,7 @@ import HotZoneChart from "@/components/hot-zone-chart";
 import Loading from "@/components/loading";
 import NetRatingTable from "@/components/net-rating-table";
 import PreviousStatsTable from "@/components/previous-stats-table";
+import ScoreChart from "@/components/score-chart";
 import ShootingChart from "@/components/shooting-chart";
 import TeamLogo from "@/components/team-logo";
 import WinRateChart from "@/components/win-rate-chart";
@@ -41,18 +42,18 @@ const Game = () => {
 
   return (
     <div className="flex flex-row justify-center gap-5 p-5">
-      <div className="flex min-w-0 flex-1 flex-col items-center">
+      <div className="flex min-w-0 flex-[1] flex-col items-center">
         <DonutChart gameData={gameData} field="PP" title="득점" />
         <DonutChart gameData={gameData} field="PRB" title="리바운드" />
         <DonutChart gameData={gameData} field="AST" title="어시스트" />
         <DonutChart gameData={gameData} field="STL" title="스틸" />
         <DonutChart gameData={gameData} field="BLK" title="블록" />
       </div>
-      <div className="flex min-w-0 flex-2 flex-col items-center gap-5">
+      <div className="flex min-w-0 flex-[2] flex-col items-center gap-5">
         <div className="game-detail flex w-full flex-col gap-5 rounded-lg bg-gray-100 p-5">
           <div className="flex flex-row gap-10">
             <div className="home-team flex flex-1 flex-row items-center justify-end gap-10">
-              <div className="flex w-50 flex-col items-center">
+              <div className="w-50 flex flex-col items-center">
                 <TeamLogo teamLogo={gameInfo.home.logo} className="h-15 w-15" />
                 <div className="text-base font-medium">{gameInfo.home.name}</div>
               </div>
@@ -60,7 +61,7 @@ const Game = () => {
             </div>
             <div className="away-team flex flex-1 flex-row items-center justify-start gap-10">
               <div className="text-2xl font-semibold">{gameInfo.away.score}</div>
-              <div className="flex w-50 flex-col items-center">
+              <div className="w-50 flex flex-col items-center">
                 <TeamLogo teamLogo={gameInfo.away.logo} className="h-15 w-15" />
                 <div className="text-base font-medium">{gameInfo.away.name}</div>
               </div>
@@ -148,7 +149,7 @@ const Game = () => {
               {gameInfo.isEnded === 1 && <div className="text-sm text-green-600">경기 종료</div>}
               <button
                 onClick={handleReload}
-                className="cursor-pointer rounded-4xl bg-blue-500 p-2 text-sm text-white hover:bg-blue-700 disabled:opacity-50"
+                className="rounded-4xl cursor-pointer bg-blue-500 p-2 text-sm text-white hover:bg-blue-700 disabled:opacity-50"
                 disabled={isFetching}
               >
                 <ReloadIcon className="h-4 w-4" />
@@ -164,9 +165,10 @@ const Game = () => {
           <HotZoneChart gameData={gameData} team="Away" />
         </div>
       </div>
-      <div className="flex min-w-0 flex-1 flex-col items-center gap-10">
+      <div className="flex min-w-0 flex-[1] flex-col items-center gap-10">
         <PreviousStatsTable previousStats={gameData.previous_stats} />
         <NetRatingTable gameInfo={gameInfo} quarterNetRatings={gameData.quarter_net_ratings} />
+        <ScoreChart gameData={gameData} />
       </div>
     </div>
   );

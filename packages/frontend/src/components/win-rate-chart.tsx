@@ -9,7 +9,7 @@ interface WinRateChartProps {
   gameData: GameData;
 }
 
-const WinRateChart = ({ width = 700, height = 400, gameData }: WinRateChartProps) => {
+const WinRateChart = ({ width = 600, height = 400, gameData }: WinRateChartProps) => {
   const probLogs = gameData.prediction_records;
   if (probLogs.length === 0) {
     probLogs.push({ home_probability: 50, away_probability: 50, total_time_sec: 0 });
@@ -29,24 +29,49 @@ const WinRateChart = ({ width = 700, height = 400, gameData }: WinRateChartProps
   }
   const yTicks = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
+  const clutchTimeMin = 3;
+  const last5MinLog =
+    gameData.game_info.isStarted + gameData.game_info.isEnded === 2
+      ? probLogs.find((p) => p.total_time_sec >= totalTimeSec - clutchTimeMin * 60)
+      : null;
+
   return (
     <>
       <h3 className="mt-8 text-center text-xl font-bold">Win Rate Chart</h3>
-      <div className="flex flex-row justify-center gap-3">
-        <div>
-          {formatTime(probLogs[probLogs.length - 1].total_time_sec, {
-            home: gameData.game_info.home.score,
-            away: gameData.game_info.away.score,
-          })}
-          :
+      {last5MinLog && (
+        <div className="flex flex-row justify-center gap-3">
+          <div>경기 종료 {clutchTimeMin}분 전 승률:</div>
+          <div className="font-semibold text-blue-600">
+            {gameData.game_info.home.name}: {last5MinLog.home_probability}%
+          </div>
+          <div className="font-semibold text-red-600">
+            {gameData.game_info.away.name}: {last5MinLog.away_probability}%
+          </div>
+          <div>
+            {(() => {
+              const winner =
+                gameData.game_info.home.score! > gameData.game_info.away.score!
+                  ? "home"
+                  : gameData.game_info.home.score! < gameData.game_info.away.score!
+                    ? "away"
+                    : "draw";
+              const probWinner =
+                last5MinLog.home_probability > last5MinLog.away_probability
+                  ? "home"
+                  : last5MinLog.home_probability < last5MinLog.away_probability
+                    ? "away"
+                    : "draw";
+              if (winner === "draw" || probWinner === "draw") {
+                return "무승부로 예측과 결과 일치 여부 없음";
+              }
+              if (winner === probWinner) {
+                return "예측 성공 ✅";
+              }
+              return "예측 실패 ❌";
+            })()}
+          </div>
         </div>
-        <div className="font-semibold text-blue-600">
-          {gameData.game_info.home.name}: {probLogs[probLogs.length - 1].home_probability}%
-        </div>
-        <div className="font-semibold text-red-600">
-          {gameData.game_info.away.name}: {probLogs[probLogs.length - 1].away_probability}%
-        </div>
-      </div>
+      )}
       <div className="flex justify-center">
         <ComposedChart width={width} height={height} data={chartData}>
           <defs>

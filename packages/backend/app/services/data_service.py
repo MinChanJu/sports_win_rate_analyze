@@ -92,13 +92,13 @@ class DataService:
     return all_logs
   
   @staticmethod
-  async def get_shoot_log(gameKey: str) -> list[dict] | None:
-    response = requests.get(settings.SHOOT_LOG_URL(gameKey), headers=settings.HEADERS, timeout=5)
+  async def get_match_chart(gameKey: str) -> list[dict] | None:
+    response = requests.get(settings.MATCH_CHART_URL(gameKey), headers=settings.HEADERS, timeout=5)
     if response.status_code != 200:
-      print(f"슈팅 로그 API 응답 오류: {response.status_code}")
+      print(f"매치 차트 API 응답 오류: {response.status_code}")
       return None
     shoot_logs = response.json()
-    return shoot_logs.get("shootLog")
+    return shoot_logs.get("shootLog"), shoot_logs.get("scoreChart")
 
   @staticmethod
   async def get_model_input(gameKey: str) -> dict:

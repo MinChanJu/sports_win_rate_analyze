@@ -128,6 +128,22 @@ export type QuarterNetRatings = {
   order: string[];
 };
 
+export type TeamScoreChartRecord = {
+  q1: number[] | null;
+  q2: number[] | null;
+  q3: number[] | null;
+  q4: number[] | null;
+  eq1: number[] | null;
+  eq2: number[] | null;
+  eq3: number[] | null;
+  eq4: number[] | null;
+};
+
+export type ScoreChartRecord = {
+  home: TeamScoreChartRecord;
+  away: TeamScoreChartRecord;
+};
+
 export type GameData = {
   game_info: GameInfo;
   team_score_record: TeamScoreRecord;
@@ -135,6 +151,7 @@ export type GameData = {
   quarter_net_ratings: QuarterNetRatings;
   prediction_records: ProbabilityRecord[];
   shooting_records: PlayerShootingRecord[];
+  score_chart: ScoreChartRecord;
   last_game_stats: GameStats;
 };
 
